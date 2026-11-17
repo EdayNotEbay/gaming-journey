@@ -1,47 +1,118 @@
-
-/* Style the website container. */
+/* Keep the website at least as tall as the browser. */
 .website {
+  /* Arrange the header, content, and footer vertically. */
+  display: flex;
+  /* Stack the website sections. */
+  flex-direction: column;
   /* Fill the browser height. */
   min-height: 100vh;
 }
 
-/* Style the website header. */
+/* Style the shared website header. */
 .site-header {
-  /* Add space around the header content. */
+  /* Place the title beside the navigation when space allows. */
+  display: flex;
+  /* Allow navigation to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Align the title and navigation vertically. */
+  align-items: center;
+  /* Space the title and navigation apart. */
+  justify-content: space-between;
+  /* Separate the title from navigation links. */
+  gap: 24px;
+  /* Add room around the header. */
   padding: 24px 8%;
-  /* Add the royal blue border. */
+  /* Keep the royal blue accent. */
   border-bottom: 2px solid royalblue;
 }
 
 /* Style the website title. */
 .site-header h1 {
-  /* Remove the default margin. */
+  /* Remove the default heading margin. */
   margin: 0;
-  /* Set the font size. */
+  /* Keep the website title readable. */
   font-size: 26px;
 }
 
-/* Style the homepage introduction. */
+/* Style the link behind the website title. */
+.brand-link {
+  /* Keep the title white. */
+  color: #ffffff;
+  /* Remove the underline. */
+  text-decoration: none;
+}
+
+/* Arrange navigation links neatly. */
+.site-nav {
+  /* Display links beside one another. */
+  display: flex;
+  /* Wrap links on narrow screens. */
+  flex-wrap: wrap;
+  /* Keep some space between links. */
+  gap: 10px;
+}
+
+/* Style each navigation link. */
+.nav-link {
+  /* Add room inside each link. */
+  padding: 10px 12px;
+  /* Round the link corners. */
+  border-radius: 8px;
+  /* Use light text. */
+  color: #d4def6;
+  /* Remove link underlines. */
+  text-decoration: none;
+}
+
+/* Highlight hovered and selected navigation links. */
+.nav-link:hover,
+.nav-link.active {
+  /* Make the selected page obvious. */
+  background-color: #4169e1;
+  /* Use high-contrast text. */
+  color: #ffffff;
+}
+
+/* Style the introduction on each page. */
 .hero {
-  /* Add vertical and horizontal spacing. */
-  padding: 100px 20px;
-  /* Center the text. */
+  /* Fill the available space above the footer. */
+  flex: 1;
+  /* Keep text from spreading too wide. */
+  width: 100%;
+  /* Set a readable content width. */
+  max-width: 960px;
+  /* Center the content area. */
+  margin: 0 auto;
+  /* Add room around the introduction. */
+  padding: 100px 24px;
+  /* Center the page text. */
   text-align: center;
 }
 
-/* Style the main heading. */
+/* Style the page heading. */
 .hero h2 {
-  /* Set the heading color. */
+  /* Use a royal blue heading color. */
   color: #6495ed;
-  /* Set the heading size. */
+  /* Make the heading prominent. */
   font-size: 48px;
 }
 
-/* Style the introductory paragraph. */
+/* Style the page description. */
 .hero p {
-  /* Set the text color. */
+  /* Use softer text for the description. */
   color: #bfc9df;
-  /* Set the text size. */
+  /* Make the description readable. */
   font-size: 18px;
 }
 
+/* Keep the footer consistent on every page. */
+.site-footer {
+  /* Add space around the footer. */
+  padding: 18px 8%;
+  /* Separate it from the page content. */
+  border-top: 1px solid #274477;
+  /* Use subdued footer text. */
+  color: #bfc9df;
+  /* Center its label. */
+  text-align: center;
+}

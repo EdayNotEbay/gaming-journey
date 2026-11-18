@@ -210,18 +210,19 @@ Possible data fields for games: stable id, title, platform, genre, favorite stat
 Follow these rules when generating code for this project:
 
 1. **Keep code as simple, clear, concise, and beginner-readable as possible.** The creator is learning React and wants to understand each change.
-2. **Comment every line or meaningful unit of code to explain what it does.** Use `//` for JavaScript, `{/* ... */}` for JSX, and `/* ... */` for CSS. Prefer descriptive comments next to the relevant statements. Do not add comments that break JSX syntax or imports.
+2. **Comment every line of code to explain what it does.** Use `//` for JavaScript, `{/* ... */}` for JSX, and `/* ... */` for CSS. If the syntax does not allow an inline comment, add an explanatory comment immediately above that line. Keep explanations short and meaningful; do not introduce syntax errors.
 3. **Never use the JavaScript ternary operator** (`condition ? a : b`). Prefer an ordinary `if` statement.
 4. **Avoid unnecessary question marks and exclamation marks in code**, including optional chaining and non-null assertions when simpler alternatives work. Do not rely on clever truthiness tricks.
 5. **Prefer named `function` declarations and straightforward React function components** over arrow functions. Arrow functions may be used only when necessary for a library/API or async workflow.
-6. Favor **functional programming principles**: small, predictable functions, isolated side effects, and reusable data transformations. Prefer React function components. Use a class only if it genuinely simplifies an object-oriented domain concern.
-7. Respect **high cohesion, low coupling, encapsulation, and abstraction**. Keep each component focused; pass simple props; centralize shared data.
-8. Avoid deep nesting, unnecessary packages, excessive hooks, abstractions for their own sake, and needless files.
-9. Give **full updated file contents** when the creator asks for code to paste, rather than fragments with missing placeholders.
-10. **Test after each small part** before implementing the next feature.
-11. **Commit progress in small, meaningful Git commits**; preserve the existing history and don't force-push or rewrite it.
-12. Maintain the approved design and functionality unless the creator explicitly requests a change.
-13. Use readable accessible semantic HTML in JSX. Use `className`, not `class`; put styles in external CSS, not JSX `style` props.
+6. **Always follow functional programming principles** when writing functions: use small, predictable functions, immutable data where practical, reusable transformations, and isolated side effects.
+7. **Try to use object-oriented programming (OOP) and prefer classes** where they make sense for data models or domain behavior. Keep classes small, encapsulated, and easy to understand. For React UI, use function components because the existing application and React hooks are built around them.
+8. Respect **high cohesion, low coupling, encapsulation, and abstraction**. Keep each component focused; pass simple props; centralize shared data.
+9. Avoid deep nesting, unnecessary packages, excessive hooks, abstractions for their own sake, and needless files.
+10. Give **full updated file contents** when the creator asks for code to paste, rather than fragments with missing placeholders.
+11. **Test after each small part** before implementing the next feature.
+12. **Commit progress in small, meaningful Git commits**; preserve the existing history and don't force-push or rewrite it.
+13. Maintain the approved design and functionality unless the creator explicitly requests a change.
+14. Use readable accessible semantic HTML in JSX. Use `className`, not `class`; put styles in external CSS, not JSX `style` props.
 
 ## 9. Navigation and React behavior guidance
 

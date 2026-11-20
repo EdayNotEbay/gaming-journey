@@ -284,6 +284,20 @@
 }
 
 /* Size the shell and canvas for the farthest zoomed-out view. */
+.timeline-zoom-30 {
+  /* Match the scroll area to thirty percent of the canvas width. */
+  width: 1080px;
+  /* Match the scroll area to thirty percent of the canvas height. */
+  height: 630px;
+}
+
+/* Scale the canvas to thirty percent. */
+.timeline-zoom-30 .timeline-canvas {
+  /* Shrink the complete timeline enough to show nearly all of it at once. */
+  transform: scale(0.3);
+}
+
+/* Size the shell and canvas for the farthest zoomed-out view. */
 .timeline-zoom-50 {
   /* Match the scroll area to fifty percent of the canvas width. */
   width: 1800px;
@@ -443,6 +457,20 @@
   text-align: left;
   /* Show that the card can be clicked. */
   cursor: pointer;
+}
+
+/* Give favorite games a visible purple aura around the cover. */
+.game-card-favorite .game-cover {
+  /* Use a stronger purple border for favorite games. */
+  border: 3px solid #a855f7;
+  /* Add a purple glow around the favorite cover. */
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.9), 0 0 22px rgba(168, 85, 247, 0.55);
+}
+
+/* Keep the favorite glow noticeable when the card is hovered. */
+.game-card-favorite:hover .game-cover {
+  /* Make the purple glow slightly stronger on hover. */
+  box-shadow: 0 0 14px rgba(168, 85, 247, 1), 0 0 28px rgba(168, 85, 247, 0.7);
 }
 
 /* Style every game cover with the same vertical dimensions. */

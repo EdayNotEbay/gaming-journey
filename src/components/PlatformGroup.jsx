@@ -10,6 +10,9 @@ function PlatformGroup({ platform, games, className }) { // Receive the platform
           return <GameCard key={game.id} game={game} />; // Display the current game card.
         })} {/* Finish building the game cards. */}
       </div> {/* Finish the game grid. */}
+      <div className="platform-connector" aria-hidden="true"> {/* Connect this platform group to the main timeline. */}
+        <span className="platform-connector-node"></span> {/* Mark the point where the connector meets the timeline. */}
+      </div> {/* Finish the platform connector. */}
     </section> /* Finish the platform group. */
   ); // Finish returning the platform collection.
 } // Finish the PlatformGroup component.

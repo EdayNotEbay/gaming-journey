@@ -228,7 +228,7 @@
   /* Make the workspace much wider than the viewport. */
   width: 2400px;
   /* Make the workspace tall enough for stacked platform rows. */
-  height: 1300px;
+  height: 1700px;
   /* Add a subtle royal-blue canvas gradient. */
   background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
 }
@@ -237,8 +237,8 @@
 .timeline-main-line {
   /* Position the line independently inside the canvas. */
   position: absolute;
-  /* Place the line through the center of the workspace. */
-  top: 620px;
+  /* Place the line below the upper platform groups. */
+  top: 820px;
   /* Leave room at the start of the canvas. */
   left: 140px;
   /* Stretch the line across the timeline. */
@@ -255,6 +255,8 @@
 .platform-group {
   /* Position each platform independently on the large canvas. */
   position: absolute;
+  /* Keep each platform above the timeline connector. */
+  z-index: 2;
   /* Add room around its game cards. */
   padding: 16px;
   /* Use a dark translucent panel. */
@@ -368,7 +370,7 @@
   /* Place PS2 near the beginning of the canvas. */
   left: 170px;
   /* Place PS2 above the main line. */
-  top: 315px;
+  top: 455px;
 }
 
 /* Position the PS3 group above the timeline. */
@@ -376,15 +378,15 @@
   /* Place PS3 after PS2. */
   left: 390px;
   /* Place PS3 above the main line. */
-  top: 315px;
+  top: 455px;
 }
 
 /* Position the large Xbox 360 group above the timeline. */
 .platform-xbox-360 {
   /* Place Xbox 360 near the center of the upper canvas. */
   left: 760px;
-  /* Move the larger group upward so stacked rows fit. */
-  top: 70px;
+  /* Move the larger group upward so stacked rows fit without touching the line. */
+  top: 95px;
 }
 
 /* Position the Wii group below the timeline. */
@@ -392,7 +394,7 @@
   /* Place Wii below the early timeline. */
   left: 210px;
   /* Place Wii below the main line. */
-  top: 700px;
+  top: 900px;
 }
 
 /* Position the Wii U group below the timeline. */
@@ -400,7 +402,7 @@
   /* Place Wii U after Wii. */
   left: 570px;
   /* Place Wii U below the main line. */
-  top: 700px;
+  top: 900px;
 }
 
 /* Position the Xbox One group below the timeline. */
@@ -408,7 +410,7 @@
   /* Place Xbox One near the center lower canvas. */
   left: 930px;
   /* Place Xbox One below the main line. */
-  top: 700px;
+  top: 900px;
 }
 
 /* Position the Oculus Quest 2 group below the timeline. */
@@ -416,15 +418,15 @@
   /* Place Quest 2 after Xbox One. */
   left: 1660px;
   /* Place Quest 2 below the main line. */
-  top: 700px;
+  top: 900px;
 }
 
 /* Position the larger PC group lower and farther right. */
 .platform-pc {
   /* Place PC toward the end of the canvas. */
-  left: 1650px;
-  /* Move PC upward enough to keep the lower rows accessible. */
-  top: 930px;
+  left: 1570px;
+  /* Place PC farther down so it does not collide with other lower groups. */
+  top: 1200px;
 }
 
 /* Give small platform groups fewer columns than large libraries. */
@@ -496,4 +498,111 @@
     /* Keep enough canvas visible without taking over the full page. */
     height: 560px;
   }
+}
+
+
+/* Draw a connector from upper platform groups down to the main timeline. */
+.platform-group .platform-connector {
+  /* Position the connector from the middle of the group. */
+  position: absolute;
+  /* Center the connector horizontally. */
+  left: 50%;
+  /* Start the connector at the bottom edge of the group. */
+  top: 100%;
+  /* Use a thin connector line. */
+  width: 2px;
+  /* Use royal blue to match the timeline. */
+  background-color: #1f6fff;
+  /* Keep the connector behind the platform card. */
+  z-index: 1;
+}
+
+/* Give upper platform groups enough connector length to reach the main timeline. */
+.platform-ps2 .platform-connector,
+.platform-ps3 .platform-connector {
+  /* Reach from the group to the timeline line. */
+  height: 110px;
+}
+
+/* Give the tall Xbox 360 group its own connector length. */
+.platform-xbox-360 .platform-connector {
+  /* Reach from the group to the timeline line. */
+  height: 80px;
+}
+
+/* Draw connectors upward from lower platform groups to the main timeline. */
+.platform-wii .platform-connector,
+.platform-wii-u .platform-connector,
+.platform-xbox-one .platform-connector,
+.platform-quest-2 .platform-connector,
+.platform-pc .platform-connector {
+  /* Place the connector above lower platform groups. */
+  top: auto;
+  /* End the connector at the top edge of the group. */
+  bottom: 100%;
+}
+
+/* Give the first lower row enough connector length to reach the timeline. */
+.platform-wii .platform-connector,
+.platform-wii-u .platform-connector,
+.platform-xbox-one .platform-connector,
+.platform-quest-2 .platform-connector {
+  /* Reach upward to the timeline line. */
+  height: 80px;
+}
+
+/* Give the lower PC group a longer connector. */
+.platform-pc .platform-connector {
+  /* Reach upward from the lower PC group to the timeline. */
+  height: 380px;
+}
+
+/* Mark where each connector meets the main timeline. */
+.platform-connector-node {
+  /* Position the node at the connector endpoint. */
+  position: absolute;
+  /* Center the node over the connector line. */
+  left: 50%;
+  /* Move the node horizontally into true center alignment. */
+  transform: translateX(-50%);
+  /* Give the node a visible circular shape. */
+  width: 16px;
+  /* Keep the node circular. */
+  height: 16px;
+  /* Use the canvas background inside the node. */
+  background-color: #041027;
+  /* Outline the node with royal blue. */
+  border: 3px solid #1f6fff;
+  /* Make the node circular. */
+  border-radius: 50%;
+}
+
+/* Place nodes at the bottom of connectors from upper groups. */
+.platform-ps2 .platform-connector-node,
+.platform-ps3 .platform-connector-node,
+.platform-xbox-360 .platform-connector-node {
+  /* Align the node with the timeline end of the connector. */
+  bottom: -8px;
+}
+
+/* Place nodes at the top of connectors from lower groups. */
+.platform-wii .platform-connector-node,
+.platform-wii-u .platform-connector-node,
+.platform-xbox-one .platform-connector-node,
+.platform-quest-2 .platform-connector-node,
+.platform-pc .platform-connector-node {
+  /* Align the node with the timeline end of the connector. */
+  top: -8px;
+}
+
+/* Keep the drag cursor active on platform group background space. */
+.platform-group {
+  /* Show visitors that the group background can move the canvas. */
+  cursor: grab;
+}
+
+/* Keep game cards visually separate from the draggable group background. */
+.game-card {
+  /* Show that game cards are clickable instead of draggable. */
+  cursor: pointer;
 }

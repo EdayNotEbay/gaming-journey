@@ -15,16 +15,28 @@ const platformLayouts = [ // Start the platform layout list.
 
 // Keep the available zoom levels in one place.
 const zoomClasses = [ // Start the zoom class list.
-  "timeline-zoom-70", // Allow visitors to zoom far out.
+  "timeline-zoom-50", // Allow visitors to zoom far enough out to see most of the full timeline.
+  "timeline-zoom-70", // Allow visitors to zoom farther out.
   "timeline-zoom-85", // Allow visitors to zoom slightly out.
   "timeline-zoom-100", // Keep the normal timeline size.
   "timeline-zoom-115", // Allow visitors to zoom slightly in.
   "timeline-zoom-130", // Allow visitors to zoom farther in.
 ]; // Finish the zoom class list.
 
+// Keep the numeric zoom values in one place for pointer-centered zoom calculations.
+const zoomScales = [ // Start the zoom scale list.
+  0.5, // Scale the timeline to fifty percent.
+  0.7, // Scale the timeline to seventy percent.
+  0.85, // Scale the timeline to eighty-five percent.
+  1, // Keep the timeline at one hundred percent.
+  1.15, // Scale the timeline to one hundred fifteen percent.
+  1.3, // Scale the timeline to one hundred thirty percent.
+]; // Finish the zoom scale list.
+
 // Keep readable zoom labels beside the controls.
 const zoomLabels = [ // Start the zoom label list.
-  "70%", // Label the far zoomed-out view.
+  "50%", // Label the far zoomed-out view.
+  "70%", // Label the seventy percent view.
   "85%", // Label the slightly zoomed-out view.
   "100%", // Label the normal view.
   "115%", // Label the slightly zoomed-in view.
@@ -42,7 +54,9 @@ function getGamesForPlatform(games, platformName) { // Receive the full game lis
 function TimelineCanvas({ games }) { // Receive all timeline games from the page.
   const viewportRef = useRef(null); // Keep a reference to the scrollable viewport.
   const dragState = useRef({ active: false, moved: false, startX: 0, startY: 0, scrollLeft: 0, scrollTop: 0 }); // Store mouse-drag values without rerendering the page.
-  const [zoomIndex, setZoomIndex] = useState(2); // Start the timeline at the normal 100 percent zoom level.
+  const pendingZoomRef = useRef(null); // Store the canvas point that must remain under the mouse after zooming.
+  const zoomIndexRef = useRef(3); // Keep the current zoom index available immediately inside wheel events.
+  const [zoomIndex, setZoomIndex] = useState(3); // Start the timeline at the normal 100 percent zoom level.
   const zoomClass = zoomClasses[zoomIndex]; // Read the CSS class for the current zoom level.
   const zoomLabel = zoomLabels[zoomIndex]; // Read the text label for the current zoom level.
 
@@ -54,6 +68,21 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     } // Finish checking the viewport reference.
   }, []); // Keep the setup effect from repeating.
 
+  // Restore the point under the mouse after React applies a new zoom level.
+  useEffect(function () { // Run whenever the zoom level changes.
+    if (pendingZoomRef.current === null) { // Check whether this zoom change needs pointer-centered repositioning.
+      return; // Stop when there is no saved zoom focus point.
+    } // Finish checking the saved zoom focus point.
+    if (viewportRef.current === null) { // Make sure the timeline viewport still exists.
+      return; // Stop when the viewport is unavailable.
+    } // Finish checking the viewport reference.
+    const savedPoint = pendingZoomRef.current; // Read the saved canvas and viewport coordinates.
+    const newScale = zoomScales[zoomIndex]; // Read the numeric scale for the new zoom level.
+    viewportRef.current.scrollLeft = savedPoint.canvasX * newScale - savedPoint.viewportX; // Keep the same horizontal canvas point under the mouse.
+    viewportRef.current.scrollTop = savedPoint.canvasY * newScale - savedPoint.viewportY; // Keep the same vertical canvas point under the mouse.
+    pendingZoomRef.current = null; // Clear the saved zoom focus after repositioning.
+  }, [zoomIndex]); // Repeat this adjustment only when the zoom level changes.
+
   // Return the viewport to the preferred starting area.
   function recenterTimeline() { // Recenter the two-dimensional timeline.
     if (viewportRef.current === null) { // Make sure the viewport exists before using it.
@@ -63,35 +92,75 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     viewportRef.current.scrollTop = 620; // Return to the main timeline area.
   } // Finish the recenter helper.
 
+  // Save the canvas location under a specific point before changing zoom.
+  function saveZoomFocus(clientX, clientY) { // Receive the mouse position or viewport-center position.
+    if (viewportRef.current === null) { // Make sure the timeline viewport exists.
+      return; // Stop when the viewport is unavailable.
+    } // Finish checking the viewport reference.
+    const viewport = viewportRef.current; // Store the viewport element for shorter calculations.
+    const bounds = viewport.getBoundingClientRect(); // Read the viewport position on the screen.
+    const viewportX = clientX - bounds.left; // Find the pointer's horizontal position inside the viewport.
+    const viewportY = clientY - bounds.top; // Find the pointer's vertical position inside the viewport.
+    const currentScale = zoomScales[zoomIndexRef.current]; // Read the numeric scale before the zoom changes.
+    const canvasX = (viewport.scrollLeft + viewportX) / currentScale; // Find the unscaled canvas X coordinate under the pointer.
+    const canvasY = (viewport.scrollTop + viewportY) / currentScale; // Find the unscaled canvas Y coordinate under the pointer.
+    pendingZoomRef.current = { canvasX: canvasX, canvasY: canvasY, viewportX: viewportX, viewportY: viewportY }; // Save the point that should stay under the mouse.
+  } // Finish saving the zoom focus.
+
+  // Change to a specific zoom index while keeping a chosen screen point stable.
+  function changeZoom(nextIndex, clientX, clientY) { // Receive the requested zoom level and focus point.
+    if (nextIndex < 0) { // Check whether the requested zoom is below the minimum.
+      return; // Stop before going below fifty percent.
+    } // Finish checking the minimum zoom.
+    if (nextIndex >= zoomClasses.length) { // Check whether the requested zoom is above the maximum.
+      return; // Stop before going above one hundred thirty percent.
+    } // Finish checking the maximum zoom.
+    if (nextIndex === zoomIndexRef.current) { // Check whether the requested zoom is already active.
+      return; // Stop when no zoom change is needed.
+    } // Finish checking the current zoom.
+    saveZoomFocus(clientX, clientY); // Save the canvas point that should remain visually fixed.
+    zoomIndexRef.current = nextIndex; // Update the immediate zoom reference.
+    setZoomIndex(nextIndex); // Ask React to apply the new zoom class and label.
+  } // Finish the zoom-change helper.
+
+  // Return the center of the visible viewport for zoom-button actions.
+  function getViewportCenter() { // Calculate the visible center of the timeline viewport.
+    if (viewportRef.current === null) { // Make sure the timeline viewport exists.
+      return null; // Return no point when the viewport is unavailable.
+    } // Finish checking the viewport reference.
+    const bounds = viewportRef.current.getBoundingClientRect(); // Read the viewport position and size.
+    const centerX = bounds.left + bounds.width / 2; // Find the horizontal center of the viewport.
+    const centerY = bounds.top + bounds.height / 2; // Find the vertical center of the viewport.
+    return { x: centerX, y: centerY }; // Return the center point for button-controlled zooming.
+  } // Finish calculating the viewport center.
+
   // Increase the timeline zoom by one preset level.
-  function zoomIn() { // Zoom the timeline inward.
-    setZoomIndex(function (currentIndex) { // Update the zoom from the current level.
-      if (currentIndex >= zoomClasses.length - 1) { // Check whether the maximum zoom is already active.
-        return currentIndex; // Keep the current level when no larger level exists.
-      } // Finish checking the maximum zoom.
-      return currentIndex + 1; // Move to the next larger zoom level.
-    }); // Finish updating the zoom level.
+  function zoomIn() { // Zoom the timeline inward around the viewport center.
+    const center = getViewportCenter(); // Find the center point used by the zoom button.
+    if (center === null) { // Make sure a center point was available.
+      return; // Stop when the viewport is unavailable.
+    } // Finish checking the center point.
+    changeZoom(zoomIndexRef.current + 1, center.x, center.y); // Move to the next larger zoom while keeping the center stable.
   } // Finish the zoom-in helper.
 
   // Decrease the timeline zoom by one preset level.
-  function zoomOut() { // Zoom the timeline outward.
-    setZoomIndex(function (currentIndex) { // Update the zoom from the current level.
-      if (currentIndex <= 0) { // Check whether the minimum zoom is already active.
-        return currentIndex; // Keep the current level when no smaller level exists.
-      } // Finish checking the minimum zoom.
-      return currentIndex - 1; // Move to the next smaller zoom level.
-    }); // Finish updating the zoom level.
+  function zoomOut() { // Zoom the timeline outward around the viewport center.
+    const center = getViewportCenter(); // Find the center point used by the zoom button.
+    if (center === null) { // Make sure a center point was available.
+      return; // Stop when the viewport is unavailable.
+    } // Finish checking the center point.
+    changeZoom(zoomIndexRef.current - 1, center.x, center.y); // Move to the next smaller zoom while keeping the center stable.
   } // Finish the zoom-out helper.
 
-  // Use the mouse wheel to zoom when the pointer is over the timeline.
+  // Use the mouse wheel to zoom around the exact point under the pointer.
   function handleWheel(event) { // Receive the wheel event from the timeline viewport.
     event.preventDefault(); // Keep the page itself from scrolling while the pointer is over the timeline.
     if (event.deltaY < 0) { // Check whether the wheel moved upward.
-      zoomIn(); // Zoom inward when the wheel moves upward.
+      changeZoom(zoomIndexRef.current + 1, event.clientX, event.clientY); // Zoom inward around the pointer position.
       return; // Stop after handling the upward wheel movement.
     } // Finish checking the upward wheel movement.
     if (event.deltaY > 0) { // Check whether the wheel moved downward.
-      zoomOut(); // Zoom outward when the wheel moves downward.
+      changeZoom(zoomIndexRef.current - 1, event.clientX, event.clientY); // Zoom outward around the pointer position.
     } // Finish checking the downward wheel movement.
   } // Finish the wheel zoom handler.
 
@@ -171,7 +240,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
           </div> {/* Finish the large timeline canvas. */}
         </div> {/* Finish the zoom-sized scrollable canvas shell. */}
       </div> {/* Finish the visible timeline viewport. */}
-    </section> /* Finish the timeline section. */
+    </section> /* Finish the timeline section. */}
   ); // Finish returning the timeline interface.
 } // Finish the TimelineCanvas component.
 

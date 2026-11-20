@@ -228,7 +228,7 @@
   /* Make the workspace much wider than the viewport. */
   width: 2400px;
   /* Make the workspace tall enough for stacked platform rows. */
-  height: 1700px;
+  height: 1900px;
   /* Add a subtle royal-blue canvas gradient. */
   background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
 }
@@ -238,7 +238,7 @@
   /* Position the line independently inside the canvas. */
   position: absolute;
   /* Place the line below the upper platform groups. */
-  top: 820px;
+  top: 1000px;
   /* Leave room at the start of the canvas. */
   left: 140px;
   /* Stretch the line across the timeline. */
@@ -370,7 +370,7 @@
   /* Place PS2 near the beginning of the canvas. */
   left: 170px;
   /* Place PS2 above the main line. */
-  top: 455px;
+  top: 635px;
 }
 
 /* Position the PS3 group above the timeline. */
@@ -378,7 +378,7 @@
   /* Place PS3 after PS2. */
   left: 390px;
   /* Place PS3 above the main line. */
-  top: 455px;
+  top: 635px;
 }
 
 /* Position the large Xbox 360 group above the timeline. */
@@ -386,7 +386,7 @@
   /* Place Xbox 360 near the center of the upper canvas. */
   left: 760px;
   /* Move the larger group upward so stacked rows fit without touching the line. */
-  top: 95px;
+  top: 160px;
 }
 
 /* Position the Wii group below the timeline. */
@@ -394,7 +394,7 @@
   /* Place Wii below the early timeline. */
   left: 210px;
   /* Place Wii below the main line. */
-  top: 900px;
+  top: 1080px;
 }
 
 /* Position the Wii U group below the timeline. */
@@ -402,7 +402,7 @@
   /* Place Wii U after Wii. */
   left: 570px;
   /* Place Wii U below the main line. */
-  top: 900px;
+  top: 1080px;
 }
 
 /* Position the Xbox One group below the timeline. */
@@ -410,7 +410,7 @@
   /* Place Xbox One near the center lower canvas. */
   left: 930px;
   /* Place Xbox One below the main line. */
-  top: 900px;
+  top: 1080px;
 }
 
 /* Position the Oculus Quest 2 group below the timeline. */
@@ -418,15 +418,15 @@
   /* Place Quest 2 after Xbox One. */
   left: 1660px;
   /* Place Quest 2 below the main line. */
-  top: 900px;
+  top: 1080px;
 }
 
 /* Position the larger PC group lower and farther right. */
 .platform-pc {
   /* Place PC toward the end of the canvas. */
   left: 1570px;
-  /* Place PC farther down so it does not collide with other lower groups. */
-  top: 1200px;
+  /* Place PC below the main line with enough room for stacked rows. */
+  top: 1080px;
 }
 
 /* Give small platform groups fewer columns than large libraries. */
@@ -527,7 +527,7 @@
 /* Give the tall Xbox 360 group its own connector length. */
 .platform-xbox-360 .platform-connector {
   /* Reach from the group to the timeline line. */
-  height: 80px;
+  height: 95px;
 }
 
 /* Draw connectors upward from lower platform groups to the main timeline. */
@@ -551,10 +551,10 @@
   height: 80px;
 }
 
-/* Give the lower PC group a longer connector. */
+/* Give the lower PC group the same direct connection to the timeline. */
 .platform-pc .platform-connector {
-  /* Reach upward from the lower PC group to the timeline. */
-  height: 380px;
+  /* Reach upward from the PC group to the timeline. */
+  height: 80px;
 }
 
 /* Mark where each connector meets the main timeline. */
@@ -605,4 +605,23 @@
 .game-card {
   /* Show that game cards are clickable instead of draggable. */
   cursor: pointer;
+}
+
+
+/* Let the Xbox 360 collection use five columns before stacking downward. */
+.platform-xbox-360 .game-grid {
+  /* Keep the group wide enough for several covers without becoming one long row. */
+  grid-template-columns: repeat(5, 150px);
+}
+
+/* Let the PC collection use five columns before stacking downward. */
+.platform-pc .game-grid {
+  /* Keep the PC collection compact while still stacking when needed. */
+  grid-template-columns: repeat(5, 150px);
+}
+
+/* Show the closed-hand cursor on group backgrounds while the canvas is moving. */
+.timeline-viewport-dragging .platform-group {
+  /* Match the viewport dragging cursor. */
+  cursor: grabbing;
 }

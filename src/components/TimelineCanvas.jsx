@@ -229,18 +229,34 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
           <button type="button" className="recenter-button" onClick={recenterTimeline}>Recenter Timeline</button> {/* Let visitors return to the starting view. */}
         </div> {/* Finish the timeline controls. */}
       </div> {/* Finish the timeline toolbar. */}
-      <div ref={viewportRef} className="timeline-viewport" onWheel={handleWheel} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging} onClickCapture={handleClickCapture}> {/* Create the draggable and zoomable window into the larger canvas. */}
+      <div
+        ref={viewportRef}
+        className="timeline-viewport"
+        onWheel={handleWheel}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={stopDragging}
+        onPointerCancel={stopDragging}
+        onClickCapture={handleClickCapture}
+      > {/* Create the draggable and zoomable window into the larger canvas. */}
         <div className={"timeline-canvas-shell " + zoomClass}> {/* Resize the scrollable area to match the selected zoom level. */}
           <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
             <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
             {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
               const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
-              return <PlatformGroup key={layout.name} platform={layout.name} games={platformGames} className={layout.className} />; // Display the current platform group.
+              return (
+                <PlatformGroup
+                  key={layout.name}
+                  platform={layout.name}
+                  games={platformGames}
+                  className={layout.className}
+                />
+              ); // Display the current platform group.
             })} {/* Finish building all platform groups. */}
           </div> {/* Finish the large timeline canvas. */}
         </div> {/* Finish the zoom-sized scrollable canvas shell. */}
       </div> {/* Finish the visible timeline viewport. */}
-    </section> /* Finish the timeline section. */}
+    </section> /* Finish the timeline section. */
   ); // Finish returning the timeline interface.
 } // Finish the TimelineCanvas component.
 

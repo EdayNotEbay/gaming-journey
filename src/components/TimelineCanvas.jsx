@@ -29,7 +29,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
   useEffect(function () { // Run once after the timeline viewport is available.
     if (viewportRef.current !== null) { // Make sure the viewport exists before setting its starting position.
       viewportRef.current.scrollLeft = 260; // Start slightly to the right so the first platform groups are visible.
-      viewportRef.current.scrollTop = 300; // Start vertically centered around the main timeline.
+      viewportRef.current.scrollTop = 450; // Start vertically centered around the main timeline.
     } // Finish checking the viewport reference.
   }, []); // Keep the setup effect from repeating.
 
@@ -39,7 +39,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
       return; // Stop when the viewport is not ready yet.
     } // Finish checking the viewport reference.
     viewportRef.current.scrollLeft = 260; // Start slightly to the right so the first platform groups are visible.
-    viewportRef.current.scrollTop = 300; // Start vertically centered around the main timeline.
+    viewportRef.current.scrollTop = 450; // Start vertically centered around the main timeline.
   } // Finish the recenter helper.
 
   // Start dragging when the pointer presses empty canvas space.

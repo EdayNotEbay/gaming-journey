@@ -141,15 +141,15 @@
   overflow: hidden;
 }
 
-/* Arrange the timeline title and recenter button. */
+/* Arrange the timeline title and controls. */
 .timeline-toolbar {
-  /* Put the title and button on one row. */
+  /* Put the title and controls on one row. */
   display: flex;
   /* Allow the toolbar to wrap on smaller screens. */
   flex-wrap: wrap;
   /* Align the toolbar items vertically. */
   align-items: center;
-  /* Separate the title and control. */
+  /* Separate the title and controls. */
   justify-content: space-between;
   /* Add space between wrapped toolbar items. */
   gap: 16px;
@@ -173,6 +173,48 @@
   margin: 0;
   /* Use subdued blue text. */
   color: #a9badb;
+}
+
+/* Arrange the timeline zoom and recenter controls. */
+.timeline-controls {
+  /* Place the controls beside one another. */
+  display: flex;
+  /* Align controls vertically. */
+  align-items: center;
+  /* Add space between the controls. */
+  gap: 8px;
+}
+
+/* Style the timeline zoom buttons. */
+.zoom-button {
+  /* Give each zoom button a square control area. */
+  width: 40px;
+  /* Keep the zoom buttons tall enough to click comfortably. */
+  height: 40px;
+  /* Use the dark timeline control background. */
+  background-color: #0b234d;
+  /* Add a royal-blue border. */
+  border: 1px solid #2e8cff;
+  /* Round the button corners. */
+  border-radius: 8px;
+  /* Use white button text. */
+  color: #ffffff;
+  /* Make the plus and minus easy to see. */
+  font-size: 20px;
+  /* Show that the button can be clicked. */
+  cursor: pointer;
+}
+
+/* Display the current zoom percentage. */
+.zoom-label {
+  /* Give the label enough width so the toolbar does not jump between zoom levels. */
+  min-width: 48px;
+  /* Center the zoom percentage. */
+  text-align: center;
+  /* Use the softer timeline text color. */
+  color: #b9c9e8;
+  /* Keep the label compact. */
+  font-size: 14px;
 }
 
 /* Style the timeline recenter button. */
@@ -221,28 +263,106 @@
   cursor: grabbing;
 }
 
+/* Create the scrollable shell that matches the selected zoom size. */
+.timeline-canvas-shell {
+  /* Keep the scaled canvas anchored to the top-left corner. */
+  position: relative;
+}
+
 /* Create the large bounded two-dimensional workspace. */
 .timeline-canvas {
   /* Keep platform groups positioned relative to this canvas. */
   position: relative;
-  /* Make the workspace much wider than the viewport. */
-  width: 2400px;
-  /* Make the workspace tall enough for stacked platform rows. */
-  height: 1900px;
+  /* Give the platforms enough horizontal room to stay separated. */
+  width: 3600px;
+  /* Give upper and lower platform rows enough vertical room. */
+  height: 2100px;
+  /* Keep zoom scaling anchored to the top-left corner. */
+  transform-origin: top left;
   /* Add a subtle royal-blue canvas gradient. */
   background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
+}
+
+/* Size the shell and canvas for the far zoomed-out view. */
+.timeline-zoom-70 {
+  /* Match the scroll area to seventy percent of the canvas width. */
+  width: 2520px;
+  /* Match the scroll area to seventy percent of the canvas height. */
+  height: 1470px;
+}
+
+/* Scale the canvas to seventy percent. */
+.timeline-zoom-70 .timeline-canvas {
+  /* Shrink the complete timeline. */
+  transform: scale(0.7);
+}
+
+/* Size the shell and canvas for the slightly zoomed-out view. */
+.timeline-zoom-85 {
+  /* Match the scroll area to eighty-five percent of the canvas width. */
+  width: 3060px;
+  /* Match the scroll area to eighty-five percent of the canvas height. */
+  height: 1785px;
+}
+
+/* Scale the canvas to eighty-five percent. */
+.timeline-zoom-85 .timeline-canvas {
+  /* Shrink the complete timeline slightly. */
+  transform: scale(0.85);
+}
+
+/* Size the shell and canvas for the normal view. */
+.timeline-zoom-100 {
+  /* Match the scroll area to the full canvas width. */
+  width: 3600px;
+  /* Match the scroll area to the full canvas height. */
+  height: 2100px;
+}
+
+/* Keep the canvas at its normal size. */
+.timeline-zoom-100 .timeline-canvas {
+  /* Keep the complete timeline at full size. */
+  transform: scale(1);
+}
+
+/* Size the shell and canvas for the slightly zoomed-in view. */
+.timeline-zoom-115 {
+  /* Match the scroll area to one hundred fifteen percent of the canvas width. */
+  width: 4140px;
+  /* Match the scroll area to one hundred fifteen percent of the canvas height. */
+  height: 2415px;
+}
+
+/* Scale the canvas to one hundred fifteen percent. */
+.timeline-zoom-115 .timeline-canvas {
+  /* Enlarge the complete timeline slightly. */
+  transform: scale(1.15);
+}
+
+/* Size the shell and canvas for the farther zoomed-in view. */
+.timeline-zoom-130 {
+  /* Match the scroll area to one hundred thirty percent of the canvas width. */
+  width: 4680px;
+  /* Match the scroll area to one hundred thirty percent of the canvas height. */
+  height: 2730px;
+}
+
+/* Scale the canvas to one hundred thirty percent. */
+.timeline-zoom-130 .timeline-canvas {
+  /* Enlarge the complete timeline farther. */
+  transform: scale(1.3);
 }
 
 /* Draw the main horizontal timeline through the canvas. */
 .timeline-main-line {
   /* Position the line independently inside the canvas. */
   position: absolute;
-  /* Place the line below the upper platform groups. */
-  top: 1000px;
+  /* Place the line between the upper and lower platform rows. */
+  top: 1040px;
   /* Leave room at the start of the canvas. */
-  left: 140px;
-  /* Stretch the line across the timeline. */
-  width: 2100px;
+  left: 120px;
+  /* Stretch the line across the wider timeline. */
+  width: 3260px;
   /* Give the line a visible thickness. */
   height: 4px;
   /* Use the main royal-blue accent. */
@@ -370,63 +490,63 @@
   /* Place PS2 near the beginning of the canvas. */
   left: 170px;
   /* Place PS2 above the main line. */
-  top: 635px;
+  top: 650px;
 }
 
 /* Position the PS3 group above the timeline. */
 .platform-ps3 {
-  /* Place PS3 after PS2. */
-  left: 390px;
+  /* Leave a larger horizontal gap after PS2. */
+  left: 470px;
   /* Place PS3 above the main line. */
-  top: 635px;
+  top: 650px;
 }
 
 /* Position the large Xbox 360 group above the timeline. */
 .platform-xbox-360 {
-  /* Place Xbox 360 near the center of the upper canvas. */
-  left: 760px;
-  /* Move the larger group upward so stacked rows fit without touching the line. */
-  top: 160px;
+  /* Leave clear horizontal space between PS3 and Xbox 360. */
+  left: 980px;
+  /* Move the large group upward so its stacked rows stay above the timeline. */
+  top: 120px;
 }
 
 /* Position the Wii group below the timeline. */
 .platform-wii {
-  /* Place Wii below the early timeline. */
-  left: 210px;
-  /* Place Wii below the main line. */
-  top: 1080px;
+  /* Place Wii below the early timeline with room around the panel. */
+  left: 220px;
+  /* Leave a visible gap below the timeline line. */
+  top: 1140px;
 }
 
 /* Position the Wii U group below the timeline. */
 .platform-wii-u {
-  /* Place Wii U after Wii. */
-  left: 570px;
-  /* Place Wii U below the main line. */
-  top: 1080px;
+  /* Leave a larger horizontal gap after Wii. */
+  left: 680px;
+  /* Leave a visible gap below the timeline line. */
+  top: 1140px;
 }
 
 /* Position the Xbox One group below the timeline. */
 .platform-xbox-one {
-  /* Place Xbox One near the center lower canvas. */
-  left: 930px;
-  /* Place Xbox One below the main line. */
-  top: 1080px;
+  /* Leave clear space after Wii U. */
+  left: 1160px;
+  /* Leave a visible gap below the timeline line. */
+  top: 1140px;
 }
 
 /* Position the Oculus Quest 2 group below the timeline. */
 .platform-quest-2 {
-  /* Place Quest 2 after Xbox One. */
-  left: 1660px;
-  /* Place Quest 2 below the main line. */
-  top: 1080px;
+  /* Give Quest 2 its own horizontal area. */
+  left: 1980px;
+  /* Leave a visible gap below the timeline line. */
+  top: 1140px;
 }
 
-/* Position the larger PC group lower and farther right. */
+/* Position the larger PC group below the timeline. */
 .platform-pc {
-  /* Place PC toward the end of the canvas. */
-  left: 1570px;
-  /* Place PC below the main line with enough room for stacked rows. */
-  top: 1080px;
+  /* Give PC a separate wide area after Quest 2. */
+  left: 2460px;
+  /* Leave a visible gap below the timeline line. */
+  top: 1140px;
 }
 
 /* Give small platform groups fewer columns than large libraries. */
@@ -521,13 +641,13 @@
 .platform-ps2 .platform-connector,
 .platform-ps3 .platform-connector {
   /* Reach from the group to the timeline line. */
-  height: 110px;
+  height: 120px;
 }
 
 /* Give the tall Xbox 360 group its own connector length. */
 .platform-xbox-360 .platform-connector {
   /* Reach from the group to the timeline line. */
-  height: 95px;
+  height: 105px;
 }
 
 /* Draw connectors upward from lower platform groups to the main timeline. */
@@ -542,19 +662,14 @@
   bottom: 100%;
 }
 
-/* Give the first lower row enough connector length to reach the timeline. */
+/* Give every lower platform enough connector length to reach the timeline. */
 .platform-wii .platform-connector,
 .platform-wii-u .platform-connector,
 .platform-xbox-one .platform-connector,
-.platform-quest-2 .platform-connector {
-  /* Reach upward to the timeline line. */
-  height: 80px;
-}
-
-/* Give the lower PC group the same direct connection to the timeline. */
+.platform-quest-2 .platform-connector,
 .platform-pc .platform-connector {
-  /* Reach upward from the PC group to the timeline. */
-  height: 80px;
+  /* Reach upward through the gap to the timeline line. */
+  height: 100px;
 }
 
 /* Mark where each connector meets the main timeline. */

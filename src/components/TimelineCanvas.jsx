@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"; // Import React tools for the draggable scroll canvas.
+import { useEffect, useRef, useState } from "react"; // Import React tools for dragging and zooming the timeline.
 import PlatformGroup from "./PlatformGroup.jsx"; // Import the reusable platform group component.
 
 // Keep the platform order and canvas positions in one place.
@@ -13,6 +13,24 @@ const platformLayouts = [ // Start the platform layout list.
   { name: "PC", className: "platform-pc" }, // Position the larger PC group below the timeline.
 ]; // Finish the platform layout list.
 
+// Keep the available zoom levels in one place.
+const zoomClasses = [ // Start the zoom class list.
+  "timeline-zoom-70", // Allow visitors to zoom far out.
+  "timeline-zoom-85", // Allow visitors to zoom slightly out.
+  "timeline-zoom-100", // Keep the normal timeline size.
+  "timeline-zoom-115", // Allow visitors to zoom slightly in.
+  "timeline-zoom-130", // Allow visitors to zoom farther in.
+]; // Finish the zoom class list.
+
+// Keep readable zoom labels beside the controls.
+const zoomLabels = [ // Start the zoom label list.
+  "70%", // Label the far zoomed-out view.
+  "85%", // Label the slightly zoomed-out view.
+  "100%", // Label the normal view.
+  "115%", // Label the slightly zoomed-in view.
+  "130%", // Label the farther zoomed-in view.
+]; // Finish the zoom label list.
+
 // Return every game that belongs to one platform.
 function getGamesForPlatform(games, platformName) { // Receive the full game list and one platform name.
   return games.filter(function (game) { // Filter the full list down to one platform.
@@ -24,12 +42,15 @@ function getGamesForPlatform(games, platformName) { // Receive the full game lis
 function TimelineCanvas({ games }) { // Receive all timeline games from the page.
   const viewportRef = useRef(null); // Keep a reference to the scrollable viewport.
   const dragState = useRef({ active: false, moved: false, startX: 0, startY: 0, scrollLeft: 0, scrollTop: 0 }); // Store mouse-drag values without rerendering the page.
+  const [zoomIndex, setZoomIndex] = useState(2); // Start the timeline at the normal 100 percent zoom level.
+  const zoomClass = zoomClasses[zoomIndex]; // Read the CSS class for the current zoom level.
+  const zoomLabel = zoomLabels[zoomIndex]; // Read the text label for the current zoom level.
 
-  // Place the view near the middle of the canvas when the page first loads.
+  // Place the view near the beginning of the timeline when the page first loads.
   useEffect(function () { // Run once after the timeline viewport is available.
     if (viewportRef.current !== null) { // Make sure the viewport exists before setting its starting position.
-      viewportRef.current.scrollLeft = 260; // Start slightly to the right so the first platform groups are visible.
-      viewportRef.current.scrollTop = 450; // Start vertically centered around the main timeline.
+      viewportRef.current.scrollLeft = 280; // Start far enough right to center the early platform groups.
+      viewportRef.current.scrollTop = 620; // Start vertically around the main timeline line.
     } // Finish checking the viewport reference.
   }, []); // Keep the setup effect from repeating.
 
@@ -38,9 +59,41 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     if (viewportRef.current === null) { // Make sure the viewport exists before using it.
       return; // Stop when the viewport is not ready yet.
     } // Finish checking the viewport reference.
-    viewportRef.current.scrollLeft = 260; // Start slightly to the right so the first platform groups are visible.
-    viewportRef.current.scrollTop = 450; // Start vertically centered around the main timeline.
+    viewportRef.current.scrollLeft = 280; // Return to the early platform groups.
+    viewportRef.current.scrollTop = 620; // Return to the main timeline area.
   } // Finish the recenter helper.
+
+  // Increase the timeline zoom by one preset level.
+  function zoomIn() { // Zoom the timeline inward.
+    setZoomIndex(function (currentIndex) { // Update the zoom from the current level.
+      if (currentIndex >= zoomClasses.length - 1) { // Check whether the maximum zoom is already active.
+        return currentIndex; // Keep the current level when no larger level exists.
+      } // Finish checking the maximum zoom.
+      return currentIndex + 1; // Move to the next larger zoom level.
+    }); // Finish updating the zoom level.
+  } // Finish the zoom-in helper.
+
+  // Decrease the timeline zoom by one preset level.
+  function zoomOut() { // Zoom the timeline outward.
+    setZoomIndex(function (currentIndex) { // Update the zoom from the current level.
+      if (currentIndex <= 0) { // Check whether the minimum zoom is already active.
+        return currentIndex; // Keep the current level when no smaller level exists.
+      } // Finish checking the minimum zoom.
+      return currentIndex - 1; // Move to the next smaller zoom level.
+    }); // Finish updating the zoom level.
+  } // Finish the zoom-out helper.
+
+  // Use the mouse wheel to zoom when the pointer is over the timeline.
+  function handleWheel(event) { // Receive the wheel event from the timeline viewport.
+    event.preventDefault(); // Keep the page itself from scrolling while the pointer is over the timeline.
+    if (event.deltaY < 0) { // Check whether the wheel moved upward.
+      zoomIn(); // Zoom inward when the wheel moves upward.
+      return; // Stop after handling the upward wheel movement.
+    } // Finish checking the upward wheel movement.
+    if (event.deltaY > 0) { // Check whether the wheel moved downward.
+      zoomOut(); // Zoom outward when the wheel moves downward.
+    } // Finish checking the downward wheel movement.
+  } // Finish the wheel zoom handler.
 
   // Start dragging from canvas space, platform groups, or game cards.
   function handlePointerDown(event) { // Receive the pointer-down event from anywhere inside the viewport.
@@ -95,21 +148,28 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
 
   return ( // Return the complete draggable timeline interface.
     <section className="timeline-section"> {/* Group the timeline heading and canvas together. */}
-      <div className="timeline-toolbar"> {/* Display timeline instructions and the recenter control. */}
+      <div className="timeline-toolbar"> {/* Display timeline instructions and timeline controls. */}
         <div> {/* Group the timeline heading and description. */}
           <h2>Gaming Timeline</h2> {/* Name the interactive timeline. */}
-          <p>Hold and drag anywhere in the canvas, including game covers, to explore my gaming history.</p> {/* Explain that the complete canvas can be dragged. */}
+          <p>Drag anywhere to move. Use the mouse wheel or zoom buttons to zoom in and out.</p> {/* Explain the drag and zoom interactions. */}
         </div> {/* Finish the timeline heading group. */}
-        <button type="button" className="recenter-button" onClick={recenterTimeline}>Recenter Timeline</button> {/* Let visitors return to the starting view. */}
+        <div className="timeline-controls"> {/* Group the zoom and recenter controls. */}
+          <button type="button" className="zoom-button" onClick={zoomOut} aria-label="Zoom out">−</button> {/* Let visitors zoom outward without a mouse wheel. */}
+          <span className="zoom-label" aria-live="polite">{zoomLabel}</span> {/* Display the current zoom percentage. */}
+          <button type="button" className="zoom-button" onClick={zoomIn} aria-label="Zoom in">+</button> {/* Let visitors zoom inward without a mouse wheel. */}
+          <button type="button" className="recenter-button" onClick={recenterTimeline}>Recenter Timeline</button> {/* Let visitors return to the starting view. */}
+        </div> {/* Finish the timeline controls. */}
       </div> {/* Finish the timeline toolbar. */}
-      <div ref={viewportRef} className="timeline-viewport" onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging} onClickCapture={handleClickCapture}> {/* Create the draggable window into the larger canvas. */}
-        <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
-          <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
-          {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
-            const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
-            return <PlatformGroup key={layout.name} platform={layout.name} games={platformGames} className={layout.className} />; // Display the current platform group.
-          })} {/* Finish building all platform groups. */}
-        </div> {/* Finish the large timeline canvas. */}
+      <div ref={viewportRef} className="timeline-viewport" onWheel={handleWheel} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging} onClickCapture={handleClickCapture}> {/* Create the draggable and zoomable window into the larger canvas. */}
+        <div className={"timeline-canvas-shell " + zoomClass}> {/* Resize the scrollable area to match the selected zoom level. */}
+          <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
+            <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
+            {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
+              const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
+              return <PlatformGroup key={layout.name} platform={layout.name} games={platformGames} className={layout.className} />; // Display the current platform group.
+            })} {/* Finish building all platform groups. */}
+          </div> {/* Finish the large timeline canvas. */}
+        </div> {/* Finish the zoom-sized scrollable canvas shell. */}
       </div> {/* Finish the visible timeline viewport. */}
     </section> /* Finish the timeline section. */
   ); // Finish returning the timeline interface.

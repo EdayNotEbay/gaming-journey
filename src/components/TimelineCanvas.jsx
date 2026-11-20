@@ -15,7 +15,8 @@ const platformLayouts = [ // Start the platform layout list.
 
 // Keep the available zoom levels in one place.
 const zoomClasses = [ // Start the zoom class list.
-  "timeline-zoom-50", // Allow visitors to zoom far enough out to see most of the full timeline.
+  "timeline-zoom-30", // Allow visitors to zoom far enough out to see the complete timeline.
+  "timeline-zoom-50", // Allow visitors to zoom far out.
   "timeline-zoom-70", // Allow visitors to zoom farther out.
   "timeline-zoom-85", // Allow visitors to zoom slightly out.
   "timeline-zoom-100", // Keep the normal timeline size.
@@ -25,6 +26,7 @@ const zoomClasses = [ // Start the zoom class list.
 
 // Keep the numeric zoom values in one place for pointer-centered zoom calculations.
 const zoomScales = [ // Start the zoom scale list.
+  0.3, // Scale the timeline to thirty percent.
   0.5, // Scale the timeline to fifty percent.
   0.7, // Scale the timeline to seventy percent.
   0.85, // Scale the timeline to eighty-five percent.
@@ -35,6 +37,7 @@ const zoomScales = [ // Start the zoom scale list.
 
 // Keep readable zoom labels beside the controls.
 const zoomLabels = [ // Start the zoom label list.
+  "30%", // Label the farthest zoomed-out view.
   "50%", // Label the far zoomed-out view.
   "70%", // Label the seventy percent view.
   "85%", // Label the slightly zoomed-out view.
@@ -53,10 +56,10 @@ function getGamesForPlatform(games, platformName) { // Receive the full game lis
 // Display the large two-dimensional timeline workspace.
 function TimelineCanvas({ games }) { // Receive all timeline games from the page.
   const viewportRef = useRef(null); // Keep a reference to the scrollable viewport.
-  const dragState = useRef({ active: false, moved: false, startX: 0, startY: 0, scrollLeft: 0, scrollTop: 0 }); // Store mouse-drag values without rerendering the page.
+  const dragState = useRef({ active: false, moved: false, captured: false, startX: 0, startY: 0, scrollLeft: 0, scrollTop: 0 }); // Store mouse-drag values without rerendering the page.
   const pendingZoomRef = useRef(null); // Store the canvas point that must remain under the mouse after zooming.
-  const zoomIndexRef = useRef(3); // Keep the current zoom index available immediately inside wheel events.
-  const [zoomIndex, setZoomIndex] = useState(3); // Start the timeline at the normal 100 percent zoom level.
+  const zoomIndexRef = useRef(4); // Keep the current zoom index available immediately inside wheel events.
+  const [zoomIndex, setZoomIndex] = useState(4); // Start the timeline at the normal 100 percent zoom level.
   const zoomClass = zoomClasses[zoomIndex]; // Read the CSS class for the current zoom level.
   const zoomLabel = zoomLabels[zoomIndex]; // Read the text label for the current zoom level.
 
@@ -88,7 +91,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
       if (event.deltaY === 0) { // Check whether the wheel event contains no vertical zoom movement.
         return; // Stop when there is no zoom direction.
       } // Finish checking for zero wheel movement.
-      if (nextIndex < 0) { // Check whether the requested zoom is below fifty percent.
+      if (nextIndex < 0) { // Check whether the requested zoom is below thirty percent.
         return; // Keep the current zoom and keep native scrolling disabled.
       } // Finish checking the minimum zoom.
       if (nextIndex >= zoomClasses.length) { // Check whether the requested zoom is above one hundred thirty percent.
@@ -176,7 +179,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
   // Change to a specific zoom index while keeping a chosen screen point stable.
   function changeZoom(nextIndex, clientX, clientY) { // Receive the requested zoom level and focus point.
     if (nextIndex < 0) { // Check whether the requested zoom is below the minimum.
-      return; // Stop before going below fifty percent.
+      return; // Stop before going below thirty percent.
     } // Finish checking the minimum zoom.
     if (nextIndex >= zoomClasses.length) { // Check whether the requested zoom is above the maximum.
       return; // Stop before going above one hundred thirty percent.
@@ -222,11 +225,11 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
   function handlePointerDown(event) { // Receive the pointer-down event from anywhere inside the viewport.
     dragState.current.active = true; // Mark the canvas as ready to drag.
     dragState.current.moved = false; // Reset the drag movement flag for this pointer press.
+    dragState.current.captured = false; // Wait to capture the pointer until the user actually drags.
     dragState.current.startX = event.clientX; // Save the pointer's starting horizontal position.
     dragState.current.startY = event.clientY; // Save the pointer's starting vertical position.
     dragState.current.scrollLeft = viewportRef.current.scrollLeft; // Save the starting horizontal scroll position.
     dragState.current.scrollTop = viewportRef.current.scrollTop; // Save the starting vertical scroll position.
-    viewportRef.current.setPointerCapture(event.pointerId); // Keep receiving movement while the pointer is held down.
   } // Finish the pointer-down handler.
 
   // Move the canvas horizontally and vertically with the pointer.
@@ -240,6 +243,10 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     const verticalDistance = Math.abs(movedY); // Convert vertical movement into a positive distance.
     if (horizontalDistance > 6 || verticalDistance > 6) { // Treat movement beyond a few pixels as a drag instead of a click.
       dragState.current.moved = true; // Remember that this pointer press became a drag.
+      if (dragState.current.captured === false) { // Check whether pointer capture still needs to start.
+        viewportRef.current.setPointerCapture(event.pointerId); // Capture the pointer only after a real drag begins.
+        dragState.current.captured = true; // Remember that the pointer is now captured.
+      } // Finish checking whether pointer capture is needed.
       viewportRef.current.classList.add("timeline-viewport-dragging"); // Change the cursor while the canvas is moving.
     } // Finish checking the drag threshold.
     if (dragState.current.moved === false) { // Keep tiny pointer movement from shifting the canvas during a normal click.
@@ -252,6 +259,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
   // Stop dragging and restore the normal cursor.
   function stopDragging() { // End the current drag interaction.
     dragState.current.active = false; // Mark the pointer press as finished.
+    dragState.current.captured = false; // Reset pointer capture state for the next interaction.
     if (viewportRef.current !== null) { // Make sure the viewport still exists.
       viewportRef.current.classList.remove("timeline-viewport-dragging"); // Restore the normal cursor after dragging.
     } // Finish checking the viewport reference.

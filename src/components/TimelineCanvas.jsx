@@ -27,7 +27,10 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
 
   // Place the view near the middle of the canvas when the page first loads.
   useEffect(function () { // Run once after the timeline viewport is available.
-    recenterTimeline(); // Move to the preferred starting position.
+    if (viewportRef.current !== null) { // Make sure the viewport exists before setting its starting position.
+      viewportRef.current.scrollLeft = 260; // Start slightly to the right so the first platform groups are visible.
+      viewportRef.current.scrollTop = 300; // Start vertically centered around the main timeline.
+    } // Finish checking the viewport reference.
   }, []); // Keep the setup effect from repeating.
 
   // Return the viewport to the preferred starting area.

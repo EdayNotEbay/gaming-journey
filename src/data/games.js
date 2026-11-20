@@ -12,7 +12,7 @@ const games = [ // Start the complete game list.
   { id: 10, name: "Batman Arkham Asylum", platform: "Xbox 360", genre: "Action", timelineDate: "", isFavorite: false, cover: "" }, // Store Batman Arkham Asylum.
   { id: 11, name: "Batman Arkham Origins", platform: "Xbox 360", genre: "Action", timelineDate: "", isFavorite: false, cover: "" }, // Store Batman Arkham Origins.
   { id: 12, name: "WWE 17", platform: "Xbox 360", genre: "Sports", timelineDate: "", isFavorite: false, cover: "" }, // Store WWE 17.
-  { id: 13, name: "Brutal Legend", platform: "Xbox 360", genre: "Action Adventure", timelineDate: "", isFavorite: false, cover: "" }, // Store Brutal Legend.
+  { id: 13, name: "Brutal Legend", platform: "Xbox 360", genre: "Action Adventure", timelineDate: "", isFavorite: true, cover: "" }, // Store Brutal Legend as a favorite game.
   { id: 14, name: "Red Dead Redemption", platform: "Xbox 360", genre: "Open World", timelineDate: "", isFavorite: false, cover: "" }, // Store Red Dead Redemption.
   { id: 15, name: "Halo Reach", platform: "Xbox 360", genre: "Shooter", timelineDate: "", isFavorite: false, cover: "" }, // Store Halo Reach.
   { id: 16, name: "Halo 3", platform: "Xbox 360", genre: "Shooter", timelineDate: "", isFavorite: false, cover: "" }, // Store Halo 3.
@@ -29,7 +29,7 @@ const games = [ // Start the complete game list.
   { id: 27, name: "Monster Hunter World", platform: "Xbox One", genre: "Action RPG", timelineDate: "", isFavorite: false, cover: "" }, // Store Monster Hunter World.
   { id: 28, name: "Rec Room", platform: "Oculus Quest 2", genre: "Social", timelineDate: "", isFavorite: false, cover: "" }, // Store Rec Room.
   { id: 29, name: "Phasmophobia", platform: "Oculus Quest 2", genre: "Horror", timelineDate: "", isFavorite: false, cover: "" }, // Store Phasmophobia on Quest 2.
-  { id: 30, name: "FOREWARNED", platform: "Oculus Quest 2", genre: "Horror", timelineDate: "", isFavorite: false, cover: "" }, // Store FOREWARNED.
+  { id: 30, name: "FOREWARNED", platform: "Oculus Quest 2", genre: "Horror", timelineDate: "", isFavorite: true, cover: "" }, // Store FOREWARNED as a favorite game.
   { id: 31, name: "Escape the Backrooms", platform: "PC", genre: "Horror", timelineDate: "", isFavorite: false, cover: "" }, // Store Escape the Backrooms.
   { id: 32, name: "Ark Survival Evolved", platform: "PC", genre: "Survival", timelineDate: "", isFavorite: false, cover: "" }, // Store Ark Survival Evolved.
   { id: 33, name: "Phasmophobia", platform: "PC", genre: "Horror", timelineDate: "", isFavorite: false, cover: "" }, // Store Phasmophobia on PC.

@@ -23,7 +23,7 @@ function getGamesForPlatform(games, platformName) { // Receive the full game lis
 // Display the large two-dimensional timeline workspace.
 function TimelineCanvas({ games }) { // Receive all timeline games from the page.
   const viewportRef = useRef(null); // Keep a reference to the scrollable viewport.
-  const dragState = useRef({ active: false, startX: 0, startY: 0, scrollLeft: 0, scrollTop: 0 }); // Store mouse-drag values without rerendering the page.
+  const dragState = useRef({ active: false, moved: false, startX: 0, startY: 0, scrollLeft: 0, scrollTop: 0 }); // Store mouse-drag values without rerendering the page.
 
   // Place the view near the middle of the canvas when the page first loads.
   useEffect(function () { // Run once after the timeline viewport is available.
@@ -42,49 +42,67 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     viewportRef.current.scrollTop = 450; // Start vertically centered around the main timeline.
   } // Finish the recenter helper.
 
-  // Start dragging when the pointer presses empty canvas space.
-  function handlePointerDown(event) { // Receive the pointer-down event from the viewport.
-    if (event.target.closest(".game-card") !== null) { // Keep game cards clickable instead of starting a drag.
-      return; // Stop before beginning a canvas drag.
-    } // Finish protecting game-card clicks.
-    dragState.current.active = true; // Mark the canvas as actively dragging.
+  // Start dragging from canvas space, platform groups, or game cards.
+  function handlePointerDown(event) { // Receive the pointer-down event from anywhere inside the viewport.
+    dragState.current.active = true; // Mark the canvas as ready to drag.
+    dragState.current.moved = false; // Reset the drag movement flag for this pointer press.
     dragState.current.startX = event.clientX; // Save the pointer's starting horizontal position.
     dragState.current.startY = event.clientY; // Save the pointer's starting vertical position.
     dragState.current.scrollLeft = viewportRef.current.scrollLeft; // Save the starting horizontal scroll position.
     dragState.current.scrollTop = viewportRef.current.scrollTop; // Save the starting vertical scroll position.
     viewportRef.current.setPointerCapture(event.pointerId); // Keep receiving movement while the pointer is held down.
-    viewportRef.current.classList.add("timeline-viewport-dragging"); // Change the cursor while dragging.
   } // Finish the pointer-down handler.
 
   // Move the canvas horizontally and vertically with the pointer.
   function handlePointerMove(event) { // Receive pointer movement from the viewport.
-    if (dragState.current.active === false) { // Check whether a drag is currently active.
-      return; // Ignore movement when the user is not dragging.
+    if (dragState.current.active === false) { // Check whether a pointer press is currently active.
+      return; // Ignore movement when the user is not holding the pointer down.
     } // Finish checking the drag state.
     const movedX = event.clientX - dragState.current.startX; // Measure horizontal pointer movement.
     const movedY = event.clientY - dragState.current.startY; // Measure vertical pointer movement.
+    const horizontalDistance = Math.abs(movedX); // Convert horizontal movement into a positive distance.
+    const verticalDistance = Math.abs(movedY); // Convert vertical movement into a positive distance.
+
+    if (horizontalDistance > 6 || verticalDistance > 6) { // Treat movement beyond a few pixels as a drag instead of a click.
+      dragState.current.moved = true; // Remember that this pointer press became a drag.
+      viewportRef.current.classList.add("timeline-viewport-dragging"); // Change the cursor while the canvas is moving.
+    } // Finish checking the drag threshold.
+
+    if (dragState.current.moved === false) { // Keep tiny pointer movement from shifting the canvas during a normal click.
+      return; // Wait until the pointer has moved far enough to count as a drag.
+    } // Finish checking whether the pointer has become a drag.
+
     viewportRef.current.scrollLeft = dragState.current.scrollLeft - movedX; // Pan left or right based on pointer movement.
     viewportRef.current.scrollTop = dragState.current.scrollTop - movedY; // Pan up or down based on pointer movement.
   } // Finish the pointer-move handler.
 
   // Stop dragging and restore the normal cursor.
   function stopDragging() { // End the current drag interaction.
-    dragState.current.active = false; // Mark the canvas as no longer dragging.
+    dragState.current.active = false; // Mark the pointer press as finished.
     if (viewportRef.current !== null) { // Make sure the viewport still exists.
-      viewportRef.current.classList.remove("timeline-viewport-dragging"); // Restore the normal grab cursor.
+      viewportRef.current.classList.remove("timeline-viewport-dragging"); // Restore the normal cursor after dragging.
     } // Finish checking the viewport reference.
   } // Finish the drag-stop helper.
+
+  // Stop a game-card click from navigating when the same pointer press was used to drag.
+  function handleClickCapture(event) { // Receive click events before child game cards handle them.
+    if (dragState.current.moved === true) { // Check whether the pointer press moved the canvas.
+      event.preventDefault(); // Cancel the normal click action after a drag.
+      event.stopPropagation(); // Keep the game card from navigating after a drag.
+      dragState.current.moved = false; // Reset the movement flag after the drag click is cancelled.
+    } // Finish checking whether the click followed a drag.
+  } // Finish the click-capture handler.
 
   return ( // Return the complete draggable timeline interface.
     <section className="timeline-section"> {/* Group the timeline heading and canvas together. */}
       <div className="timeline-toolbar"> {/* Display timeline instructions and the recenter control. */}
         <div> {/* Group the timeline heading and description. */}
           <h2>Gaming Timeline</h2> {/* Name the interactive timeline. */}
-          <p>Drag empty space left, right, up, or down to explore my gaming history.</p> {/* Explain the two-dimensional interaction. */}
+          <p>Hold and drag anywhere in the canvas, including game covers, to explore my gaming history.</p> {/* Explain that the complete canvas can be dragged. */}
         </div> {/* Finish the timeline heading group. */}
         <button type="button" className="recenter-button" onClick={recenterTimeline}>Recenter Timeline</button> {/* Let visitors return to the starting view. */}
       </div> {/* Finish the timeline toolbar. */}
-      <div ref={viewportRef} className="timeline-viewport" onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging}> {/* Create the scrollable window into the larger canvas. */}
+      <div ref={viewportRef} className="timeline-viewport" onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging} onClickCapture={handleClickCapture}> {/* Create the draggable window into the larger canvas. */}
         <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
           <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
           {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */

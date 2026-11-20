@@ -283,6 +283,20 @@
   background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
 }
 
+/* Size the shell and canvas for the farthest zoomed-out view. */
+.timeline-zoom-50 {
+  /* Match the scroll area to fifty percent of the canvas width. */
+  width: 1800px;
+  /* Match the scroll area to fifty percent of the canvas height. */
+  height: 1050px;
+}
+
+/* Scale the canvas to fifty percent. */
+.timeline-zoom-50 .timeline-canvas {
+  /* Shrink the complete timeline enough to see much more at once. */
+  transform: scale(0.5);
+}
+
 /* Size the shell and canvas for the far zoomed-out view. */
 .timeline-zoom-70 {
   /* Match the scroll area to seventy percent of the canvas width. */

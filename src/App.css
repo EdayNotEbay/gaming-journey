@@ -2,7 +2,7 @@
 .website {
   /* Arrange the header, content, and footer vertically. */
   display: flex;
-  /* Stack the website sections. */
+  /* Stack the main website sections. */
   flex-direction: column;
   /* Fill the browser height. */
   min-height: 100vh;
@@ -10,109 +10,490 @@
 
 /* Style the shared website header. */
 .site-header {
-  /* Place the title beside the navigation when space allows. */
+  /* Place the title beside the navigation. */
   display: flex;
-  /* Allow navigation to wrap on smaller screens. */
+  /* Allow the header to wrap on smaller screens. */
   flex-wrap: wrap;
-  /* Align the title and navigation vertically. */
+  /* Align header items vertically. */
   align-items: center;
-  /* Space the title and navigation apart. */
+  /* Separate the title and navigation. */
   justify-content: space-between;
-  /* Separate the title from navigation links. */
-  gap: 24px;
+  /* Add space between wrapped items. */
+  gap: 20px;
   /* Add room around the header. */
-  padding: 24px 8%;
-  /* Keep the royal blue accent. */
-  border-bottom: 2px solid royalblue;
+  padding: 18px 5%;
+  /* Use a darker navy header background. */
+  background-color: #061229;
+  /* Add the royal-blue divider. */
+  border-bottom: 2px solid #1f6fff;
 }
 
 /* Style the website title. */
 .site-header h1 {
   /* Remove the default heading margin. */
   margin: 0;
-  /* Keep the website title readable. */
-  font-size: 26px;
+  /* Keep the title prominent without being oversized. */
+  font-size: 24px;
 }
 
-/* Style the link behind the website title. */
+/* Style the website title link. */
 .brand-link {
-  /* Keep the title white. */
+  /* Keep the title bright. */
   color: #ffffff;
-  /* Remove the underline. */
+  /* Remove the default link underline. */
   text-decoration: none;
 }
 
-/* Arrange navigation links neatly. */
+/* Arrange navigation links in one flexible row. */
 .site-nav {
-  /* Display links beside one another. */
+  /* Display the links beside one another. */
   display: flex;
-  /* Wrap links on narrow screens. */
+  /* Allow navigation to wrap when needed. */
   flex-wrap: wrap;
-  /* Keep some space between links. */
-  gap: 10px;
+  /* Add space between navigation links. */
+  gap: 8px;
 }
 
 /* Style each navigation link. */
 .nav-link {
   /* Add room inside each link. */
-  padding: 10px 12px;
+  padding: 9px 11px;
   /* Round the link corners. */
   border-radius: 8px;
-  /* Use light text. */
-  color: #d4def6;
-  /* Remove link underlines. */
+  /* Use soft blue text. */
+  color: #cbd8f5;
+  /* Remove the default link underline. */
   text-decoration: none;
 }
 
 /* Highlight hovered and selected navigation links. */
 .nav-link:hover,
 .nav-link.active {
-  /* Make the selected page obvious. */
-  background-color: #4169e1;
-  /* Use high-contrast text. */
+  /* Use royal blue for active navigation. */
+  background-color: #1f6fff;
+  /* Use white text for contrast. */
   color: #ffffff;
 }
 
-/* Style the introduction on each page. */
-.hero {
-  /* Fill the available space above the footer. */
+/* Style the main content area shared by pages. */
+.page-content {
+  /* Let the main page fill the available space. */
   flex: 1;
-  /* Keep text from spreading too wide. */
+  /* Use the full available width. */
   width: 100%;
-  /* Set a readable content width. */
-  max-width: 960px;
-  /* Center the content area. */
+}
+
+/* Style the home-page introduction. */
+.timeline-hero {
+  /* Limit the text width for readability. */
+  max-width: 1200px;
+  /* Center the introduction. */
   margin: 0 auto;
-  /* Add room around the introduction. */
+  /* Add space around the introduction. */
+  padding: 58px 5% 30px;
+}
+
+/* Style the small heading above the main title. */
+.eyebrow {
+  /* Add space between letters for the modern look. */
+  letter-spacing: 6px;
+  /* Use bright royal blue. */
+  color: #2e8cff;
+  /* Make the label bold. */
+  font-weight: 700;
+  /* Capitalize the label. */
+  text-transform: uppercase;
+}
+
+/* Style the main timeline-page title. */
+.timeline-hero h2 {
+  /* Remove extra heading space. */
+  margin: 8px 0 12px;
+  /* Make the title large and responsive. */
+  font-size: clamp(38px, 6vw, 68px);
+  /* Keep the title white. */
+  color: #ffffff;
+}
+
+/* Style the timeline introduction text. */
+.timeline-hero p:last-child {
+  /* Remove unnecessary bottom margin. */
+  margin-bottom: 0;
+  /* Use softer text for the description. */
+  color: #b9c9e8;
+  /* Make the introduction comfortable to read. */
+  font-size: 18px;
+}
+
+/* Wrap the interactive timeline section. */
+.timeline-section {
+  /* Keep the timeline centered. */
+  width: min(94%, 1500px);
+  /* Center the timeline section. */
+  margin: 0 auto 50px;
+  /* Add a bright royal-blue outline. */
+  border: 1px solid #1f6fff;
+  /* Round the timeline section corners. */
+  border-radius: 18px;
+  /* Use a deep navy section background. */
+  background-color: #06152f;
+  /* Hide decorative overflow outside the rounded border. */
+  overflow: hidden;
+}
+
+/* Arrange the timeline title and recenter button. */
+.timeline-toolbar {
+  /* Put the title and button on one row. */
+  display: flex;
+  /* Allow the toolbar to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Align the toolbar items vertically. */
+  align-items: center;
+  /* Separate the title and control. */
+  justify-content: space-between;
+  /* Add space between wrapped toolbar items. */
+  gap: 16px;
+  /* Add room inside the toolbar. */
+  padding: 18px 22px;
+  /* Separate the toolbar from the canvas. */
+  border-bottom: 1px solid #244f94;
+}
+
+/* Style the timeline toolbar heading. */
+.timeline-toolbar h2 {
+  /* Remove the default heading margin. */
+  margin: 0 0 4px;
+  /* Keep the heading white. */
+  color: #ffffff;
+}
+
+/* Style the timeline toolbar description. */
+.timeline-toolbar p {
+  /* Remove the default paragraph margin. */
+  margin: 0;
+  /* Use subdued blue text. */
+  color: #a9badb;
+}
+
+/* Style the timeline recenter button. */
+.recenter-button {
+  /* Add room inside the button. */
+  padding: 10px 14px;
+  /* Use a transparent dark background. */
+  background-color: #0b234d;
+  /* Add a royal-blue border. */
+  border: 1px solid #2e8cff;
+  /* Round the button corners. */
+  border-radius: 8px;
+  /* Use white button text. */
+  color: #ffffff;
+  /* Show that the button can be clicked. */
+  cursor: pointer;
+}
+
+/* Style the visible window into the large timeline canvas. */
+.timeline-viewport {
+  /* Give visitors a useful amount of visible workspace. */
+  height: 680px;
+  /* Allow scrolling in both directions. */
+  overflow: auto;
+  /* Show the open-hand cursor over draggable space. */
+  cursor: grab;
+  /* Use a darker canvas background. */
+  background-color: #041027;
+  /* Prevent text selection while dragging the workspace. */
+  user-select: none;
+  /* Keep touch gestures inside the timeline interaction. */
+  touch-action: none;
+  /* Hide Firefox scrollbars while preserving scrolling. */
+  scrollbar-width: none;
+}
+
+/* Hide Chromium and Safari scrollbars while preserving canvas movement. */
+.timeline-viewport::-webkit-scrollbar {
+  /* Remove the visible scrollbar size. */
+  display: none;
+}
+
+/* Show an active dragging cursor. */
+.timeline-viewport-dragging {
+  /* Use the closed-hand cursor while dragging. */
+  cursor: grabbing;
+}
+
+/* Create the large bounded two-dimensional workspace. */
+.timeline-canvas {
+  /* Keep platform groups positioned relative to this canvas. */
+  position: relative;
+  /* Make the workspace much wider than the viewport. */
+  width: 2400px;
+  /* Make the workspace tall enough for stacked platform rows. */
+  height: 1300px;
+  /* Add a subtle royal-blue canvas gradient. */
+  background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
+}
+
+/* Draw the main horizontal timeline through the canvas. */
+.timeline-main-line {
+  /* Position the line independently inside the canvas. */
+  position: absolute;
+  /* Place the line through the center of the workspace. */
+  top: 620px;
+  /* Leave room at the start of the canvas. */
+  left: 140px;
+  /* Stretch the line across the timeline. */
+  width: 2100px;
+  /* Give the line a visible thickness. */
+  height: 4px;
+  /* Use the main royal-blue accent. */
+  background-color: #1f6fff;
+  /* Round the ends of the timeline. */
+  border-radius: 999px;
+}
+
+/* Style every platform collection. */
+.platform-group {
+  /* Position each platform independently on the large canvas. */
+  position: absolute;
+  /* Add room around its game cards. */
+  padding: 16px;
+  /* Use a dark translucent panel. */
+  background-color: #071a38;
+  /* Add a blue platform outline. */
+  border: 1px solid #2e8cff;
+  /* Round the platform panel corners. */
+  border-radius: 16px;
+}
+
+/* Style each platform title. */
+.platform-title {
+  /* Remove the default top margin. */
+  margin: 0 0 14px;
+  /* Keep platform names white. */
+  color: #ffffff;
+  /* Make platform names easy to scan. */
+  font-size: 22px;
+}
+
+/* Arrange game covers in equal-width columns. */
+.game-grid {
+  /* Use CSS Grid for consistent cover placement. */
+  display: grid;
+  /* Keep every cover column the exact same width. */
+  grid-template-columns: repeat(4, 150px);
+  /* Add even space between cover cards. */
+  gap: 14px;
+}
+
+/* Style the complete clickable game card. */
+.game-card {
+  /* Stack the cover, name, and genre vertically. */
+  display: flex;
+  /* Place card content in a column. */
+  flex-direction: column;
+  /* Align text to the left. */
+  align-items: flex-start;
+  /* Give every card the exact same width. */
+  width: 150px;
+  /* Remove unnecessary internal button padding. */
+  padding: 0;
+  /* Use a transparent card background. */
+  background-color: transparent;
+  /* Remove the default button border. */
+  border: 0;
+  /* Use inherited website text color. */
+  color: inherit;
+  /* Align card text to the left. */
+  text-align: left;
+  /* Show that the card can be clicked. */
+  cursor: pointer;
+}
+
+/* Style every game cover with the same vertical dimensions. */
+.game-cover {
+  /* Give every game cover the exact same width. */
+  width: 150px;
+  /* Give every game cover the exact same height. */
+  height: 210px;
+  /* Crop real artwork without changing the card dimensions. */
+  object-fit: cover;
+  /* Round the cover corners. */
+  border-radius: 10px;
+  /* Add a subtle blue outline. */
+  border: 1px solid #3768aa;
+}
+
+/* Style temporary covers until real artwork is added. */
+.game-cover-placeholder {
+  /* Center the temporary game title. */
+  display: flex;
+  /* Center placeholder text vertically. */
+  align-items: center;
+  /* Center placeholder text horizontally. */
+  justify-content: center;
+  /* Add padding inside the placeholder. */
+  padding: 12px;
+  /* Use a dark royal-blue placeholder background. */
+  background: linear-gradient(160deg, #183f82, #07152f);
+  /* Center the placeholder title. */
+  text-align: center;
+  /* Keep long titles readable. */
+  line-height: 1.3;
+}
+
+/* Style the game title below each cover. */
+.game-card-name {
+  /* Add space above the title. */
+  margin-top: 8px;
+  /* Keep game titles white. */
+  color: #ffffff;
+  /* Make titles slightly bolder. */
+  font-weight: 700;
+  /* Keep title text compact. */
+  font-size: 14px;
+}
+
+/* Style the genre label below each game. */
+.game-card-genre {
+  /* Add a small space above the genre. */
+  margin-top: 4px;
+  /* Use lighter blue genre text. */
+  color: #8fb9ff;
+  /* Keep genre text compact. */
+  font-size: 12px;
+}
+
+/* Position the PS2 group above the timeline. */
+.platform-ps2 {
+  /* Place PS2 near the beginning of the canvas. */
+  left: 170px;
+  /* Place PS2 above the main line. */
+  top: 315px;
+}
+
+/* Position the PS3 group above the timeline. */
+.platform-ps3 {
+  /* Place PS3 after PS2. */
+  left: 390px;
+  /* Place PS3 above the main line. */
+  top: 315px;
+}
+
+/* Position the large Xbox 360 group above the timeline. */
+.platform-xbox-360 {
+  /* Place Xbox 360 near the center of the upper canvas. */
+  left: 760px;
+  /* Move the larger group upward so stacked rows fit. */
+  top: 70px;
+}
+
+/* Position the Wii group below the timeline. */
+.platform-wii {
+  /* Place Wii below the early timeline. */
+  left: 210px;
+  /* Place Wii below the main line. */
+  top: 700px;
+}
+
+/* Position the Wii U group below the timeline. */
+.platform-wii-u {
+  /* Place Wii U after Wii. */
+  left: 570px;
+  /* Place Wii U below the main line. */
+  top: 700px;
+}
+
+/* Position the Xbox One group below the timeline. */
+.platform-xbox-one {
+  /* Place Xbox One near the center lower canvas. */
+  left: 930px;
+  /* Place Xbox One below the main line. */
+  top: 700px;
+}
+
+/* Position the Oculus Quest 2 group below the timeline. */
+.platform-quest-2 {
+  /* Place Quest 2 after Xbox One. */
+  left: 1660px;
+  /* Place Quest 2 below the main line. */
+  top: 700px;
+}
+
+/* Position the larger PC group lower and farther right. */
+.platform-pc {
+  /* Place PC toward the end of the canvas. */
+  left: 1650px;
+  /* Move PC upward enough to keep the lower rows accessible. */
+  top: 930px;
+}
+
+/* Give small platform groups fewer columns than large libraries. */
+.platform-ps2 .game-grid,
+.platform-ps3 .game-grid,
+.platform-wii .game-grid,
+.platform-wii-u .game-grid,
+.platform-quest-2 .game-grid {
+  /* Use two columns for smaller game collections. */
+  grid-template-columns: repeat(2, 150px);
+}
+
+/* Keep the single PS2 game group compact. */
+.platform-ps2 .game-grid {
+  /* Use one column for the single PS2 game. */
+  grid-template-columns: 150px;
+}
+
+/* Style unfinished content pages. */
+.simple-page {
+  /* Limit the text width. */
+  max-width: 960px;
+  /* Center the page content. */
+  margin: 0 auto;
+  /* Add comfortable page spacing. */
   padding: 100px 24px;
-  /* Center the page text. */
+  /* Center placeholder page text. */
   text-align: center;
 }
 
-/* Style the page heading. */
-.hero h2 {
-  /* Use a royal blue heading color. */
-  color: #6495ed;
-  /* Make the heading prominent. */
+/* Style placeholder page headings. */
+.simple-page h2 {
+  /* Use the royal-blue heading color. */
+  color: #6ea7ff;
+  /* Make page headings prominent. */
   font-size: 48px;
 }
 
-/* Style the page description. */
-.hero p {
-  /* Use softer text for the description. */
+/* Style placeholder page descriptions. */
+.simple-page p {
+  /* Use softer description text. */
   color: #bfc9df;
-  /* Make the description readable. */
+  /* Keep descriptions readable. */
   font-size: 18px;
 }
 
 /* Keep the footer consistent on every page. */
 .site-footer {
   /* Add space around the footer. */
-  padding: 18px 8%;
-  /* Separate it from the page content. */
+  padding: 18px 5%;
+  /* Separate the footer from page content. */
   border-top: 1px solid #274477;
   /* Use subdued footer text. */
   color: #bfc9df;
-  /* Center its label. */
+  /* Center the footer text. */
   text-align: center;
+}
+
+/* Adjust the site for smaller screens. */
+@media (max-width: 800px) {
+  /* Stack the header content more naturally on narrow screens. */
+  .site-header {
+    /* Align wrapped header content to the left. */
+    align-items: flex-start;
+  }
+
+  /* Reduce the timeline viewport height on smaller screens. */
+  .timeline-viewport {
+    /* Keep enough canvas visible without taking over the full page. */
+    height: 560px;
+  }
 }

@@ -8,13 +8,8 @@ function GameCard({ game }) { // Receive one game object from a platform group.
   let coverContent = <div className="game-cover game-cover-placeholder">{game.name}</div>; // Create a vertical placeholder until a real cover image is added.
 
   if (game.cover !== "") { // Check whether this game already has a cover image path.
-    coverContent = <img className="game-cover" src={game.cover} alt={game.name + " cover"} draggable="false" />; // Display the real game cover without native image dragging.
+    coverContent = <img className="game-cover" src={game.cover} alt={game.name + " cover"} draggable="false" />; // Display the real game cover without native browser image dragging.
   } // Finish checking for a cover image.
-
-  // Keep pointer dragging on a game card from moving the timeline canvas.
-  function handlePointerDown(event) { // Receive the pointer-down event from this game card.
-    event.stopPropagation(); // Stop the pointer event before it reaches the draggable timeline viewport.
-  } // Finish the game-card pointer handler.
 
   // Open the matching genre after a normal click.
   function handleClick() { // Handle a single game-card click.
@@ -32,7 +27,7 @@ function GameCard({ game }) { // Receive one game object from a platform group.
   } // Finish the double-click handler.
 
   return ( // Return the complete game card.
-    <button className="game-card" type="button" onPointerDown={handlePointerDown} onClick={handleClick} onDoubleClick={handleDoubleClick}> {/* Keep the card clickable without allowing canvas dragging to start on it. */}
+    <button className="game-card" type="button" onClick={handleClick} onDoubleClick={handleDoubleClick}> {/* Keep the card clickable while allowing pointer events to bubble to the draggable canvas. */}
       {coverContent} {/* Display the vertical game cover or placeholder. */}
       <span className="game-card-name">{game.name}</span> {/* Display the game title below the cover. */}
       <span className="game-card-genre">{game.genre}</span> {/* Display the game genre below the title. */}

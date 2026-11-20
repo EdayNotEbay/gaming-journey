@@ -150,58 +150,64 @@ The completed website must include:
 
 The topic-approval document cited Proquestinations (https://proquestinations.com/) and Solo Play Guide (https://www.soloplayguide.com/) as similar websites. They are references, not sources of the creator's personal game list.
 
-## 6. Current GitHub project status (verified 2026-11-18)
+## 6. Current GitHub project status (verified 2026-11-20)
 
 - Repository: `EdayNotEbay/gaming-journey`
 - Default branch: `main`
-- Latest commit at the time of writing: `696b255` — “Add navigation and routes for seven gaming pages.”
-- Earlier commits: `3596ada` initial Vite setup; `79db13e` homepage foundation.
-- Existing files include `index.html`, `src/main.jsx`, `src/App.jsx`, `src/App.css`, `src/index.css`, `src/pages.js`, `package.json`, and Vite/ESLint configuration.
-- The existing `src/pages.js` centralizes the approved routes, titles, and brief descriptions.
-- The existing `src/App.jsx` uses `BrowserRouter`, `NavLink`, `Routes`, and a simple `PageContent` placeholder for the seven route views, plus a shared header/footer.
-- `src/App.css` and `src/index.css` provide the dark navy/royal blue foundation.
+- `src/App.jsx` now focuses on shared layout and explicit routes for the seven approved pages.
+- `src/components/` now contains `Navbar.jsx`, `GameCard.jsx`, `PlatformGroup.jsx`, and `TimelineCanvas.jsx`.
+- `src/pages/` now contains one React page component for each approved page.
+- `src/data/games.js` now centralizes the confirmed game list and platform assignments.
+- `src/assets/game-covers/` now exists for locally stored cover images.
+- The old `src/pages.js` configuration file was removed because real page components now own page content.
+- The Gaming Timeline now has the first working 2D canvas implementation with mouse drag movement in both directions, a Recenter control, platform grouping, and vertically shaped equal-size game cards.
+- Larger platform collections use wrapped rows so they grow vertically instead of stretching indefinitely sideways.
+- Game cards currently navigate to Genres on normal click and support Favorite Games navigation on double-click when `isFavorite` is set to `true`.
+- Real game cover files, confirmed favorite values, timeline dates, finished platform connectors, and final page content are still unfinished.
+- Game covers currently fall back to styled vertical title placeholders until real images are added.
+- Game Rankings still needs its real table, Recommend Me a Game still needs its real form and server-side email processing, and the remaining content pages still need substantive content.
 - React Router is already installed. Do not reinstall or change routing libraries without a real reason.
-- **Not implemented yet:** actual timeline and platform/game cards, real page-specific content, game dataset, favorite interactions, populated rankings table, functional form, form backend/email processing, full accessibility testing, deployment, and documentation of completed milestone deliverables.
 - **Not deployed yet:** Cloudflare deployment is planned, not complete. No Cloudflare production URL is confirmed.
 
 Read the current repository state before changing anything. This status section is a snapshot and may become outdated as the site develops.
 
-## 7. Suggested architecture (extend existing files, don't overengineer)
+## 7. Current architecture
 
-Preserve the current Vite React application and expand it only as needed.
+Preserve the current Vite React application and keep new responsibilities in the existing folders.
 
 ```text
 gaming-journey/
   .github/
-    copilot-instructions.md       (this file)
+    Instructions.md
   public/
-    ...                           (public game images and icons)
   src/
-    components/                   (add as needed for reusable UI)
-      Navbar.jsx                  (optional: extract existing header)
-      GameCard.jsx                (when game cards are implemented)
-      GamingTimeline.jsx          (when the timeline is implemented)
-    pages/                        (add as real page views are built)
-      Home.jsx
-      Genres.jsx
-      FavoriteGenres.jsx
-      FavoriteGames.jsx
-      MyJourney.jsx
-      GameRankings.jsx
-      RecommendGame.jsx
+    assets/
+      game-covers/
+    components/
+      Navbar.jsx
+      GameCard.jsx
+      PlatformGroup.jsx
+      TimelineCanvas.jsx
+    pages/
+      TimelinePage.jsx
+      GenresPage.jsx
+      FavoriteGenresPage.jsx
+      FavoriteGamesPage.jsx
+      GamingJourneyPage.jsx
+      GameRankingsPage.jsx
+      RecommendGamePage.jsx
     data/
-      games.js                    (central verified game data)
-    App.jsx                       (routes and shared layout)
-    App.css                       (shared site styling)
-    index.css                     (global styling)
-    main.jsx                      (React entry point)
-    pages.js                      (approved page labels and routes)
+      games.js
+    App.jsx
+    App.css
+    index.css
+    main.jsx
   index.html
   package.json
   vite.config.js
 ```
 
-This is a **future organization suggestion**, not a claim that every listed file already exists. Start with fewer files when possible and refactor only when it improves clarity. Reuse components rather than duplicating page headers, footers, or game-card UI.
+Keep `App.jsx` focused on routing and shared structure. Keep timeline dragging in `TimelineCanvas.jsx`, platform layout in `PlatformGroup.jsx`, individual game rendering in `GameCard.jsx`, and personal game information in `games.js`.
 
 Possible data fields for games: stable id, title, platform, genre, favorite status, cover path, timeline order, optional personal rating, and optional short personal story. Use only verified data. Avoid duplicating the game list across components.
 

@@ -489,24 +489,24 @@
 .platform-ps2 {
   /* Place PS2 near the beginning of the canvas. */
   left: 170px;
-  /* Place PS2 above the main line. */
-  top: 650px;
+  /* Keep the bottom of PS2 a fixed distance above the timeline. */
+  bottom: 1180px;
 }
 
 /* Position the PS3 group above the timeline. */
 .platform-ps3 {
   /* Leave a larger horizontal gap after PS2. */
   left: 470px;
-  /* Place PS3 above the main line. */
-  top: 650px;
+  /* Keep the bottom of PS3 a fixed distance above the timeline. */
+  bottom: 1180px;
 }
 
 /* Position the large Xbox 360 group above the timeline. */
 .platform-xbox-360 {
   /* Leave clear horizontal space between PS3 and Xbox 360. */
   left: 980px;
-  /* Move the large group upward so its stacked rows stay above the timeline. */
-  top: 120px;
+  /* Let the larger group grow upward while its bottom stays clear of the timeline. */
+  bottom: 1160px;
 }
 
 /* Position the Wii group below the timeline. */
@@ -646,8 +646,8 @@
 
 /* Give the tall Xbox 360 group its own connector length. */
 .platform-xbox-360 .platform-connector {
-  /* Reach from the group to the timeline line. */
-  height: 105px;
+  /* Reach from the fixed bottom edge of the group to the timeline line. */
+  height: 100px;
 }
 
 /* Draw connectors upward from lower platform groups to the main timeline. */

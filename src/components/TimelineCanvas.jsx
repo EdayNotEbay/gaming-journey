@@ -68,6 +68,67 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     } // Finish checking the viewport reference.
   }, []); // Keep the setup effect from repeating.
 
+  // Use native browser listeners so the wheel and Space key cannot trigger normal scrolling or button activation.
+  useEffect(function () { // Attach browser-level interaction controls while the timeline page is mounted.
+    const viewport = viewportRef.current; // Store the timeline viewport for the native wheel listener.
+    if (viewport === null) { // Make sure the viewport exists before attaching listeners.
+      return undefined; // Stop setup when the viewport is unavailable.
+    } // Finish checking the viewport reference.
+
+    // Zoom around the exact mouse position and fully consume the wheel event.
+    function handleNativeWheel(event) { // Receive the browser wheel event directly.
+      event.preventDefault(); // Stop native vertical or horizontal scrolling inside the timeline.
+      let nextIndex = zoomIndexRef.current; // Start with the currently active zoom level.
+      if (event.deltaY < 0) { // Check whether the wheel moved upward.
+        nextIndex = nextIndex + 1; // Move one level closer to the canvas.
+      } // Finish checking upward wheel movement.
+      if (event.deltaY > 0) { // Check whether the wheel moved downward.
+        nextIndex = nextIndex - 1; // Move one level farther from the canvas.
+      } // Finish checking downward wheel movement.
+      if (event.deltaY === 0) { // Check whether the wheel event contains no vertical zoom movement.
+        return; // Stop when there is no zoom direction.
+      } // Finish checking for zero wheel movement.
+      if (nextIndex < 0) { // Check whether the requested zoom is below fifty percent.
+        return; // Keep the current zoom and keep native scrolling disabled.
+      } // Finish checking the minimum zoom.
+      if (nextIndex >= zoomClasses.length) { // Check whether the requested zoom is above one hundred thirty percent.
+        return; // Keep the current zoom and keep native scrolling disabled.
+      } // Finish checking the maximum zoom.
+      const bounds = viewport.getBoundingClientRect(); // Read the visible viewport position on the screen.
+      const viewportX = event.clientX - bounds.left; // Find the mouse's horizontal position inside the viewport.
+      const viewportY = event.clientY - bounds.top; // Find the mouse's vertical position inside the viewport.
+      const currentScale = zoomScales[zoomIndexRef.current]; // Read the scale before changing zoom.
+      const canvasX = (viewport.scrollLeft + viewportX) / currentScale; // Find the unscaled canvas X coordinate under the mouse.
+      const canvasY = (viewport.scrollTop + viewportY) / currentScale; // Find the unscaled canvas Y coordinate under the mouse.
+      pendingZoomRef.current = { canvasX: canvasX, canvasY: canvasY, viewportX: viewportX, viewportY: viewportY }; // Save the point that should stay under the mouse.
+      zoomIndexRef.current = nextIndex; // Update the immediate zoom reference for the next wheel event.
+      setZoomIndex(nextIndex); // Apply the new zoom level through React.
+    } // Finish the native wheel handler.
+
+    // Block Space so it cannot scroll the page, scroll the canvas, or activate a focused button.
+    function blockSpacebar(event) { // Receive keyboard events before focused controls handle them.
+      if (event.code !== "Space") { // Check whether the pressed key is something other than Space.
+        return; // Leave every non-Space key alone.
+      } // Finish checking the pressed key.
+      event.preventDefault(); // Stop the browser's normal Space-key action.
+      event.stopPropagation(); // Stop Space from reaching game cards or other timeline controls.
+      const activeElement = document.activeElement; // Read the element that currently has keyboard focus.
+      if (activeElement !== null && activeElement.classList.contains("game-card")) { // Check whether a game card currently has focus.
+        activeElement.blur(); // Remove game-card focus so no keyboard focus border remains after Space.
+      } // Finish checking the focused element.
+    } // Finish the Space-key blocker.
+
+    viewport.addEventListener("wheel", handleNativeWheel, { passive: false }); // Attach a non-passive wheel listener so preventDefault always works.
+    window.addEventListener("keydown", blockSpacebar, true); // Block Space before a focused control receives keydown.
+    window.addEventListener("keyup", blockSpacebar, true); // Block Space before a focused control receives keyup.
+
+    return function () { // Remove the browser listeners when the timeline page unmounts.
+      viewport.removeEventListener("wheel", handleNativeWheel); // Remove the native wheel listener.
+      window.removeEventListener("keydown", blockSpacebar, true); // Remove the Space keydown blocker.
+      window.removeEventListener("keyup", blockSpacebar, true); // Remove the Space keyup blocker.
+    }; // Finish the cleanup function.
+  }, []); // Attach these native listeners only once.
+
   // Restore the point under the mouse after React applies a new zoom level.
   useEffect(function () { // Run whenever the zoom level changes.
     if (pendingZoomRef.current === null) { // Check whether this zoom change needs pointer-centered repositioning.
@@ -76,10 +137,15 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     if (viewportRef.current === null) { // Make sure the timeline viewport still exists.
       return; // Stop when the viewport is unavailable.
     } // Finish checking the viewport reference.
+    const viewport = viewportRef.current; // Store the viewport for the zoom positioning calculations.
     const savedPoint = pendingZoomRef.current; // Read the saved canvas and viewport coordinates.
     const newScale = zoomScales[zoomIndex]; // Read the numeric scale for the new zoom level.
-    viewportRef.current.scrollLeft = savedPoint.canvasX * newScale - savedPoint.viewportX; // Keep the same horizontal canvas point under the mouse.
-    viewportRef.current.scrollTop = savedPoint.canvasY * newScale - savedPoint.viewportY; // Keep the same vertical canvas point under the mouse.
+    const targetScrollLeft = savedPoint.canvasX * newScale - savedPoint.viewportX; // Calculate the horizontal position that keeps the mouse over the same canvas point.
+    const targetScrollTop = savedPoint.canvasY * newScale - savedPoint.viewportY; // Calculate the vertical position that keeps the mouse over the same canvas point.
+    const maximumScrollLeft = Math.max(0, viewport.scrollWidth - viewport.clientWidth); // Calculate the farthest legal horizontal scroll position.
+    const maximumScrollTop = Math.max(0, viewport.scrollHeight - viewport.clientHeight); // Calculate the farthest legal vertical scroll position.
+    viewport.scrollLeft = Math.min(maximumScrollLeft, Math.max(0, targetScrollLeft)); // Clamp horizontal zoom scrolling inside the canvas bounds.
+    viewport.scrollTop = Math.min(maximumScrollTop, Math.max(0, targetScrollTop)); // Clamp vertical zoom scrolling inside the canvas bounds.
     pendingZoomRef.current = null; // Clear the saved zoom focus after repositioning.
   }, [zoomIndex]); // Repeat this adjustment only when the zoom level changes.
 
@@ -93,18 +159,18 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
   } // Finish the recenter helper.
 
   // Save the canvas location under a specific point before changing zoom.
-  function saveZoomFocus(clientX, clientY) { // Receive the mouse position or viewport-center position.
+  function saveZoomFocus(clientX, clientY) { // Receive the viewport-center position used by zoom buttons.
     if (viewportRef.current === null) { // Make sure the timeline viewport exists.
       return; // Stop when the viewport is unavailable.
     } // Finish checking the viewport reference.
     const viewport = viewportRef.current; // Store the viewport element for shorter calculations.
     const bounds = viewport.getBoundingClientRect(); // Read the viewport position on the screen.
-    const viewportX = clientX - bounds.left; // Find the pointer's horizontal position inside the viewport.
-    const viewportY = clientY - bounds.top; // Find the pointer's vertical position inside the viewport.
+    const viewportX = clientX - bounds.left; // Find the focus point's horizontal position inside the viewport.
+    const viewportY = clientY - bounds.top; // Find the focus point's vertical position inside the viewport.
     const currentScale = zoomScales[zoomIndexRef.current]; // Read the numeric scale before the zoom changes.
-    const canvasX = (viewport.scrollLeft + viewportX) / currentScale; // Find the unscaled canvas X coordinate under the pointer.
-    const canvasY = (viewport.scrollTop + viewportY) / currentScale; // Find the unscaled canvas Y coordinate under the pointer.
-    pendingZoomRef.current = { canvasX: canvasX, canvasY: canvasY, viewportX: viewportX, viewportY: viewportY }; // Save the point that should stay under the mouse.
+    const canvasX = (viewport.scrollLeft + viewportX) / currentScale; // Find the unscaled canvas X coordinate under the focus point.
+    const canvasY = (viewport.scrollTop + viewportY) / currentScale; // Find the unscaled canvas Y coordinate under the focus point.
+    pendingZoomRef.current = { canvasX: canvasX, canvasY: canvasY, viewportX: viewportX, viewportY: viewportY }; // Save the point that should stay visually fixed.
   } // Finish saving the zoom focus.
 
   // Change to a specific zoom index while keeping a chosen screen point stable.
@@ -152,18 +218,6 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     changeZoom(zoomIndexRef.current - 1, center.x, center.y); // Move to the next smaller zoom while keeping the center stable.
   } // Finish the zoom-out helper.
 
-  // Use the mouse wheel to zoom around the exact point under the pointer.
-  function handleWheel(event) { // Receive the wheel event from the timeline viewport.
-    event.preventDefault(); // Keep the page itself from scrolling while the pointer is over the timeline.
-    if (event.deltaY < 0) { // Check whether the wheel moved upward.
-      changeZoom(zoomIndexRef.current + 1, event.clientX, event.clientY); // Zoom inward around the pointer position.
-      return; // Stop after handling the upward wheel movement.
-    } // Finish checking the upward wheel movement.
-    if (event.deltaY > 0) { // Check whether the wheel moved downward.
-      changeZoom(zoomIndexRef.current - 1, event.clientX, event.clientY); // Zoom outward around the pointer position.
-    } // Finish checking the downward wheel movement.
-  } // Finish the wheel zoom handler.
-
   // Start dragging from canvas space, platform groups, or game cards.
   function handlePointerDown(event) { // Receive the pointer-down event from anywhere inside the viewport.
     dragState.current.active = true; // Mark the canvas as ready to drag.
@@ -184,16 +238,13 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
     const movedY = event.clientY - dragState.current.startY; // Measure vertical pointer movement.
     const horizontalDistance = Math.abs(movedX); // Convert horizontal movement into a positive distance.
     const verticalDistance = Math.abs(movedY); // Convert vertical movement into a positive distance.
-
     if (horizontalDistance > 6 || verticalDistance > 6) { // Treat movement beyond a few pixels as a drag instead of a click.
       dragState.current.moved = true; // Remember that this pointer press became a drag.
       viewportRef.current.classList.add("timeline-viewport-dragging"); // Change the cursor while the canvas is moving.
     } // Finish checking the drag threshold.
-
     if (dragState.current.moved === false) { // Keep tiny pointer movement from shifting the canvas during a normal click.
       return; // Wait until the pointer has moved far enough to count as a drag.
     } // Finish checking whether the pointer has become a drag.
-
     viewportRef.current.scrollLeft = dragState.current.scrollLeft - movedX; // Pan left or right based on pointer movement.
     viewportRef.current.scrollTop = dragState.current.scrollTop - movedY; // Pan up or down based on pointer movement.
   } // Finish the pointer-move handler.
@@ -229,29 +280,13 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
           <button type="button" className="recenter-button" onClick={recenterTimeline}>Recenter Timeline</button> {/* Let visitors return to the starting view. */}
         </div> {/* Finish the timeline controls. */}
       </div> {/* Finish the timeline toolbar. */}
-      <div
-        ref={viewportRef}
-        className="timeline-viewport"
-        onWheel={handleWheel}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={stopDragging}
-        onPointerCancel={stopDragging}
-        onClickCapture={handleClickCapture}
-      > {/* Create the draggable and zoomable window into the larger canvas. */}
+      <div ref={viewportRef} className="timeline-viewport" onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={stopDragging} onPointerCancel={stopDragging} onClickCapture={handleClickCapture}> {/* Create the draggable and zoomable window into the larger canvas. */}
         <div className={"timeline-canvas-shell " + zoomClass}> {/* Resize the scrollable area to match the selected zoom level. */}
           <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
             <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
             {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
               const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
-              return (
-                <PlatformGroup
-                  key={layout.name}
-                  platform={layout.name}
-                  games={platformGames}
-                  className={layout.className}
-                />
-              ); // Display the current platform group.
+              return <PlatformGroup key={layout.name} platform={layout.name} games={platformGames} className={layout.className} />; // Display the current platform group.
             })} {/* Finish building all platform groups. */}
           </div> {/* Finish the large timeline canvas. */}
         </div> {/* Finish the zoom-sized scrollable canvas shell. */}

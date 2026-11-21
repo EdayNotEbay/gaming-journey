@@ -141,22 +141,118 @@
   overflow: hidden;
 }
 
-/* Arrange the timeline title and controls. */
+/* Arrange the timeline title, guide, and controls. */
 .timeline-toolbar {
-  /* Put the title and controls on one row. */
+  /* Stack the main heading row above the zoom controls. */
   display: flex;
-  /* Allow the toolbar to wrap on smaller screens. */
-  flex-wrap: wrap;
-  /* Align the toolbar items vertically. */
-  align-items: center;
-  /* Separate the title and controls. */
-  justify-content: space-between;
-  /* Add space between wrapped toolbar items. */
-  gap: 16px;
+  /* Place the toolbar sections vertically. */
+  flex-direction: column;
+  /* Add space between the toolbar rows. */
+  gap: 12px;
   /* Add room inside the toolbar. */
-  padding: 18px 22px;
+  padding: 16px 18px;
   /* Separate the toolbar from the canvas. */
   border-bottom: 1px solid #244f94;
+  /* Add a faint blue glow along the top edge. */
+  box-shadow: inset 0 3px 12px rgba(46, 140, 255, 0.18);
+}
+
+/* Keep the timeline identity and interaction guide on one flexible row. */
+.timeline-toolbar-main {
+  /* Place the heading and guide beside one another. */
+  display: flex;
+  /* Allow the row to wrap when the available width becomes smaller. */
+  flex-wrap: wrap;
+  /* Align both sections vertically. */
+  align-items: center;
+  /* Push the interaction guide toward the right side. */
+  justify-content: space-between;
+  /* Keep comfortable space between the two sections. */
+  gap: 18px;
+}
+
+/* Keep the game icon beside the timeline title and description. */
+.timeline-heading {
+  /* Place the icon and text beside one another. */
+  display: flex;
+  /* Align the icon with the title area. */
+  align-items: center;
+  /* Add space between the icon and title text. */
+  gap: 14px;
+  /* Let the heading use available room before the guide wraps. */
+  flex: 1;
+  /* Keep the heading from becoming too narrow. */
+  min-width: 320px;
+}
+
+/* Style the temporary gaming icon beside the timeline title. */
+.timeline-heading-icon {
+  /* Center the icon inside a small badge. */
+  display: inline-flex;
+  /* Center the icon vertically. */
+  align-items: center;
+  /* Center the icon horizontally. */
+  justify-content: center;
+  /* Give the icon badge a consistent width. */
+  width: 44px;
+  /* Give the icon badge a consistent height. */
+  height: 44px;
+  /* Keep the badge from shrinking. */
+  flex: 0 0 44px;
+  /* Add the bright cyan outline from the reference. */
+  border: 1px solid #0ecbff;
+  /* Round the icon badge corners. */
+  border-radius: 12px;
+  /* Use a dark blue badge background. */
+  background-color: #062454;
+  /* Make the icon large enough to read quickly. */
+  font-size: 22px;
+  /* Add a subtle cyan glow around the badge. */
+  box-shadow: 0 0 12px rgba(14, 203, 255, 0.35);
+}
+
+/* Style the timeline interaction guide like a compact control panel. */
+.timeline-interaction-guide {
+  /* Place each instruction beside the next one. */
+  display: flex;
+  /* Allow the instructions to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Keep the instructions vertically centered. */
+  align-items: center;
+  /* Use the dark blue panel background from the reference. */
+  background: linear-gradient(180deg, #0b2b5b, #071b3d);
+  /* Add a bright blue outline. */
+  border: 1px solid #1f6fff;
+  /* Round the interaction guide corners. */
+  border-radius: 10px;
+  /* Add a subtle blue glow. */
+  box-shadow: 0 0 12px rgba(31, 111, 255, 0.25);
+  /* Keep overflowing content inside the rounded panel. */
+  overflow: hidden;
+}
+
+/* Style each instruction inside the interaction guide. */
+.interaction-guide-item {
+  /* Keep the icon and text on one row. */
+  display: inline-flex;
+  /* Align the instruction contents vertically. */
+  align-items: center;
+  /* Add space between the icon and instruction text. */
+  gap: 7px;
+  /* Add compact padding around each instruction. */
+  padding: 10px 14px;
+  /* Use light blue text for the interaction help. */
+  color: #d8e6ff;
+  /* Keep the instruction text compact. */
+  font-size: 13px;
+  /* Keep each instruction from breaking across multiple lines. */
+  white-space: nowrap;
+}
+
+/* Separate interaction instructions with a thin divider. */
+.interaction-guide-item + .interaction-guide-item {
+  /* Add the vertical divider between instructions. */
+  border-left: 1px solid #29548f;
 }
 
 /* Style the timeline toolbar heading. */
@@ -183,6 +279,8 @@
   align-items: center;
   /* Add space between the controls. */
   gap: 8px;
+  /* Keep the controls aligned to the right side of the toolbar. */
+  align-self: flex-end;
 }
 
 /* Style the timeline zoom buttons. */
@@ -231,6 +329,48 @@
   color: #ffffff;
   /* Show that the button can be clicked. */
   cursor: pointer;
+}
+
+/* Position the favorite legend over the canvas. */
+.timeline-viewport-wrapper {
+  /* Create the positioning context for the favorite legend. */
+  position: relative;
+}
+
+/* Explain the purple glow used on favorite game covers. */
+.favorite-legend {
+  /* Place the legend over the upper-left corner of the canvas. */
+  position: absolute;
+  /* Leave a small gap from the canvas left edge. */
+  left: 14px;
+  /* Leave a small gap from the canvas top edge. */
+  top: 14px;
+  /* Keep the legend above the draggable timeline content. */
+  z-index: 10;
+  /* Keep the star and text on one row. */
+  display: inline-flex;
+  /* Align the legend contents vertically. */
+  align-items: center;
+  /* Add a small gap between the star and explanation. */
+  gap: 7px;
+  /* Add compact padding around the legend. */
+  padding: 7px 11px;
+  /* Use a dark purple-blue background. */
+  background-color: rgba(28, 12, 54, 0.94);
+  /* Add the bright purple outline used by favorite cards. */
+  border: 1px solid #a855f7;
+  /* Round the legend corners. */
+  border-radius: 8px;
+  /* Use pale purple text. */
+  color: #e9d5ff;
+  /* Keep the legend text compact. */
+  font-size: 12px;
+  /* Make the legend explanation easy to notice. */
+  font-weight: 700;
+  /* Add the same purple glow language as favorite game cards. */
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.65);
+  /* Let pointer actions pass through the legend to the canvas. */
+  pointer-events: none;
 }
 
 /* Style the visible window into the large timeline canvas. */
@@ -653,6 +793,72 @@
   grid-template-columns: 150px;
 }
 
+/* Summarize the gaming timeline in a rounded information strip. */
+.timeline-stats-bar {
+  /* Place all timeline statistics on one flexible row. */
+  display: flex;
+  /* Allow statistics to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Align statistics vertically. */
+  align-items: center;
+  /* Space the statistics evenly across the available width. */
+  justify-content: space-around;
+  /* Add room around the summary bar. */
+  margin: 16px;
+  /* Use the blue gradient shown in the reference. */
+  background: linear-gradient(180deg, #0b2d63, #071d43);
+  /* Add a bright royal-blue outline. */
+  border: 1px solid #1f6fff;
+  /* Round the summary bar into a pill-like strip. */
+  border-radius: 14px;
+  /* Add a soft blue glow around the strip. */
+  box-shadow: 0 0 14px rgba(31, 111, 255, 0.2);
+  /* Hide divider overflow at rounded corners. */
+  overflow: hidden;
+}
+
+/* Style each item inside the timeline statistics strip. */
+.timeline-stat-item {
+  /* Keep the icon and statistic on one row. */
+  display: flex;
+  /* Align the statistic vertically. */
+  align-items: center;
+  /* Add space between the icon and statistic text. */
+  gap: 9px;
+  /* Give every statistic comfortable horizontal room. */
+  padding: 11px 18px;
+  /* Use pale blue-white text. */
+  color: #dce8ff;
+  /* Keep summary text compact. */
+  font-size: 13px;
+  /* Keep each statistic from becoming too narrow. */
+  min-width: 150px;
+  /* Center each statistic within its available area. */
+  justify-content: center;
+}
+
+/* Separate statistics with subtle vertical dividers. */
+.timeline-stat-item + .timeline-stat-item {
+  /* Add the divider between neighboring statistics. */
+  border-left: 1px solid #2d5d9a;
+}
+
+/* Give the summary title slightly more visual weight. */
+.timeline-stat-title {
+  /* Make the summary title bold. */
+  font-weight: 700;
+  /* Give the title more horizontal space than the numeric statistics. */
+  min-width: 245px;
+}
+
+/* Style the small icons used in the timeline statistics bar. */
+.timeline-stat-icon {
+  /* Use bright cyan for summary icons. */
+  color: #19c7ff;
+  /* Make the icons slightly larger than the text. */
+  font-size: 18px;
+}
+
 /* Style unfinished content pages. */
 .simple-page {
   /* Limit the text width. */
@@ -705,6 +911,34 @@
   .timeline-viewport {
     /* Keep enough canvas visible without taking over the full page. */
     height: 560px;
+  }
+
+  /* Let the interaction guide fill available width on narrow screens. */
+  .timeline-interaction-guide {
+    /* Use the available toolbar width when the guide wraps. */
+    width: 100%;
+  }
+
+  /* Let guide instructions wrap naturally on narrow screens. */
+  .interaction-guide-item {
+    /* Allow individual guide items to share the row evenly. */
+    flex: 1;
+    /* Keep each interaction item readable. */
+    min-width: 180px;
+    /* Center each wrapped instruction. */
+    justify-content: center;
+  }
+
+  /* Stack statistics more cleanly on narrow screens. */
+  .timeline-stat-item {
+    /* Let each statistic take roughly half the available row. */
+    flex: 1 1 45%;
+  }
+
+  /* Remove rigid dividers when statistics wrap. */
+  .timeline-stat-item + .timeline-stat-item {
+    /* Avoid awkward divider positions after wrapping. */
+    border-left: 0;
   }
 }
 

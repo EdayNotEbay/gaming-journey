@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"; // Import React tools used by the timeline interaction hook.
+import { useCallback, useEffect, useRef, useState } from "react"; // Import React tools used by the timeline interaction hook.
 
 // Keep every zoom setting together so class names, scales, and labels cannot get out of sync.
 const zoomLevels = [ // Start the complete zoom configuration.
@@ -55,7 +55,7 @@ function useTimelineControls() { // Create the reusable timeline interaction hoo
   }, []); // Keep the initial centering effect from repeating.
 
   // Restore the same canvas point under the mouse after React applies a new zoom level.
-  useEffect(function () { // Run whenever React finishes changing the zoom index.
+  useEffect(function () { // Run whenever React finishes changing the zoom scale.
     const viewport = viewportRef.current; // Read the current viewport element.
     const savedPoint = pendingZoomRef.current; // Read the point saved immediately before the zoom changed.
     if (viewport === null) { // Check whether the viewport exists.
@@ -68,10 +68,19 @@ function useTimelineControls() { // Create the reusable timeline interaction hoo
     const targetTop = savedPoint.canvasY * zoomLevel.scale - savedPoint.viewportY; // Calculate the vertical scroll that keeps the same canvas point under the mouse.
     setViewportScroll(viewport, targetLeft, targetTop); // Apply the new clamped scroll position after zooming.
     pendingZoomRef.current = null; // Clear the saved zoom point after it has been restored.
-  }, [zoomIndex, zoomLevel.scale]); // Repeat only when the active zoom level changes.
+  }, [zoomLevel.scale]); // Repeat only when the active numeric zoom scale changes.
 
-  // Save the canvas coordinate underneath one screen coordinate before changing zoom.
-  function saveZoomFocus(clientX, clientY) { // Receive the screen point that should stay visually fixed.
+  // Change zoom while preserving one chosen screen point.
+  const changeZoom = useCallback(function changeZoomAtPoint(nextIndex, clientX, clientY) { // Receive the requested zoom index and focus point.
+    if (nextIndex < 0) { // Check whether the requested zoom is below thirty percent.
+      return; // Keep the current zoom when the minimum has been reached.
+    } // Finish checking the minimum zoom.
+    if (nextIndex >= zoomLevels.length) { // Check whether the requested zoom is above one hundred thirty percent.
+      return; // Keep the current zoom when the maximum has been reached.
+    } // Finish checking the maximum zoom.
+    if (nextIndex === zoomIndexRef.current) { // Check whether the requested zoom is already active.
+      return; // Stop when no zoom change is needed.
+    } // Finish checking the current zoom.
     const viewport = viewportRef.current; // Read the current timeline viewport.
     if (viewport === null) { // Check whether the viewport exists.
       return; // Stop when the viewport is unavailable.
@@ -83,23 +92,9 @@ function useTimelineControls() { // Create the reusable timeline interaction hoo
     const canvasX = (viewport.scrollLeft + viewportX) / currentScale; // Find the unscaled canvas X coordinate under the focus point.
     const canvasY = (viewport.scrollTop + viewportY) / currentScale; // Find the unscaled canvas Y coordinate under the focus point.
     pendingZoomRef.current = { canvasX: canvasX, canvasY: canvasY, viewportX: viewportX, viewportY: viewportY }; // Save the canvas and viewport coordinates for the next render.
-  } // Finish the zoom focus helper.
-
-  // Change zoom while preserving one chosen screen point.
-  function changeZoom(nextIndex, clientX, clientY) { // Receive the requested zoom index and focus point.
-    if (nextIndex < 0) { // Check whether the requested zoom is below thirty percent.
-      return; // Keep the current zoom when the minimum has been reached.
-    } // Finish checking the minimum zoom.
-    if (nextIndex >= zoomLevels.length) { // Check whether the requested zoom is above one hundred thirty percent.
-      return; // Keep the current zoom when the maximum has been reached.
-    } // Finish checking the maximum zoom.
-    if (nextIndex === zoomIndexRef.current) { // Check whether the requested zoom is already active.
-      return; // Stop when no zoom change is needed.
-    } // Finish checking the current zoom.
-    saveZoomFocus(clientX, clientY); // Save the canvas point that should remain visually fixed.
     zoomIndexRef.current = nextIndex; // Update the immediate zoom reference for browser events.
     setZoomIndex(nextIndex); // Ask React to render the new zoom level.
-  } // Finish the zoom change helper.
+  }, []); // Keep the zoom-change function stable for the native wheel listener.
 
   // Return the visible center of the timeline for zoom-button actions.
   function getViewportCenter() { // Calculate the center of the visible timeline viewport.
@@ -217,7 +212,7 @@ function useTimelineControls() { // Create the reusable timeline interaction hoo
     dragState.current.moved = false; // Reset the drag flag after suppressing the drag-generated click.
   } // Finish the click-capture handler.
 
-  // Attach native listeners for wheel zoom and Space-key blocking only inside the timeline.
+  // Attach native listeners for wheel zoom and Space-key blocking while the timeline is mounted.
   useEffect(function () { // Set up timeline-specific browser listeners.
     const viewport = viewportRef.current; // Read the current timeline viewport.
     if (viewport === null) { // Check whether the viewport exists.
@@ -236,13 +231,13 @@ function useTimelineControls() { // Create the reusable timeline interaction hoo
       } // Finish checking downward wheel movement.
     } // Finish the native wheel handler.
 
-    // Keep Space from scrolling or activating focused timeline buttons and game cards.
-    function blockSpacebar(event) { // Receive keyboard events that occur inside the timeline viewport.
+    // Keep Space from scrolling or activating controls while the Timeline page is mounted.
+    function blockSpacebar(event) { // Receive keyboard events before focused controls handle them.
       if (event.code !== "Space") { // Check whether the pressed key is something other than Space.
         return; // Leave every non-Space key unchanged.
       } // Finish checking the key.
       event.preventDefault(); // Stop the browser's default Space-key action.
-      event.stopPropagation(); // Stop Space from reaching the focused timeline control.
+      event.stopPropagation(); // Stop Space from reaching a focused timeline control.
       const activeElement = document.activeElement; // Read the element that currently owns keyboard focus.
       if (activeElement !== null && activeElement.classList.contains("game-card")) { // Check whether a game card currently has focus.
         activeElement.blur(); // Remove focus from the game card so no focus border remains.
@@ -250,15 +245,15 @@ function useTimelineControls() { // Create the reusable timeline interaction hoo
     } // Finish the Space-key blocker.
 
     viewport.addEventListener("wheel", handleWheel, { passive: false }); // Attach a non-passive wheel listener so native scrolling can be prevented.
-    viewport.addEventListener("keydown", blockSpacebar, true); // Block Space keydown only for elements inside the timeline.
-    viewport.addEventListener("keyup", blockSpacebar, true); // Block Space keyup only for elements inside the timeline.
+    window.addEventListener("keydown", blockSpacebar, true); // Block Space keydown while this timeline hook is mounted.
+    window.addEventListener("keyup", blockSpacebar, true); // Block Space keyup while this timeline hook is mounted.
 
     return function () { // Remove native listeners when the timeline component unmounts.
       viewport.removeEventListener("wheel", handleWheel); // Remove the timeline wheel listener.
-      viewport.removeEventListener("keydown", blockSpacebar, true); // Remove the timeline Space keydown listener.
-      viewport.removeEventListener("keyup", blockSpacebar, true); // Remove the timeline Space keyup listener.
+      window.removeEventListener("keydown", blockSpacebar, true); // Remove the Timeline page Space keydown listener.
+      window.removeEventListener("keyup", blockSpacebar, true); // Remove the Timeline page Space keyup listener.
     }; // Finish the listener cleanup function.
-  }, []); // Attach the native listeners once for this timeline instance.
+  }, [changeZoom]); // Reuse the stable zoom function while keeping the browser listener setup correct.
 
   return { // Return the small public interface needed by the timeline component.
     viewportRef: viewportRef, // Give TimelineCanvas access to the scrollable viewport reference.

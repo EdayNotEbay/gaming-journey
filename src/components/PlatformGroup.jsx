@@ -1,11 +1,11 @@
 import GameCard from "./GameCard.jsx"; // Import the reusable vertical game card.
 
 // Display every game that belongs to one platform.
-function PlatformGroup({ platform, brandIcon, games, className }) { // Receive the platform name, temporary brand icon, games, and canvas position class.
+function PlatformGroup({ platform, brandIcon, games, className }) { // Receive the platform name, brand icon, games, and canvas position class.
   return ( // Return the platform collection.
     <section className={"platform-group " + className}> {/* Position and style the platform group on the canvas. */}
-      <div className="platform-heading"> {/* Keep the temporary brand icon beside the platform name. */}
-        <span className="platform-brand-icon" aria-hidden="true">{brandIcon}</span> {/* Display a temporary brand icon until real logo artwork is added. */}
+      <div className="platform-heading"> {/* Keep the platform brand icon beside the platform name. */}
+        <img className="platform-brand-icon" src={brandIcon} alt="" draggable="false" /> {/* Display the real platform brand icon without native image dragging. */}
         <h3 className="platform-title">{platform}</h3> {/* Display the platform name. */}
       </div> {/* Finish the platform heading. */}
       <div className="game-grid"> {/* Place game covers in rows that can stack downward. */}

@@ -1,13 +1,13 @@
 import { useState } from "react"; // Import React state for the ranking filters.
 import games from "../data/games.js"; // Import the shared game data.
-import rankedGameNames from "../data/gameRankings.js"; // Import the personal ranking order.
+import rankedGameIds from "../data/gameRankings.js"; // Import the personal ranking order using unique game IDs.
 
-// Build a map from game name to rank number.
+// Build a map from unique game ID to rank number.
 function getRankMap() { // Create the lookup used by the ranking table.
-  const rankMap = new Map(); // Store each ranked game name with its one-based position.
+  const rankMap = new Map(); // Store each ranked game ID with its one-based position.
 
-  rankedGameNames.forEach(function (gameName, index) { // Inspect every game in the personal ranking order.
-    rankMap.set(gameName, index + 1); // Save the current game with its displayed rank number.
+  rankedGameIds.forEach(function (gameId, index) { // Inspect every game ID in the personal ranking order.
+    rankMap.set(gameId, index + 1); // Save the current game ID with its displayed rank number.
   }); // Finish building the ranking lookup.
 
   return rankMap; // Return the complete ranking lookup.
@@ -37,8 +37,8 @@ function buildRankingRows(gameList) { // Receive the complete game list.
   return gameList.map(function (game) { // Create one ranking row for every game.
     let rank = null; // Start each game without a rank.
 
-    if (rankMap.has(game.name) === true) { // Check whether this game appears in the personal ranking order.
-      rank = rankMap.get(game.name); // Store the assigned personal rank.
+    if (rankMap.has(game.id) === true) { // Check whether this unique game entry appears in the personal ranking order.
+      rank = rankMap.get(game.id); // Store the assigned personal rank.
     } // Finish checking for a personal rank.
 
     return { // Return the complete ranking row.
@@ -118,7 +118,7 @@ function GameRankingsPage() { // Create the Game Rankings page component.
   const displayedRows = sortRankingRows(filteredRows); // Sort ranked games before unranked games.
   const platformNames = getUniqueValues(games, "platform"); // Build the available platform filter options.
   const genreNames = getUniqueValues(games, "genre"); // Build the available genre filter options.
-  const rankedCount = rankedGameNames.length; // Count how many games currently have personal ranks.
+  const rankedCount = rankedGameIds.length; // Count how many games currently have personal ranks.
 
   // Update the title search text.
   function handleSearchChange(event) { // Receive changes from the ranking search field.

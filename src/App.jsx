@@ -4,7 +4,7 @@ import TimelinePage from "./pages/TimelinePage.jsx"; // Import the Gaming Timeli
 import GenresPage from "./pages/GenresPage.jsx"; // Import the Genres page.
 import FavoriteGenresPage from "./pages/FavoriteGenresPage.jsx"; // Import the Favorite Genres page.
 import FavoriteGamesPage from "./pages/FavoriteGamesPage.jsx"; // Import the Favorite Games page.
-import GamingJourneyPage from "./pages/GamingJourneyPage.jsx"; // Import the My Gaming Journey page.
+import AddGamePage from "./pages/AddGamePage.jsx"; // Import the protected Add Game admin page.
 import GameRankingsPage from "./pages/GameRankingsPage.jsx"; // Import the Game Rankings page.
 import RecommendGamePage from "./pages/RecommendGamePage.jsx"; // Import the recommendation page.
 import "./App.css"; // Import the external website stylesheet.
@@ -20,7 +20,7 @@ function App() { // Create the main application component.
           <Route path="/genres" element={<GenresPage />} /> {/* Display the Genres page. */}
           <Route path="/favorite-genres" element={<FavoriteGenresPage />} /> {/* Display the Favorite Genres page. */}
           <Route path="/favorite-games" element={<FavoriteGamesPage />} /> {/* Display the Favorite Games page. */}
-          <Route path="/my-gaming-journey" element={<GamingJourneyPage />} /> {/* Display the My Gaming Journey page. */}
+          <Route path="/add-game" element={<AddGamePage />} /> {/* Display the protected Add Game admin page. */}
           <Route path="/game-rankings" element={<GameRankingsPage />} /> {/* Display the Game Rankings page. */}
           <Route path="/recommend-me-a-game" element={<RecommendGamePage />} /> {/* Display the recommendation page. */}
           <Route path="*" element={<TimelinePage />} /> {/* Return unknown addresses to the Gaming Timeline. */}

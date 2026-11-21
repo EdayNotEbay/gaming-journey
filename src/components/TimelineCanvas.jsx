@@ -20,17 +20,50 @@ function getGamesForPlatform(games, platformName) { // Receive the full game lis
   }); // Finish filtering the games.
 } // Finish the platform filtering helper.
 
+// Calculate the timeline summary numbers from the current game data.
+function getTimelineStats(games) { // Receive the complete game list.
+  const platforms = new Set(); // Store unique platform names.
+  const genres = new Set(); // Store unique genre names.
+  let favoriteCount = 0; // Start the favorite-game count at zero.
+
+  games.forEach(function (game) { // Inspect every game in the timeline.
+    platforms.add(game.platform); // Add the current platform to the unique platform set.
+    genres.add(game.genre); // Add the current genre to the unique genre set.
+    if (game.isFavorite === true) { // Check whether the current game is a favorite.
+      favoriteCount = favoriteCount + 1; // Increase the favorite count for confirmed favorite games.
+    } // Finish checking the favorite state.
+  }); // Finish inspecting the game list.
+
+  return { // Return all timeline summary values together.
+    platformCount: platforms.size, // Return the number of unique platforms.
+    gameCount: games.length, // Return the total number of game entries.
+    favoriteCount: favoriteCount, // Return the number of favorite games.
+    genreCount: genres.size, // Return the number of unique genres.
+  }; // Finish returning the timeline statistics.
+} // Finish the timeline statistics helper.
+
 // Display the large two-dimensional timeline workspace.
 function TimelineCanvas({ games }) { // Receive all timeline games from the page.
   const controls = useTimelineControls(); // Create the reusable drag, zoom, recenter, and keyboard controls.
+  const stats = getTimelineStats(games); // Calculate the current timeline statistics from the game data.
 
   return ( // Return the complete draggable timeline interface.
-    <section className="timeline-section"> {/* Group the timeline heading and canvas together. */}
-      <div className="timeline-toolbar"> {/* Display timeline instructions and timeline controls. */}
-        <div> {/* Group the timeline heading and description. */}
-          <h2>Gaming Timeline</h2> {/* Name the interactive timeline. */}
-          <p>Drag anywhere to move. Use the mouse wheel or zoom buttons to zoom in and out.</p> {/* Explain the drag and zoom interactions. */}
-        </div> {/* Finish the timeline heading group. */}
+    <section className="timeline-section"> {/* Group the timeline heading, canvas, and summary together. */}
+      <div className="timeline-toolbar"> {/* Display the richer timeline heading and interaction controls. */}
+        <div className="timeline-toolbar-main"> {/* Keep the timeline identity and interaction guide together. */}
+          <div className="timeline-heading"> {/* Group the timeline icon, title, and description. */}
+            <span className="timeline-heading-icon" aria-hidden="true">🎮</span> {/* Show a temporary gaming icon beside the timeline title. */}
+            <div> {/* Group the timeline title and supporting description. */}
+              <h2>Gaming Timeline</h2> {/* Name the interactive timeline. */}
+              <p>Explore all the games I have played, organized by platform and time. Drag to move around freely in 2D.</p> {/* Explain the purpose and movement of the timeline. */}
+            </div> {/* Finish the timeline heading text group. */}
+          </div> {/* Finish the timeline heading group. */}
+          <div className="timeline-interaction-guide" aria-label="Timeline controls guide"> {/* Explain the three main timeline interactions. */}
+            <span className="interaction-guide-item"><span aria-hidden="true">✋</span> Drag: Move in any direction</span> {/* Explain dragging. */}
+            <span className="interaction-guide-item"><span aria-hidden="true">☝</span> Click: View genre</span> {/* Explain normal clicking. */}
+            <span className="interaction-guide-item"><span aria-hidden="true">✦</span> Double-click: Favorite game</span> {/* Explain favorite-game double clicking. */}
+          </div> {/* Finish the interaction guide. */}
+        </div> {/* Finish the main toolbar row. */}
         <div className="timeline-controls"> {/* Group the zoom and recenter controls. */}
           <button type="button" className="zoom-button" onClick={controls.zoomOut} aria-label="Zoom out">−</button> {/* Let visitors zoom outward without a mouse wheel. */}
           <span className="zoom-label" aria-live="polite">{controls.zoomLabel}</span> {/* Display the current zoom percentage. */}
@@ -38,17 +71,27 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
           <button type="button" className="recenter-button" onClick={controls.recenterTimeline}>Recenter Timeline</button> {/* Let visitors return to the same logical timeline area at any zoom. */}
         </div> {/* Finish the timeline controls. */}
       </div> {/* Finish the timeline toolbar. */}
-      <div ref={controls.viewportRef} className="timeline-viewport" onPointerDown={controls.handlePointerDown} onPointerMove={controls.handlePointerMove} onPointerUp={controls.handlePointerUp} onPointerCancel={controls.handlePointerCancel} onClickCapture={controls.handleClickCapture}> {/* Create the draggable and zoomable window into the larger canvas. */}
-        <div className={"timeline-canvas-shell " + controls.zoomClass}> {/* Resize the scrollable area to match the selected zoom level. */}
-          <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
-            <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
-            {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
-              const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
-              return <PlatformGroup key={layout.name} platform={layout.name} brandIcon={layout.brandIcon} games={platformGames} className={layout.className} />; // Display the current platform group with its temporary brand icon.
-            })} {/* Finish building all platform groups. */}
-          </div> {/* Finish the large timeline canvas. */}
-        </div> {/* Finish the zoom-sized scrollable canvas shell. */}
-      </div> {/* Finish the visible timeline viewport. */}
+      <div className="timeline-viewport-wrapper"> {/* Position the favorite legend over the interactive canvas. */}
+        <div className="favorite-legend"><span aria-hidden="true">☆</span> Purple glow = Favorite Game</div> {/* Explain the purple favorite-card effect. */}
+        <div ref={controls.viewportRef} className="timeline-viewport" onPointerDown={controls.handlePointerDown} onPointerMove={controls.handlePointerMove} onPointerUp={controls.handlePointerUp} onPointerCancel={controls.handlePointerCancel} onClickCapture={controls.handleClickCapture}> {/* Create the draggable and zoomable window into the larger canvas. */}
+          <div className={"timeline-canvas-shell " + controls.zoomClass}> {/* Resize the scrollable area to match the selected zoom level. */}
+            <div className="timeline-canvas"> {/* Create the oversized two-dimensional timeline workspace. */}
+              <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
+              {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
+                const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
+                return <PlatformGroup key={layout.name} platform={layout.name} brandIcon={layout.brandIcon} games={platformGames} className={layout.className} />; // Display the current platform group with its temporary brand icon.
+              })} {/* Finish building all platform groups. */}
+            </div> {/* Finish the large timeline canvas. */}
+          </div> {/* Finish the zoom-sized scrollable canvas shell. */}
+        </div> {/* Finish the visible timeline viewport. */}
+      </div> {/* Finish the viewport wrapper. */}
+      <div className="timeline-stats-bar"> {/* Summarize the current timeline data below the canvas. */}
+        <div className="timeline-stat-item timeline-stat-title"><span aria-hidden="true">🎮</span><span>My Gaming Journey - At a Glance</span></div> {/* Label the timeline summary bar. */}
+        <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">▱</span><span>{stats.platformCount} Platforms</span></div> {/* Display the number of unique platforms. */}
+        <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">🎮</span><span>{stats.gameCount} Games</span></div> {/* Display the total number of games. */}
+        <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">★</span><span>{stats.favoriteCount} Favorite Games</span></div> {/* Display the number of confirmed favorites. */}
+        <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">▱</span><span>{stats.genreCount} Genres Explored</span></div> {/* Display the number of unique genres. */}
+      </div> {/* Finish the timeline statistics bar. */}
     </section> /* Finish the timeline section. */
   ); // Finish returning the timeline interface.
 } // Finish the TimelineCanvas component.

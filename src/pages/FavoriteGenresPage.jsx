@@ -13,10 +13,14 @@ function getFavoriteGenreNames(favoriteGames) { // Receive the favorite-game lis
   const genreNames = []; // Start an empty list of favorite genres.
 
   favoriteGames.forEach(function (game) { // Inspect every favorite game.
-    if (genreNames.includes(game.genre) === false) { // Check whether this favorite genre has already been added.
-      genreNames.push(game.genre); // Add the favorite genre once.
-    } // Finish checking whether the genre is unique.
+    game.genres.forEach(function (genreName) { // Inspect every genre assigned to the current favorite game.
+      if (genreNames.includes(genreName) === false) { // Check whether this favorite genre has already been added.
+        genreNames.push(genreName); // Add the favorite genre once.
+      } // Finish checking whether the favorite genre is unique.
+    }); // Finish inspecting the current favorite game's genres.
   }); // Finish inspecting favorite games.
+
+  genreNames.sort(); // Keep favorite genre cards in alphabetical order.
 
   return genreNames; // Return the favorite genre names.
 } // Finish the favorite-genre helper.
@@ -24,14 +28,14 @@ function getFavoriteGenreNames(favoriteGames) { // Receive the favorite-game lis
 // Return every played game from one genre.
 function getGamesForGenre(gameList, genreName) { // Receive the complete game list and one genre.
   return gameList.filter(function (game) { // Filter the complete game list.
-    return game.genre === genreName; // Keep games from the requested genre.
+    return game.genres.includes(genreName); // Keep games that contain the requested genre.
   }); // Finish filtering the genre games.
 } // Finish the genre-game helper.
 
 // Return favorite games from one genre.
 function getFavoriteGamesForGenre(favoriteGames, genreName) { // Receive favorite games and one genre.
   return favoriteGames.filter(function (game) { // Filter the favorite-game list.
-    return game.genre === genreName; // Keep favorite games from the requested genre.
+    return game.genres.includes(genreName); // Keep favorite games that contain the requested genre.
   }); // Finish filtering favorite games for the genre.
 } // Finish the favorite-games-by-genre helper.
 
@@ -39,7 +43,7 @@ function getFavoriteGamesForGenre(favoriteGames, genreName) { // Receive favorit
 function FavoriteGenresPage() { // Create the Favorite Genres page component.
   const navigate = useNavigate(); // Create navigation for opening a selected genre.
   const favoriteGames = getFavoriteGames(games); // Build the current favorite-game list.
-  const favoriteGenreNames = getFavoriteGenreNames(favoriteGames); // Build favorite genres from the favorite games.
+  const favoriteGenreNames = getFavoriteGenreNames(favoriteGames); // Build favorite genres from every favorite game's genre array.
 
   // Open the full Genres page for the selected favorite genre.
   function openFavoriteGenre(event) { // Receive the clicked favorite-genre card.
@@ -51,7 +55,7 @@ function FavoriteGenresPage() { // Create the Favorite Genres page component.
       <section className="collection-hero"> {/* Introduce the Favorite Genres page. */}
         <p className="eyebrow">Favorites</p> {/* Add a small page label above the title. */}
         <h2>Favorite Genres</h2> {/* Display the page title. */}
-        <p>These genres are generated from the games currently marked as favorites. Click a genre to view every game I have played in that genre.</p> {/* Explain how favorite genres work. */}
+        <p>These genres are generated from every genre assigned to my favorite games. Click a genre to view all games I have played in that genre.</p> {/* Explain how multi-genre favorites work. */}
       </section> {/* Finish the Favorite Genres introduction. */}
       <section className="favorite-genre-grid"> {/* Display one summary card for every favorite genre. */}
         {favoriteGenreNames.map(function (genreName) { /* Build a summary card for the current favorite genre. */

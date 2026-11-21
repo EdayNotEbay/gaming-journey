@@ -1249,6 +1249,216 @@
   font-weight: 700;
 }
 
+/* Keep the Game Rankings page centered with comfortable spacing. */
+.rankings-page {
+  /* Add space around the complete rankings page. */
+  padding: 52px 5% 70px;
+}
+
+/* Wrap the complete ranking table in one panel. */
+.rankings-panel {
+  /* Limit the rankings panel to the main content width. */
+  max-width: 1200px;
+  /* Center the rankings panel. */
+  margin: 0 auto;
+  /* Add room inside the rankings panel. */
+  padding: 20px;
+  /* Use the shared dark navy panel background. */
+  background-color: #06152f;
+  /* Add the shared blue panel outline. */
+  border: 1px solid #244f94;
+  /* Round the rankings panel corners. */
+  border-radius: 16px;
+}
+
+/* Arrange the rankings summary above the table. */
+.rankings-summary {
+  /* Place the title and explanation on one flexible row. */
+  display: flex;
+  /* Allow the summary to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Align the summary content vertically. */
+  align-items: center;
+  /* Separate the summary title and explanation. */
+  justify-content: space-between;
+  /* Add space between wrapped summary items. */
+  gap: 12px;
+  /* Add space below the rankings summary. */
+  margin-bottom: 18px;
+}
+
+/* Style the rankings summary heading. */
+.rankings-summary h3 {
+  /* Remove the default heading margin. */
+  margin: 0;
+  /* Keep the summary heading white. */
+  color: #ffffff;
+  /* Make the summary heading easy to scan. */
+  font-size: 24px;
+}
+
+/* Style the rankings direction note. */
+.rankings-summary span {
+  /* Use softer blue text for the ranking note. */
+  color: #9fb1d2;
+  /* Keep the ranking note compact. */
+  font-size: 13px;
+}
+
+/* Allow the rankings table to scroll horizontally when needed. */
+.rankings-table-wrapper {
+  /* Enable horizontal scrolling on narrow screens. */
+  overflow-x: auto;
+  /* Keep the table inside the rounded panel. */
+  border-radius: 12px;
+}
+
+/* Style the complete game rankings table. */
+.rankings-table {
+  /* Make the table fill the rankings panel width. */
+  width: 100%;
+  /* Keep connected table borders clean. */
+  border-collapse: collapse;
+  /* Prevent the table from becoming too narrow. */
+  min-width: 900px;
+}
+
+/* Style the rankings table heading cells. */
+.rankings-table th {
+  /* Align heading text to the left. */
+  text-align: left;
+  /* Add comfortable heading spacing. */
+  padding: 12px 14px;
+  /* Use a darker blue table heading background. */
+  background-color: #0b234d;
+  /* Add a divider below the heading row. */
+  border-bottom: 1px solid #315c9c;
+  /* Use pale blue heading text. */
+  color: #dbe8ff;
+  /* Keep table headings compact. */
+  font-size: 12px;
+  /* Make table headings easy to scan. */
+  font-weight: 700;
+  /* Use uppercase table headings. */
+  text-transform: uppercase;
+  /* Add slight spacing between heading letters. */
+  letter-spacing: 0.05em;
+}
+
+/* Style rankings table data cells. */
+.rankings-table td {
+  /* Add consistent spacing inside ranking cells. */
+  padding: 12px 14px;
+  /* Add a subtle divider between ranking rows. */
+  border-bottom: 1px solid #17335e;
+  /* Use readable light text. */
+  color: #d6e1f5;
+  /* Keep table text compact. */
+  font-size: 13px;
+  /* Keep table contents vertically centered. */
+  vertical-align: middle;
+}
+
+/* Highlight a ranking row when the visitor hovers over it. */
+.rankings-table tbody tr:hover {
+  /* Add a subtle blue row highlight. */
+  background-color: rgba(31, 111, 255, 0.08);
+}
+
+/* Style the personal ranking number. */
+.rank-cell {
+  /* Keep the rank on one line. */
+  white-space: nowrap;
+  /* Make the rank value prominent. */
+  font-weight: 700;
+  /* Use the bright blue accent for ranking numbers. */
+  color: #6ea7ff;
+}
+
+/* Keep game artwork beside the title inside the rankings table. */
+.rank-game-cell {
+  /* Place the game cover and title on one row. */
+  display: flex;
+  /* Align the cover and title vertically. */
+  align-items: center;
+  /* Add space between the cover and title. */
+  gap: 12px;
+  /* Keep the game cell wide enough for readable titles. */
+  min-width: 225px;
+}
+
+/* Style small game covers inside the rankings table. */
+.rank-game-cell img {
+  /* Give every ranking cover the same width. */
+  width: 44px;
+  /* Give every ranking cover the same vertical height. */
+  height: 62px;
+  /* Crop artwork without stretching it. */
+  object-fit: cover;
+  /* Round the ranking cover corners. */
+  border-radius: 6px;
+  /* Add a subtle blue cover outline. */
+  border: 1px solid #3768aa;
+  /* Keep the cover from shrinking inside the row. */
+  flex: 0 0 44px;
+}
+
+/* Style ranked game titles. */
+.rank-game-cell span {
+  /* Keep ranked game titles bright. */
+  color: #ffffff;
+  /* Make ranked game titles easy to find. */
+  font-weight: 700;
+}
+
+/* Keep multi-genre text readable inside the rankings table. */
+.rank-genres-cell {
+  /* Give the genre column enough room for multiple genres. */
+  min-width: 190px;
+  /* Use softer blue text for the genre list. */
+  color: #b9c9e8;
+}
+
+/* Style the personal star rating. */
+.ranking-rating {
+  /* Keep the rating on one line. */
+  white-space: nowrap;
+  /* Use a warm star color. */
+  color: #ffd166;
+  /* Make the personal rating prominent. */
+  font-weight: 700;
+}
+
+/* Style the normal favorite-status badge. */
+.ranking-favorite {
+  /* Display the favorite status as a compact badge. */
+  display: inline-block;
+  /* Add spacing around the favorite status. */
+  padding: 5px 9px;
+  /* Use the normal dark blue badge background. */
+  background-color: #0b234d;
+  /* Add a subtle blue badge outline. */
+  border: 1px solid #315c9c;
+  /* Round the favorite badge. */
+  border-radius: 999px;
+  /* Use softer blue badge text. */
+  color: #a9badb;
+  /* Keep the favorite badge compact. */
+  font-size: 11px;
+}
+
+/* Highlight favorite games with the site's purple favorite styling. */
+.ranking-favorite-active {
+  /* Use a dark purple favorite background. */
+  background-color: #24113d;
+  /* Use the favorite purple outline. */
+  border-color: #a855f7;
+  /* Use pale purple favorite text. */
+  color: #e9d5ff;
+  /* Add a light purple favorite glow. */
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.35);
+}
+
 /* Style unfinished content pages. */
 .simple-page {
   /* Limit the text width. */

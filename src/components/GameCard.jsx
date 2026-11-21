@@ -1,4 +1,4 @@
-import { useRef } from "react"; // Import useRef so single-click and double-click actions can be separated.
+import { useEffect, useRef } from "react"; // Import React tools used by the game-card click timer.
 import { useNavigate } from "react-router-dom"; // Import navigation so game cards can open other pages.
 
 // Display one game using the same vertical cover size everywhere.
@@ -7,6 +7,13 @@ function GameCard({ game }) { // Receive one game object from a platform group.
   const clickTimer = useRef(null); // Store the pending single-click timer.
   let coverContent = <div className="game-cover game-cover-placeholder">{game.name}</div>; // Create a vertical placeholder until a real cover image is added.
   let cardClassName = "game-card"; // Start with the normal game-card class.
+
+  // Clear any delayed click action if this card leaves the page.
+  useEffect(function () { // Set up cleanup for the single-click timer.
+    return function () { // Run when the game card unmounts.
+      window.clearTimeout(clickTimer.current); // Prevent an old timer from navigating after the card is gone.
+    }; // Finish the timer cleanup function.
+  }, []); // Keep the cleanup setup from repeating.
 
   if (game.cover !== "") { // Check whether this game already has a cover image path.
     coverContent = <img className="game-cover" src={game.cover} alt={game.name + " cover"} draggable="false" />; // Display the real game cover without native browser image dragging.

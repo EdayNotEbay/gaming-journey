@@ -3,14 +3,14 @@ import useTimelineControls from "../hooks/useTimelineControls.js"; // Import the
 
 // Keep the platform order and canvas positions in one place.
 const platformLayouts = [ // Start the platform layout list.
-  { name: "PS2", className: "platform-ps2" }, // Position the PS2 group above the timeline.
-  { name: "PS3", className: "platform-ps3" }, // Position the PS3 group above the timeline.
-  { name: "Xbox 360", className: "platform-xbox-360" }, // Position the larger Xbox 360 group above the timeline.
-  { name: "Wii", className: "platform-wii" }, // Position the Wii group below the timeline.
-  { name: "Wii U", className: "platform-wii-u" }, // Position the Wii U group below the timeline.
-  { name: "Xbox One", className: "platform-xbox-one" }, // Position the Xbox One group below the timeline.
-  { name: "Oculus Quest 2", className: "platform-quest-2" }, // Position the Quest 2 group below the timeline.
-  { name: "PC", className: "platform-pc" }, // Position the larger PC group below the timeline.
+  { name: "PS2", className: "platform-ps2", brandIcon: "PS" }, // Position PS2 and provide its temporary PlayStation icon label.
+  { name: "PS3", className: "platform-ps3", brandIcon: "PS" }, // Position PS3 and provide its temporary PlayStation icon label.
+  { name: "Xbox 360", className: "platform-xbox-360", brandIcon: "X" }, // Position Xbox 360 and provide its temporary Xbox icon label.
+  { name: "Wii", className: "platform-wii", brandIcon: "W" }, // Position Wii and provide its temporary Wii icon label.
+  { name: "Wii U", className: "platform-wii-u", brandIcon: "WU" }, // Position Wii U and provide its temporary Wii U icon label.
+  { name: "Xbox One", className: "platform-xbox-one", brandIcon: "X" }, // Position Xbox One and provide its temporary Xbox icon label.
+  { name: "Oculus Quest 2", className: "platform-quest-2", brandIcon: "VR" }, // Position Quest 2 and provide its temporary VR icon label.
+  { name: "PC", className: "platform-pc", brandIcon: "PC" }, // Position PC and provide its temporary PC icon label.
 ]; // Finish the platform layout list.
 
 // Return every game that belongs to one platform.
@@ -44,7 +44,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
             <div className="timeline-main-line"></div> {/* Draw the main horizontal timeline line. */}
             {platformLayouts.map(function (layout) { /* Build one positioned platform group for each platform. */
               const platformGames = getGamesForPlatform(games, layout.name); // Get only the games for the current platform.
-              return <PlatformGroup key={layout.name} platform={layout.name} games={platformGames} className={layout.className} />; // Display the current platform group.
+              return <PlatformGroup key={layout.name} platform={layout.name} brandIcon={layout.brandIcon} games={platformGames} className={layout.className} />; // Display the current platform group with its temporary brand icon.
             })} {/* Finish building all platform groups. */}
           </div> {/* Finish the large timeline canvas. */}
         </div> {/* Finish the zoom-sized scrollable canvas shell. */}

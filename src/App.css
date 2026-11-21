@@ -851,6 +851,404 @@
   font-size: 18px;
 }
 
+/* Keep the game-library pages centered with comfortable spacing. */
+.collection-page {
+  /* Add space around the complete page content. */
+  padding: 52px 5% 70px;
+}
+
+/* Style the introduction shared by Genres and Favorites pages. */
+.collection-hero {
+  /* Limit the introduction width for readability. */
+  max-width: 1200px;
+  /* Center the introduction. */
+  margin: 0 auto 28px;
+}
+
+/* Style collection-page titles. */
+.collection-hero h2 {
+  /* Keep the page title close to the eyebrow label. */
+  margin: 8px 0 10px;
+  /* Make the title prominent. */
+  font-size: clamp(36px, 5vw, 58px);
+  /* Keep the title bright. */
+  color: #ffffff;
+}
+
+/* Style collection-page descriptions. */
+.collection-hero p:last-child {
+  /* Remove extra bottom spacing from the description. */
+  margin-bottom: 0;
+  /* Use the softer blue text used across the site. */
+  color: #b9c9e8;
+  /* Keep the description readable. */
+  font-size: 17px;
+  /* Keep long descriptions comfortable to read. */
+  line-height: 1.6;
+}
+
+/* Hold all genre filter buttons in one panel. */
+.genre-filter-panel {
+  /* Display genre controls in a wrapping row. */
+  display: flex;
+  /* Allow the controls to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Add even space between genre controls. */
+  gap: 9px;
+  /* Limit the filter panel width. */
+  max-width: 1200px;
+  /* Center the filter panel. */
+  margin: 0 auto 28px;
+  /* Add room inside the filter panel. */
+  padding: 16px;
+  /* Use a dark blue panel background. */
+  background-color: #071a38;
+  /* Add the shared royal-blue outline. */
+  border: 1px solid #244f94;
+  /* Round the filter panel corners. */
+  border-radius: 14px;
+}
+
+/* Style each selectable genre filter. */
+.genre-filter-button {
+  /* Add comfortable button spacing. */
+  padding: 9px 13px;
+  /* Use the dark control background. */
+  background-color: #0b234d;
+  /* Add a subtle blue border. */
+  border: 1px solid #315c9c;
+  /* Round the filter button corners. */
+  border-radius: 999px;
+  /* Use light blue text. */
+  color: #cbd8f5;
+  /* Show that the control is clickable. */
+  cursor: pointer;
+}
+
+/* Highlight the selected genre filter. */
+.genre-filter-button-active {
+  /* Use the main royal-blue accent for the active filter. */
+  background-color: #1f6fff;
+  /* Use a brighter active border. */
+  border-color: #55a0ff;
+  /* Keep selected filter text white. */
+  color: #ffffff;
+  /* Add a light blue glow around the selected filter. */
+  box-shadow: 0 0 10px rgba(31, 111, 255, 0.35);
+}
+
+/* Wrap a game collection in a consistent content panel. */
+.collection-section {
+  /* Limit the game collection width. */
+  max-width: 1200px;
+  /* Center the collection panel. */
+  margin: 0 auto;
+  /* Add room inside the collection panel. */
+  padding: 20px;
+  /* Use a dark navy collection background. */
+  background-color: #06152f;
+  /* Add a royal-blue outline around the collection. */
+  border: 1px solid #244f94;
+  /* Round the collection corners. */
+  border-radius: 16px;
+}
+
+/* Arrange collection titles and counts. */
+.collection-section-heading {
+  /* Place the title and count on one row. */
+  display: flex;
+  /* Allow the heading to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Align the heading items vertically. */
+  align-items: center;
+  /* Separate the title and count. */
+  justify-content: space-between;
+  /* Add space between wrapped items. */
+  gap: 12px;
+  /* Add space below the collection heading. */
+  margin-bottom: 18px;
+}
+
+/* Style collection subsection titles. */
+.collection-section-heading h3 {
+  /* Remove default heading spacing. */
+  margin: 0;
+  /* Keep subsection titles white. */
+  color: #ffffff;
+  /* Make the active collection easy to scan. */
+  font-size: 24px;
+}
+
+/* Style collection counts. */
+.collection-section-heading span {
+  /* Use lighter blue for collection counts. */
+  color: #8fb9ff;
+  /* Keep collection counts compact. */
+  font-size: 14px;
+}
+
+/* Display library game cards in a responsive cover grid. */
+.library-game-grid {
+  /* Use CSS Grid for equal-width cover cards. */
+  display: grid;
+  /* Add as many 150-pixel cards as fit on the row. */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* Add even space between game cards. */
+  gap: 22px;
+}
+
+/* Style game cards used outside the draggable timeline. */
+.library-game-card {
+  /* Stack cover art and text vertically. */
+  display: flex;
+  /* Place card contents in a column. */
+  flex-direction: column;
+  /* Align text to the left. */
+  align-items: flex-start;
+  /* Remove default button padding. */
+  padding: 0;
+  /* Remove the default button background. */
+  background-color: transparent;
+  /* Remove the default button border. */
+  border: 0;
+  /* Use inherited text styling. */
+  color: inherit;
+  /* Align card labels to the left. */
+  text-align: left;
+  /* Show that the complete card is clickable. */
+  cursor: pointer;
+  /* Keep the card from stretching wider than its cover. */
+  max-width: 150px;
+}
+
+/* Style library game covers consistently. */
+.library-game-cover {
+  /* Keep every library cover the same width. */
+  width: 150px;
+  /* Keep every library cover the same height. */
+  height: 210px;
+  /* Crop artwork without changing card dimensions. */
+  object-fit: cover;
+  /* Round the cover corners. */
+  border-radius: 10px;
+  /* Add the standard blue cover outline. */
+  border: 1px solid #3768aa;
+  /* Use a dark fallback color while artwork loads. */
+  background-color: #07152f;
+}
+
+/* Give favorite library cards the same purple visual language as the timeline. */
+.library-game-card-favorite .library-game-cover {
+  /* Add the favorite purple border. */
+  border: 3px solid #a855f7;
+  /* Add a purple favorite glow. */
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.9), 0 0 22px rgba(168, 85, 247, 0.5);
+}
+
+/* Strengthen the favorite glow when the card is hovered. */
+.library-game-card-favorite:hover .library-game-cover {
+  /* Increase the purple glow on hover. */
+  box-shadow: 0 0 14px rgba(168, 85, 247, 1), 0 0 28px rgba(168, 85, 247, 0.7);
+}
+
+/* Add a subtle hover effect to normal library covers. */
+.library-game-card:hover .library-game-cover {
+  /* Brighten the blue cover outline on hover. */
+  border-color: #6ea7ff;
+}
+
+/* Style library game names. */
+.library-game-name {
+  /* Add space between the cover and title. */
+  margin-top: 9px;
+  /* Keep game titles white. */
+  color: #ffffff;
+  /* Make game titles prominent. */
+  font-weight: 700;
+  /* Keep title text compact. */
+  font-size: 14px;
+}
+
+/* Style platform labels below library game names. */
+.library-game-platform {
+  /* Add a small gap above the platform. */
+  margin-top: 4px;
+  /* Use light blue platform text. */
+  color: #8fb9ff;
+  /* Keep platform text compact. */
+  font-size: 12px;
+}
+
+/* Style genre labels on library cards. */
+.library-game-genre {
+  /* Add a small gap above the genre. */
+  margin-top: 5px;
+  /* Add compact badge spacing. */
+  padding: 4px 8px;
+  /* Use a dark blue badge background. */
+  background-color: #0b234d;
+  /* Add a subtle blue badge outline. */
+  border: 1px solid #315c9c;
+  /* Round the genre badge. */
+  border-radius: 999px;
+  /* Use pale blue badge text. */
+  color: #cbd8f5;
+  /* Keep genre badge text compact. */
+  font-size: 11px;
+}
+
+/* Display favorite genres in responsive summary cards. */
+.favorite-genre-grid {
+  /* Use a responsive grid for favorite genre panels. */
+  display: grid;
+  /* Create large cards that wrap naturally. */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Add space between favorite genre panels. */
+  gap: 20px;
+  /* Limit the favorite genre grid width. */
+  max-width: 1200px;
+  /* Center the favorite genre grid. */
+  margin: 0 auto;
+}
+
+/* Style each clickable favorite genre panel. */
+.favorite-genre-card {
+  /* Stack the card sections vertically. */
+  display: flex;
+  /* Place the card contents in a column. */
+  flex-direction: column;
+  /* Add room inside the card. */
+  padding: 18px;
+  /* Use the dark collection panel background. */
+  background: linear-gradient(160deg, #0a2148, #06152f);
+  /* Add a royal-blue outline. */
+  border: 1px solid #315c9c;
+  /* Round the favorite genre panel corners. */
+  border-radius: 16px;
+  /* Use inherited text colors. */
+  color: inherit;
+  /* Keep text aligned to the left. */
+  text-align: left;
+  /* Show that the whole genre panel is clickable. */
+  cursor: pointer;
+}
+
+/* Highlight favorite genre panels on hover. */
+.favorite-genre-card:hover {
+  /* Brighten the panel outline. */
+  border-color: #6ea7ff;
+  /* Add a soft blue glow. */
+  box-shadow: 0 0 16px rgba(31, 111, 255, 0.25);
+}
+
+/* Arrange favorite genre names and favorite counts. */
+.favorite-genre-card-heading {
+  /* Place the title and count beside one another. */
+  display: flex;
+  /* Align heading items vertically. */
+  align-items: center;
+  /* Separate the title and count. */
+  justify-content: space-between;
+  /* Add space between the heading items. */
+  gap: 12px;
+  /* Add space below the heading. */
+  margin-bottom: 14px;
+}
+
+/* Style favorite genre names. */
+.favorite-genre-card-heading h3 {
+  /* Remove default heading spacing. */
+  margin: 0;
+  /* Keep favorite genre names white. */
+  color: #ffffff;
+  /* Make favorite genre names prominent. */
+  font-size: 22px;
+}
+
+/* Style the favorite count badge. */
+.favorite-genre-card-heading span {
+  /* Add compact badge spacing. */
+  padding: 5px 9px;
+  /* Use a dark purple badge background. */
+  background-color: #24113d;
+  /* Add a purple favorite outline. */
+  border: 1px solid #a855f7;
+  /* Round the favorite count badge. */
+  border-radius: 999px;
+  /* Use pale purple badge text. */
+  color: #e9d5ff;
+  /* Keep the count compact. */
+  font-size: 11px;
+}
+
+/* Arrange preview covers inside favorite genre cards. */
+.favorite-genre-preview {
+  /* Display preview covers in one row. */
+  display: flex;
+  /* Add space between preview covers. */
+  gap: 8px;
+  /* Hide any extra width cleanly. */
+  overflow: hidden;
+  /* Add space below the cover preview. */
+  margin-bottom: 15px;
+}
+
+/* Style each favorite genre preview cover. */
+.favorite-genre-preview img {
+  /* Give preview covers equal widths. */
+  width: 72px;
+  /* Keep preview artwork vertical. */
+  height: 100px;
+  /* Crop artwork cleanly. */
+  object-fit: cover;
+  /* Round preview cover corners. */
+  border-radius: 7px;
+  /* Add a subtle blue cover outline. */
+  border: 1px solid #3768aa;
+}
+
+/* Arrange summary information at the bottom of favorite genre cards. */
+.favorite-genre-card-footer {
+  /* Place both summary labels on one row. */
+  display: flex;
+  /* Separate the game count and action label. */
+  justify-content: space-between;
+  /* Add space between footer items. */
+  gap: 12px;
+  /* Use lighter blue footer text. */
+  color: #8fb9ff;
+  /* Keep footer labels compact. */
+  font-size: 12px;
+}
+
+/* Style the favorite legend on the Favorite Games page. */
+.favorite-page-legend {
+  /* Keep the star and explanation on one row. */
+  display: inline-flex;
+  /* Align the legend vertically. */
+  align-items: center;
+  /* Add space between the star and text. */
+  gap: 7px;
+  /* Add compact legend spacing. */
+  padding: 7px 11px;
+  /* Add space below the legend. */
+  margin-bottom: 20px;
+  /* Use the dark purple favorite background. */
+  background-color: #1c0c36;
+  /* Add the purple favorite border. */
+  border: 1px solid #a855f7;
+  /* Round the legend corners. */
+  border-radius: 8px;
+  /* Use pale purple legend text. */
+  color: #e9d5ff;
+  /* Add a soft purple glow around the legend. */
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.45);
+  /* Make the legend clear without being large. */
+  font-size: 12px;
+  /* Give the legend slightly stronger text. */
+  font-weight: 700;
+}
+
 /* Style unfinished content pages. */
 .simple-page {
   /* Limit the text width. */
@@ -931,6 +1329,18 @@
   .timeline-stat-item + .timeline-stat-item {
     /* Avoid awkward divider positions after wrapping. */
     border-left: 0;
+  }
+
+  /* Make library game grids use smaller minimum columns on narrow screens. */
+  .library-game-grid {
+    /* Keep cover cards fitting comfortably on smaller screens. */
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  }
+
+  /* Keep favorite genre cards usable on smaller screens. */
+  .favorite-genre-grid {
+    /* Allow one full-width genre card when needed. */
+    grid-template-columns: 1fr;
   }
 }
 

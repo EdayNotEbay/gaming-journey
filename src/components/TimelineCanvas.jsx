@@ -28,7 +28,9 @@ function getTimelineStats(games) { // Receive the complete game list.
 
   games.forEach(function (game) { // Inspect every game in the timeline.
     platforms.add(game.platform); // Add the current platform to the unique platform set.
-    genres.add(game.genre); // Add the current genre to the unique genre set.
+    game.genres.forEach(function (genreName) { // Inspect every genre assigned to the current game.
+      genres.add(genreName); // Add the current genre to the unique genre set.
+    }); // Finish inspecting the current game's genres.
     if (game.isFavorite === true) { // Check whether the current game is a favorite.
       favoriteCount = favoriteCount + 1; // Increase the favorite count for confirmed favorite games.
     } // Finish checking the favorite state.

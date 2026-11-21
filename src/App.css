@@ -1249,6 +1249,286 @@
   font-weight: 700;
 }
 
+/* Keep the Game Rankings page centered with comfortable spacing. */
+.rankings-page {
+  /* Add space around the complete rankings page. */
+  padding: 52px 5% 70px;
+}
+
+/* Arrange the ranking search and filter controls. */
+.rankings-controls {
+  /* Use a responsive grid for the search and dropdown controls. */
+  display: grid;
+  /* Create three flexible control columns. */
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  /* Add even space between ranking controls. */
+  gap: 14px;
+  /* Limit the controls to the main content width. */
+  max-width: 1200px;
+  /* Center the controls and add space below them. */
+  margin: 0 auto 24px;
+  /* Add room inside the control panel. */
+  padding: 18px;
+  /* Use the dark blue panel background shared across the site. */
+  background-color: #071a38;
+  /* Add the shared blue panel outline. */
+  border: 1px solid #244f94;
+  /* Round the control panel corners. */
+  border-radius: 14px;
+}
+
+/* Stack each ranking control label above its field. */
+.rankings-control {
+  /* Place the label text and form field vertically. */
+  display: flex;
+  /* Stack the control contents. */
+  flex-direction: column;
+  /* Add space between the label and field. */
+  gap: 7px;
+}
+
+/* Style ranking control labels. */
+.rankings-control span {
+  /* Use light blue label text. */
+  color: #b9c9e8;
+  /* Keep the labels compact. */
+  font-size: 13px;
+  /* Make labels easy to scan. */
+  font-weight: 700;
+}
+
+/* Style ranking search and dropdown fields. */
+.rankings-control input,
+.rankings-control select {
+  /* Use the dark control background. */
+  background-color: #0b234d;
+  /* Add a blue control border. */
+  border: 1px solid #315c9c;
+  /* Round the field corners. */
+  border-radius: 9px;
+  /* Add comfortable field spacing. */
+  padding: 10px 12px;
+  /* Use white field text. */
+  color: #ffffff;
+  /* Keep the form text readable. */
+  font-size: 14px;
+}
+
+/* Brighten ranking fields when they receive focus. */
+.rankings-control input:focus,
+.rankings-control select:focus {
+  /* Remove the browser default focus outline. */
+  outline: none;
+  /* Use the brighter blue focus border. */
+  border-color: #6ea7ff;
+  /* Add a subtle focus glow. */
+  box-shadow: 0 0 0 2px rgba(31, 111, 255, 0.18);
+}
+
+/* Wrap the ranking table in the main content panel. */
+.rankings-panel {
+  /* Limit the rankings panel width. */
+  max-width: 1200px;
+  /* Center the rankings panel. */
+  margin: 0 auto;
+  /* Add room inside the rankings panel. */
+  padding: 20px;
+  /* Use the dark navy collection background. */
+  background-color: #06152f;
+  /* Add a royal-blue outline. */
+  border: 1px solid #244f94;
+  /* Round the rankings panel corners. */
+  border-radius: 16px;
+}
+
+/* Arrange ranking progress information above the table. */
+.rankings-summary {
+  /* Place summary content on one flexible row. */
+  display: flex;
+  /* Allow the summary to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Align summary items vertically. */
+  align-items: center;
+  /* Separate progress text and shown count. */
+  justify-content: space-between;
+  /* Add space between wrapped summary items. */
+  gap: 12px;
+  /* Add space below the summary. */
+  margin-bottom: 18px;
+}
+
+/* Style the ranking summary title. */
+.rankings-summary h3 {
+  /* Remove the default heading margin. */
+  margin: 0 0 5px;
+  /* Keep the ranking title white. */
+  color: #ffffff;
+  /* Make the ranking title easy to scan. */
+  font-size: 24px;
+}
+
+/* Style ranking summary description text. */
+.rankings-summary p {
+  /* Remove the default paragraph margin. */
+  margin: 0;
+  /* Use softer blue text for ranking progress. */
+  color: #9fb1d2;
+  /* Keep ranking progress compact. */
+  font-size: 13px;
+}
+
+/* Style the number of currently displayed rows. */
+.rankings-summary > span {
+  /* Add compact badge spacing. */
+  padding: 6px 10px;
+  /* Use a dark blue badge background. */
+  background-color: #0b234d;
+  /* Add a blue badge outline. */
+  border: 1px solid #315c9c;
+  /* Round the shown-count badge. */
+  border-radius: 999px;
+  /* Use light blue badge text. */
+  color: #cbd8f5;
+  /* Keep the shown count compact. */
+  font-size: 12px;
+}
+
+/* Allow the rankings table to scroll horizontally on small screens. */
+.rankings-table-wrapper {
+  /* Enable horizontal scrolling without changing the whole page width. */
+  overflow-x: auto;
+  /* Keep the table inside the rounded panel. */
+  border-radius: 12px;
+}
+
+/* Style the complete rankings table. */
+.rankings-table {
+  /* Make the table fill the available rankings panel width. */
+  width: 100%;
+  /* Keep table cell borders clean and connected. */
+  border-collapse: collapse;
+  /* Prevent the table from becoming too narrow. */
+  min-width: 760px;
+}
+
+/* Style ranking table heading cells. */
+.rankings-table th {
+  /* Keep heading text aligned to the left. */
+  text-align: left;
+  /* Add comfortable heading spacing. */
+  padding: 12px 14px;
+  /* Use a darker blue heading background. */
+  background-color: #0b234d;
+  /* Add a lower divider beneath headings. */
+  border-bottom: 1px solid #315c9c;
+  /* Use pale blue heading text. */
+  color: #dbe8ff;
+  /* Keep headings compact. */
+  font-size: 12px;
+  /* Make headings easy to scan. */
+  font-weight: 700;
+  /* Use uppercase headings for the table labels. */
+  text-transform: uppercase;
+  /* Add slight letter spacing for the compact headings. */
+  letter-spacing: 0.05em;
+}
+
+/* Style ranking table data cells. */
+.rankings-table td {
+  /* Add consistent table-cell spacing. */
+  padding: 12px 14px;
+  /* Add a subtle divider between rows. */
+  border-bottom: 1px solid #17335e;
+  /* Use the normal readable page text color. */
+  color: #d6e1f5;
+  /* Keep table text compact. */
+  font-size: 13px;
+  /* Keep table content vertically centered. */
+  vertical-align: middle;
+}
+
+/* Add a subtle row highlight for readability. */
+.rankings-table tbody tr:hover {
+  /* Use a slightly brighter blue row background on hover. */
+  background-color: rgba(31, 111, 255, 0.08);
+}
+
+/* Style the personal rank column. */
+.rank-cell {
+  /* Keep the rank value from wrapping. */
+  white-space: nowrap;
+  /* Give rank values stronger emphasis. */
+  font-weight: 700;
+  /* Use the brighter blue accent for ranking values. */
+  color: #6ea7ff;
+}
+
+/* Keep game cover artwork beside the game title inside the table. */
+.rank-game-cell {
+  /* Place the cover and title on one row. */
+  display: flex;
+  /* Align game information vertically. */
+  align-items: center;
+  /* Add space between the cover and title. */
+  gap: 12px;
+  /* Keep the game information from becoming too narrow. */
+  min-width: 230px;
+}
+
+/* Style small cover thumbnails inside the ranking table. */
+.rank-game-cell img {
+  /* Give every ranking thumbnail the same width. */
+  width: 44px;
+  /* Give every ranking thumbnail the same vertical cover ratio. */
+  height: 62px;
+  /* Crop cover artwork without stretching it. */
+  object-fit: cover;
+  /* Round the ranking thumbnail corners. */
+  border-radius: 6px;
+  /* Add a subtle blue cover outline. */
+  border: 1px solid #3768aa;
+  /* Keep the thumbnail from shrinking inside the row. */
+  flex: 0 0 44px;
+}
+
+/* Style ranking game titles. */
+.rank-game-cell span {
+  /* Keep ranking game titles bright. */
+  color: #ffffff;
+  /* Make the game title easy to find in each row. */
+  font-weight: 700;
+}
+
+/* Style the default favorite-status badge. */
+.ranking-favorite {
+  /* Display the favorite status as a compact badge. */
+  display: inline-block;
+  /* Add badge spacing around the status text. */
+  padding: 5px 9px;
+  /* Use the normal dark blue badge background. */
+  background-color: #0b234d;
+  /* Add a subtle blue badge outline. */
+  border: 1px solid #315c9c;
+  /* Round the favorite-status badge. */
+  border-radius: 999px;
+  /* Use softer blue badge text. */
+  color: #a9badb;
+  /* Keep the status text compact. */
+  font-size: 11px;
+}
+
+/* Highlight favorite games with the same purple language used elsewhere. */
+.ranking-favorite-active {
+  /* Use a dark purple favorite background. */
+  background-color: #24113d;
+  /* Use the favorite purple outline. */
+  border-color: #a855f7;
+  /* Use pale purple favorite text. */
+  color: #e9d5ff;
+  /* Add a light favorite glow. */
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.35);
+}
+
 /* Style unfinished content pages. */
 .simple-page {
   /* Limit the text width. */
@@ -1340,6 +1620,12 @@
   /* Keep favorite genre cards usable on smaller screens. */
   .favorite-genre-grid {
     /* Allow one full-width genre card when needed. */
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack ranking controls on smaller screens. */
+  .rankings-controls {
+    /* Use one control per row on narrow screens. */
     grid-template-columns: 1fr;
   }
 }

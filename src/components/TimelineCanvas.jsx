@@ -3,14 +3,14 @@ import useTimelineControls from "../hooks/useTimelineControls.js"; // Import the
 
 // Keep the platform order and canvas positions in one place.
 const platformLayouts = [ // Start the platform layout list.
-  { name: "PS2", className: "platform-ps2", brandIcon: "PS" }, // Position PS2 and provide its temporary PlayStation icon label.
-  { name: "PS3", className: "platform-ps3", brandIcon: "PS" }, // Position PS3 and provide its temporary PlayStation icon label.
-  { name: "Xbox 360", className: "platform-xbox-360", brandIcon: "X" }, // Position Xbox 360 and provide its temporary Xbox icon label.
-  { name: "Wii", className: "platform-wii", brandIcon: "W" }, // Position Wii and provide its temporary Wii icon label.
-  { name: "Wii U", className: "platform-wii-u", brandIcon: "WU" }, // Position Wii U and provide its temporary Wii U icon label.
-  { name: "Xbox One", className: "platform-xbox-one", brandIcon: "X" }, // Position Xbox One and provide its temporary Xbox icon label.
-  { name: "Oculus Quest 2", className: "platform-quest-2", brandIcon: "VR" }, // Position Quest 2 and provide its temporary VR icon label.
-  { name: "PC", className: "platform-pc", brandIcon: "PC" }, // Position PC and provide its temporary PC icon label.
+  { name: "PS2", className: "platform-ps2", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/3840px-Playstation_logo_colour.svg.png" }, // Position PS2 and use the PlayStation brand icon.
+  { name: "PS3", className: "platform-ps3", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/3840px-Playstation_logo_colour.svg.png" }, // Position PS3 and use the PlayStation brand icon.
+  { name: "Xbox 360", className: "platform-xbox-360", brandIcon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/xbox_logo_icon_169692.png" }, // Position Xbox 360 and use the Xbox brand icon.
+  { name: "Wii", className: "platform-wii", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Wii_logo.png" }, // Position Wii and use the Wii brand logo.
+  { name: "Wii U", className: "platform-wii-u", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/WiiU.svg/3840px-WiiU.svg.png" }, // Position Wii U and use the Wii U brand logo.
+  { name: "Xbox One", className: "platform-xbox-one", brandIcon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/xbox_logo_icon_169692.png" }, // Position Xbox One and use the Xbox brand icon.
+  { name: "Oculus Quest 2", className: "platform-quest-2", brandIcon: "https://images.rawpixel.com/image_png_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwOTEtMDUucG5n.png" }, // Position Quest 2 and use the Meta brand icon.
+  { name: "PC", className: "platform-pc", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/2048px-Windows_logo_-_2012.svg.png" }, // Position PC and use the Windows brand icon.
 ]; // Finish the platform layout list.
 
 // Return every game that belongs to one platform.

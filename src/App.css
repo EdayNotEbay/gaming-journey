@@ -1459,6 +1459,249 @@
   box-shadow: 0 0 8px rgba(168, 85, 247, 0.35);
 }
 
+/* Keep the Add Game admin page centered with comfortable spacing. */
+.add-game-page {
+  /* Add space around the complete admin page. */
+  padding: 52px 5% 70px;
+}
+
+/* Place the Add Game form and preview inside one admin panel. */
+.add-game-panel {
+  /* Use a responsive two-column layout for the form and preview. */
+  display: grid;
+  /* Give the form more room than the preview. */
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  /* Add space between the form and preview. */
+  gap: 24px;
+  /* Limit the admin panel to the main content width. */
+  max-width: 1200px;
+  /* Center the admin panel. */
+  margin: 0 auto;
+  /* Add room inside the admin panel. */
+  padding: 22px;
+  /* Use the shared dark navy panel background. */
+  background-color: #06152f;
+  /* Add the shared royal-blue outline. */
+  border: 1px solid #244f94;
+  /* Round the admin panel corners. */
+  border-radius: 16px;
+}
+
+/* Arrange Add Game fields in a responsive form grid. */
+.add-game-form {
+  /* Use two columns for related form fields. */
+  display: grid;
+  /* Create two equal form columns. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Add even space between form fields. */
+  gap: 16px;
+}
+
+/* Stack each Add Game label above its control. */
+.add-game-field {
+  /* Place the label text above its form field. */
+  display: flex;
+  /* Stack the label and control vertically. */
+  flex-direction: column;
+  /* Add space between the label and control. */
+  gap: 7px;
+}
+
+/* Let selected Add Game fields use the complete form width. */
+.add-game-field-wide {
+  /* Span both form columns. */
+  grid-column: 1 / -1;
+}
+
+/* Style Add Game field labels. */
+.add-game-field span,
+.add-game-favorite-field span {
+  /* Use light blue label text. */
+  color: #b9c9e8;
+  /* Keep labels compact. */
+  font-size: 13px;
+  /* Make labels easy to scan. */
+  font-weight: 700;
+}
+
+/* Style Add Game text fields and selects. */
+.add-game-field input,
+.add-game-field select {
+  /* Use the dark blue field background. */
+  background-color: #0b234d;
+  /* Add a blue field border. */
+  border: 1px solid #315c9c;
+  /* Round the field corners. */
+  border-radius: 9px;
+  /* Add comfortable field spacing. */
+  padding: 11px 12px;
+  /* Use white field text. */
+  color: #ffffff;
+  /* Keep form text readable. */
+  font-size: 14px;
+}
+
+/* Brighten Add Game fields when they receive focus. */
+.add-game-field input:focus,
+.add-game-field select:focus {
+  /* Remove the browser default focus outline. */
+  outline: none;
+  /* Use the brighter blue focus border. */
+  border-color: #6ea7ff;
+  /* Add a subtle blue focus glow. */
+  box-shadow: 0 0 0 2px rgba(31, 111, 255, 0.18);
+}
+
+/* Arrange the favorite checkbox and its label. */
+.add-game-favorite-field {
+  /* Keep the checkbox and text on one row. */
+  display: flex;
+  /* Align the checkbox and text vertically. */
+  align-items: center;
+  /* Add space between the checkbox and text. */
+  gap: 9px;
+  /* Span both form columns. */
+  grid-column: 1 / -1;
+}
+
+/* Group Add Game form action buttons. */
+.add-game-actions {
+  /* Keep the buttons on one flexible row. */
+  display: flex;
+  /* Allow buttons to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Add space between buttons. */
+  gap: 10px;
+  /* Span both form columns. */
+  grid-column: 1 / -1;
+}
+
+/* Style the main Add Game action button. */
+.add-game-primary-button {
+  /* Add comfortable button spacing. */
+  padding: 10px 15px;
+  /* Use the main royal-blue action color. */
+  background-color: #1f6fff;
+  /* Add a brighter blue border. */
+  border: 1px solid #55a0ff;
+  /* Round the button corners. */
+  border-radius: 9px;
+  /* Keep button text white. */
+  color: #ffffff;
+  /* Make the main action easy to notice. */
+  font-weight: 700;
+  /* Show that the button is clickable. */
+  cursor: pointer;
+}
+
+/* Style the secondary Add Game action button. */
+.add-game-secondary-button {
+  /* Add comfortable button spacing. */
+  padding: 10px 15px;
+  /* Use the dark control background. */
+  background-color: #0b234d;
+  /* Add a blue control border. */
+  border: 1px solid #315c9c;
+  /* Round the button corners. */
+  border-radius: 9px;
+  /* Use light blue button text. */
+  color: #cbd8f5;
+  /* Show that the button is clickable. */
+  cursor: pointer;
+}
+
+/* Style Add Game form status feedback. */
+.add-game-status {
+  /* Span both form columns. */
+  grid-column: 1 / -1;
+  /* Remove unnecessary paragraph margin. */
+  margin: 0;
+  /* Use softer blue feedback text. */
+  color: #9fb1d2;
+  /* Keep feedback compact. */
+  font-size: 12px;
+  /* Keep empty status space from collapsing the form layout. */
+  min-height: 18px;
+}
+
+/* Style the Add Game preview panel. */
+.add-game-preview {
+  /* Add room inside the preview area. */
+  padding: 18px;
+  /* Use a darker blue preview background. */
+  background-color: #071a38;
+  /* Add a subtle blue outline. */
+  border: 1px solid #315c9c;
+  /* Round the preview panel corners. */
+  border-radius: 14px;
+  /* Keep the preview aligned to the top of the form. */
+  align-self: start;
+}
+
+/* Style the Add Game preview heading. */
+.add-game-preview h3 {
+  /* Remove extra top heading spacing. */
+  margin: 0 0 14px;
+  /* Keep the preview heading white. */
+  color: #ffffff;
+}
+
+/* Style the empty preview instructions. */
+.add-game-preview-empty {
+  /* Remove extra paragraph spacing. */
+  margin: 0;
+  /* Use softer blue preview text. */
+  color: #9fb1d2;
+  /* Keep the preview instructions readable. */
+  line-height: 1.5;
+  /* Keep the preview instructions compact. */
+  font-size: 13px;
+}
+
+/* Style the generated game preview card. */
+.add-game-preview-card {
+  /* Stack the preview artwork and text vertically. */
+  display: flex;
+  /* Place preview content in a column. */
+  flex-direction: column;
+  /* Align preview text to the left. */
+  align-items: flex-start;
+}
+
+/* Style the generated game preview cover. */
+.add-game-preview-card img {
+  /* Match the standard game cover width. */
+  width: 150px;
+  /* Match the standard game cover height. */
+  height: 210px;
+  /* Crop preview artwork without stretching it. */
+  object-fit: cover;
+  /* Round the preview cover corners. */
+  border-radius: 10px;
+  /* Add the standard blue cover outline. */
+  border: 1px solid #3768aa;
+}
+
+/* Style the generated game preview title. */
+.add-game-preview-card h4 {
+  /* Add space above the title. */
+  margin: 10px 0 4px;
+  /* Keep the preview title white. */
+  color: #ffffff;
+  /* Make the preview title prominent. */
+  font-size: 16px;
+}
+
+/* Style preview details below the game title. */
+.add-game-preview-card p {
+  /* Add compact spacing between preview details. */
+  margin: 3px 0;
+  /* Use light blue preview detail text. */
+  color: #b9c9e8;
+  /* Keep preview details compact. */
+  font-size: 12px;
+}
+
 /* Style unfinished content pages. */
 .simple-page {
   /* Limit the text width. */
@@ -1551,6 +1794,32 @@
   .favorite-genre-grid {
     /* Allow one full-width genre card when needed. */
     grid-template-columns: 1fr;
+  }
+
+  /* Stack the Add Game form and preview on smaller screens. */
+  .add-game-panel {
+    /* Use one column for the form and preview. */
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack Add Game form fields on smaller screens. */
+  .add-game-form {
+    /* Use one form field per row. */
+    grid-template-columns: 1fr;
+  }
+
+  /* Keep wide Add Game fields in the single mobile column. */
+  .add-game-field-wide {
+    /* Use the only available form column. */
+    grid-column: 1;
+  }
+
+  /* Keep Add Game checkbox and actions in the single mobile column. */
+  .add-game-favorite-field,
+  .add-game-actions,
+  .add-game-status {
+    /* Use the only available form column. */
+    grid-column: 1;
   }
 }
 

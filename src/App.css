@@ -413,6 +413,8 @@
   border: 1px solid #2e8cff;
   /* Round the platform panel corners. */
   border-radius: 16px;
+  /* Show visitors that the platform background can move the canvas. */
+  cursor: grab;
 }
 
 /* Style each platform title. */
@@ -692,7 +694,7 @@
   height: 100px;
 }
 
-/* Draw connectors upward from lower platform groups to the main timeline. */
+/* Draw the lower platform connectors upward to the main timeline. */
 .platform-wii .platform-connector,
 .platform-wii-u .platform-connector,
 .platform-xbox-one .platform-connector,
@@ -702,14 +704,6 @@
   top: auto;
   /* End the connector at the top edge of the group. */
   bottom: 100%;
-}
-
-/* Give every lower platform enough connector length to reach the timeline. */
-.platform-wii .platform-connector,
-.platform-wii-u .platform-connector,
-.platform-xbox-one .platform-connector,
-.platform-quest-2 .platform-connector,
-.platform-pc .platform-connector {
   /* Reach upward through the gap to the timeline line. */
   height: 100px;
 }
@@ -751,19 +745,6 @@
   /* Align the node with the timeline end of the connector. */
   top: -8px;
 }
-
-/* Keep the drag cursor active on platform group background space. */
-.platform-group {
-  /* Show visitors that the group background can move the canvas. */
-  cursor: grab;
-}
-
-/* Keep game cards visually separate from the draggable group background. */
-.game-card {
-  /* Show that game cards are clickable instead of draggable. */
-  cursor: pointer;
-}
-
 
 /* Let the Xbox 360 collection use five columns before stacking downward. */
 .platform-xbox-360 .game-grid {

@@ -241,8 +241,8 @@
   overflow: auto;
   /* Show the open-hand cursor over draggable space. */
   cursor: grab;
-  /* Use a darker canvas background. */
-  background-color: #041027;
+  /* Keep the canvas background continuous even when the scaled canvas is smaller than the viewport. */
+  background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
   /* Prevent text selection while dragging the workspace. */
   user-select: none;
   /* Keep touch gestures inside the timeline interaction. */
@@ -267,6 +267,10 @@
 .timeline-canvas-shell {
   /* Keep the scaled canvas anchored to the top-left corner. */
   position: relative;
+  /* Fill the visible width when a very small zoom makes the canvas narrower than the viewport. */
+  min-width: 100%;
+  /* Fill the visible height when a very small zoom makes the canvas shorter than the viewport. */
+  min-height: 100%;
 }
 
 /* Create the large bounded two-dimensional workspace. */
@@ -279,8 +283,8 @@
   height: 2100px;
   /* Keep zoom scaling anchored to the top-left corner. */
   transform-origin: top left;
-  /* Add a subtle royal-blue canvas gradient. */
-  background: radial-gradient(circle at center, #0a2550 0%, #041027 55%, #020918 100%);
+  /* Let the viewport provide the seamless canvas background at every zoom level. */
+  background: transparent;
 }
 
 /* Size the shell and canvas for the farthest zoomed-out view. */
@@ -417,10 +421,50 @@
   cursor: grab;
 }
 
+/* Keep the temporary platform brand icon beside the platform name. */
+.platform-heading {
+  /* Place the brand icon and platform name on one row. */
+  display: flex;
+  /* Align the brand icon and text vertically. */
+  align-items: center;
+  /* Add a small gap between the brand icon and platform name. */
+  gap: 10px;
+  /* Keep the same spacing below the platform header. */
+  margin-bottom: 14px;
+}
+
+/* Style the temporary platform brand icon placeholder. */
+.platform-brand-icon {
+  /* Center the temporary brand letters horizontally. */
+  display: inline-flex;
+  /* Center the temporary brand letters vertically. */
+  align-items: center;
+  /* Center the temporary brand letters horizontally. */
+  justify-content: center;
+  /* Give every placeholder the same square width. */
+  width: 30px;
+  /* Give every placeholder the same square height. */
+  height: 30px;
+  /* Keep the placeholder compact beside the platform title. */
+  flex: 0 0 30px;
+  /* Give the placeholder a bright blue outline. */
+  border: 1px solid #4aa3ff;
+  /* Round the placeholder like a small brand badge. */
+  border-radius: 8px;
+  /* Use a dark translucent blue background. */
+  background-color: #0b234d;
+  /* Keep temporary brand letters bright. */
+  color: #ffffff;
+  /* Make the placeholder letters bold enough to read while zoomed out. */
+  font-weight: 700;
+  /* Keep the placeholder letters compact. */
+  font-size: 11px;
+}
+
 /* Style each platform title. */
 .platform-title {
-  /* Remove the default top margin. */
-  margin: 0 0 14px;
+  /* Remove the default heading margin because the heading wrapper controls spacing. */
+  margin: 0;
   /* Keep platform names white. */
   color: #ffffff;
   /* Make platform names easy to scan. */

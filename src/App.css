@@ -573,32 +573,24 @@
   margin-bottom: 14px;
 }
 
-/* Style the temporary platform brand icon placeholder. */
+/* Style the real platform brand icon beside each platform name. */
 .platform-brand-icon {
-  /* Center the temporary brand letters horizontally. */
-  display: inline-flex;
-  /* Center the temporary brand letters vertically. */
-  align-items: center;
-  /* Center the temporary brand letters horizontally. */
-  justify-content: center;
-  /* Give every placeholder the same square width. */
+  /* Give every platform logo the same square display area. */
   width: 30px;
-  /* Give every placeholder the same square height. */
+  /* Give every platform logo the same square display area. */
   height: 30px;
-  /* Keep the placeholder compact beside the platform title. */
+  /* Keep the logo from shrinking inside the flex row. */
   flex: 0 0 30px;
-  /* Give the placeholder a bright blue outline. */
+  /* Preserve each brand logo without stretching it. */
+  object-fit: contain;
+  /* Add a little breathing room around wide brand marks. */
+  padding: 3px;
+  /* Keep light and dark brand artwork readable on the navy panel. */
+  background-color: rgba(255, 255, 255, 0.94);
+  /* Add a subtle blue outline around the logo area. */
   border: 1px solid #4aa3ff;
-  /* Round the placeholder like a small brand badge. */
+  /* Round the logo area to match the platform panel styling. */
   border-radius: 8px;
-  /* Use a dark translucent blue background. */
-  background-color: #0b234d;
-  /* Keep temporary brand letters bright. */
-  color: #ffffff;
-  /* Make the placeholder letters bold enough to read while zoomed out. */
-  font-weight: 700;
-  /* Keep the placeholder letters compact. */
-  font-size: 11px;
 }
 
 /* Style each platform title. */

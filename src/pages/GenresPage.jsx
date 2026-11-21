@@ -3,15 +3,19 @@ import { useLocation } from "react-router-dom"; // Import location so timeline c
 import LibraryGameCard from "../components/LibraryGameCard.jsx"; // Import the reusable game gallery card.
 import games from "../data/games.js"; // Import the shared game data.
 
-// Return every unique genre in the order it first appears.
+// Return every unique genre assigned to any game.
 function getGenreNames(gameList) { // Receive the complete game list.
   const genreNames = []; // Start an empty list of unique genre names.
 
   gameList.forEach(function (game) { // Inspect every game in the shared data.
-    if (genreNames.includes(game.genre) === false) { // Check whether this genre has already been added.
-      genreNames.push(game.genre); // Add the new genre once.
-    } // Finish checking whether the genre is unique.
+    game.genres.forEach(function (genreName) { // Inspect every genre assigned to the current game.
+      if (genreNames.includes(genreName) === false) { // Check whether this genre has already been added.
+        genreNames.push(genreName); // Add the new genre once.
+      } // Finish checking whether the genre is unique.
+    }); // Finish inspecting the current game's genres.
   }); // Finish inspecting the games.
+
+  genreNames.sort(); // Keep the genre filter buttons in alphabetical order.
 
   return genreNames; // Return the unique genre names.
 } // Finish the genre-name helper.
@@ -36,7 +40,7 @@ function getDisplayedGames(gameList, selectedGenre) { // Receive the complete ga
   } // Finish checking the All filter.
 
   return gameList.filter(function (game) { // Filter the complete game list.
-    return game.genre === selectedGenre; // Keep games from the selected genre.
+    return game.genres.includes(selectedGenre); // Keep games that contain the selected genre anywhere in their genre array.
   }); // Finish filtering the games.
 } // Finish the displayed-game helper.
 
@@ -51,11 +55,11 @@ function getGenreButtonClass(genreName, selectedGenre) { // Receive the button g
   return className; // Return the complete button class name.
 } // Finish the genre-button class helper.
 
-// Display all games with interactive genre filtering.
+// Display all games with interactive multi-genre filtering.
 function GenresPage() { // Create the Genres page component.
   const location = useLocation(); // Read route state passed from timeline or gallery cards.
   const [selectedGenre, setSelectedGenre] = useState(getRequestedGenre(location)); // Store the currently displayed genre.
-  const genreNames = getGenreNames(games); // Build the available genre filter list.
+  const genreNames = getGenreNames(games); // Build the available genre filter list from every genre array.
   const displayedGames = getDisplayedGames(games, selectedGenre); // Build the game list for the active genre.
 
   // Update the filter when another page routes here with a genre.
@@ -73,7 +77,7 @@ function GenresPage() { // Create the Genres page component.
       <section className="collection-hero"> {/* Introduce the Genres page. */}
         <p className="eyebrow">Game Library</p> {/* Add a small page label above the title. */}
         <h2>Genres</h2> {/* Display the page title. */}
-        <p>Explore the games I have played by genre. Timeline game clicks open this page with the matching genre selected.</p> {/* Explain the page behavior. */}
+        <p>Explore the games I have played by genre. Games can appear in multiple genre sections when more than one genre applies.</p> {/* Explain the multi-genre page behavior. */}
       </section> {/* Finish the Genres introduction. */}
       <section className="genre-filter-panel" aria-label="Game genre filters"> {/* Group all selectable genre filters. */}
         <button type="button" className={getGenreButtonClass("All", selectedGenre)} data-genre="All" onClick={handleGenreClick}>All</button> {/* Let visitors show every game. */}

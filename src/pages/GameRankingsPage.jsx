@@ -97,6 +97,17 @@ function filterRankingRows(rows, searchText, platformFilter, genreFilter) { // R
   }); // Finish filtering the ranking rows.
 } // Finish the ranking filter helper.
 
+// Return the correct favorite badge class for one game.
+function getFavoriteBadgeClass(game) { // Receive one game ranking row.
+  let className = "ranking-favorite"; // Start with the normal favorite badge class.
+
+  if (game.isFavorite === true) { // Check whether the game is marked as a favorite.
+    className = className + " ranking-favorite-active"; // Add the purple favorite badge style.
+  } // Finish checking the favorite state.
+
+  return className; // Return the complete favorite badge class name.
+} // Finish the favorite badge helper.
+
 // Display the personal game ranking table.
 function GameRankingsPage() { // Create the Game Rankings page component.
   const [searchText, setSearchText] = useState(""); // Store the current title search text.
@@ -199,7 +210,7 @@ function GameRankingsPage() { // Create the Game Rankings page component.
                     <td>{game.platform}</td> {/* Display the game's platform. */}
                     <td>{game.genre}</td> {/* Display the game's genre. */}
                     <td> {/* Display whether the game is a favorite. */}
-                      <span className={game.isFavorite === true ? "ranking-favorite ranking-favorite-active" : "ranking-favorite"}>{favoriteLabel}</span> {/* Display the favorite badge. */}
+                      <span className={getFavoriteBadgeClass(game)}>{favoriteLabel}</span> {/* Display the favorite badge. */}
                     </td> {/* Finish the favorite-status column. */}
                   </tr> /* Finish the current ranking row. */
                 ); // Finish returning the current ranking row.

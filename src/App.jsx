@@ -6,7 +6,7 @@ import FavoriteGenresPage from "./pages/FavoriteGenresPage.jsx"; // Import the F
 import FavoriteGamesPage from "./pages/FavoriteGamesPage.jsx"; // Import the Favorite Games page.
 import AddGamePage from "./pages/AddGamePage.jsx"; // Import the protected Add Game admin page.
 import GameRankingsPage from "./pages/GameRankingsPage.jsx"; // Import the Game Rankings page.
-import RecommendGamePage from "./pages/RecommendGamePage.jsx"; // Import the recommendation page.
+import DeleteGamePage from "./pages/DeleteGamePage.jsx"; // Import the protected Delete Game admin page.
 import "./App.css"; // Import the external website stylesheet.
 
 // Display the full React website and its seven routes.
@@ -22,7 +22,7 @@ function App() { // Create the main application component.
           <Route path="/favorite-games" element={<FavoriteGamesPage />} /> {/* Display the Favorite Games page. */}
           <Route path="/add-game" element={<AddGamePage />} /> {/* Display the protected Add Game admin page. */}
           <Route path="/game-rankings" element={<GameRankingsPage />} /> {/* Display the Game Rankings page. */}
-          <Route path="/recommend-me-a-game" element={<RecommendGamePage />} /> {/* Display the recommendation page. */}
+          <Route path="/delete-game" element={<DeleteGamePage />} /> {/* Display the protected Delete Game admin page. */}
           <Route path="*" element={<TimelinePage />} /> {/* Return unknown addresses to the Gaming Timeline. */}
         </Routes> {/* Finish the route list. */}
         <footer className="site-footer"> {/* Display the shared footer on every page. */}

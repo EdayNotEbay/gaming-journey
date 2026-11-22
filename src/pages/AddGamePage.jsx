@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"; // Import React tools used by the admin login and game form.
+import { getPlatformTimelineYear } from "../data/platformTimelineYears.js"; // Import the shared temporary platform-year rule.
 
 // Keep the supported timeline platforms together.
 const platformNames = [ // Start the supported platform list.
@@ -18,7 +19,7 @@ const emptyGameForm = { // Start the empty form object.
   platform: "PC", // Start the platform field with PC selected.
   genres: "", // Store comma-separated genres before converting them to an array.
   rating: "5", // Store the personal rating field as form text.
-  timelineDate: "", // Store the optional timeline date field.
+  timelineDate: getPlatformTimelineYear("PC"), // Start the timeline year at the user's 2019 PC gaming start year.
   cover: "", // Store the game cover URL field.
   isFavorite: false, // Store whether the game should receive the favorite glow.
 }; // Finish the empty form object.
@@ -70,10 +71,14 @@ function AddGamePage() { // Create the Add Game page component.
     const fieldName = event.target.name; // Read the field name from the changed control.
     const fieldValue = event.target.value; // Read the new field value.
     setFormData(function (currentFormData) { // Update the form using the latest stored values.
-      return { // Return the complete updated form object.
+      const updatedFormData = { // Start the complete updated form object.
         ...currentFormData, // Keep every form field that did not change.
         [fieldName]: fieldValue, // Replace only the field that changed.
-      }; // Finish returning the updated form object.
+      }; // Finish building the updated form object.
+      if (fieldName === "platform") { // Check whether the administrator selected a different platform.
+        updatedFormData.timelineDate = getPlatformTimelineYear(fieldValue); // Automatically apply the temporary timeline year for that platform.
+      } // Finish checking the platform field.
+      return updatedFormData; // Return the completed form update.
     }); // Finish updating the form state.
   } // Finish the text and select field handler.
 
@@ -247,8 +252,8 @@ function AddGamePage() { // Create the Add Game page component.
               </select> {/* Finish the rating dropdown. */}
             </label> {/* Finish the rating field. */}
             <label className="add-game-field"> {/* Group the timeline date label and input. */}
-              <span>Timeline Date</span> {/* Label the optional timeline date input. */}
-              <input type="text" name="timelineDate" value={formData.timelineDate} onChange={handleFieldChange} placeholder="Optional" /> {/* Let the administrator enter timeline text later. */}
+              <span>Timeline Year</span> {/* Label the automatically assigned platform timeline year. */}
+              <input type="text" name="timelineDate" value={formData.timelineDate} readOnly /> {/* Show the platform-based timeline year without requiring manual entry. */}
             </label> {/* Finish the timeline date field. */}
             <label className="add-game-field add-game-field-wide"> {/* Give the cover URL field the full form width. */}
               <span>Cover Image URL</span> {/* Label the cover artwork input. */}

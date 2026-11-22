@@ -3581,3 +3581,124 @@
   /* Add a larger purple glow around favorite library covers. */
   box-shadow: 0 0 12px rgba(194, 92, 255, 1), 0 0 28px rgba(177, 76, 255, 0.78), 0 0 44px rgba(145, 56, 255, 0.46);
 }
+
+
+/* Remove the inner purple favorite glow while keeping the larger outer aura. */
+.game-card-favorite .game-cover {
+  /* Restore the normal cover border instead of a second purple ring. */
+  border: 1px solid rgba(133, 152, 205, 0.30);
+  /* Remove the inner cover glow so only the outer favorite aura remains. */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* Keep hover from bringing the inner purple cover glow back. */
+.game-card-favorite:hover .game-cover {
+  /* Keep the favorite cover on the normal non-purple shadow. */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* Remove the inner purple glow from favorite cards on library pages too. */
+.library-game-card-favorite .library-game-cover {
+  /* Restore the normal library cover border instead of a second purple ring. */
+  border: 1px solid #3768aa;
+  /* Remove the inner library cover glow. */
+  box-shadow: none;
+}
+
+/* Keep library hover from bringing the inner purple glow back. */
+.library-game-card-favorite:hover .library-game-cover {
+  /* Keep the favorite library cover free of the inner glow. */
+  box-shadow: none;
+}
+
+/* Style the local PC monitor icon without the broken white image box. */
+.platform-pc-icon {
+  /* Use ultramarine for the PC monitor outline. */
+  color: #4166f5;
+  /* Remove the white image-tile background used by external platform logos. */
+  background-color: transparent;
+  /* Remove the image-tile border around the local PC icon. */
+  border: 0;
+  /* Remove extra image padding from the local SVG. */
+  padding: 0;
+  /* Add a restrained ultramarine glow around the monitor outline. */
+  filter: drop-shadow(0 0 4px rgba(65, 102, 245, 0.46));
+}
+
+/* Add real vertical workspace so tall upper platform groups stay inside the canvas. */
+.timeline-canvas {
+  /* Increase the canvas height by four hundred pixels. */
+  height: 2500px;
+}
+
+/* Move the main timeline lower to preserve the same upper and lower spacing. */
+.timeline-main-line {
+  /* Shift the main line down with the larger canvas. */
+  top: 1440px;
+}
+
+/* Move every lower platform group down with the shifted main timeline. */
+.platform-wii,
+.platform-wii-u,
+.platform-xbox-one,
+.platform-quest-2,
+.platform-pc {
+  /* Keep the lower row one hundred pixels beneath the main line. */
+  top: 1540px;
+}
+
+/* Match the thirty-percent scroll shell to the taller canvas. */
+.timeline-zoom-30 {
+  /* Keep the scaled width unchanged. */
+  width: 1080px;
+  /* Match thirty percent of the new twenty-five-hundred-pixel height. */
+  height: 750px;
+}
+
+/* Match the fifty-percent scroll shell to the taller canvas. */
+.timeline-zoom-50 {
+  /* Keep the scaled width unchanged. */
+  width: 1800px;
+  /* Match fifty percent of the new canvas height. */
+  height: 1250px;
+}
+
+/* Match the seventy-percent scroll shell to the taller canvas. */
+.timeline-zoom-70 {
+  /* Keep the scaled width unchanged. */
+  width: 2520px;
+  /* Match seventy percent of the new canvas height. */
+  height: 1750px;
+}
+
+/* Match the eighty-five-percent scroll shell to the taller canvas. */
+.timeline-zoom-85 {
+  /* Keep the scaled width unchanged. */
+  width: 3060px;
+  /* Match eighty-five percent of the new canvas height. */
+  height: 2125px;
+}
+
+/* Match the normal scroll shell to the taller canvas. */
+.timeline-zoom-100 {
+  /* Keep the full canvas width unchanged. */
+  width: 3600px;
+  /* Match the full new canvas height. */
+  height: 2500px;
+}
+
+/* Match the one-hundred-fifteen-percent scroll shell to the taller canvas. */
+.timeline-zoom-115 {
+  /* Keep the scaled width unchanged. */
+  width: 4140px;
+  /* Match one hundred fifteen percent of the new canvas height. */
+  height: 2875px;
+}
+
+/* Match the one-hundred-thirty-percent scroll shell to the taller canvas. */
+.timeline-zoom-130 {
+  /* Keep the scaled width unchanged. */
+  width: 4680px;
+  /* Match one hundred thirty percent of the new canvas height. */
+  height: 3250px;
+}

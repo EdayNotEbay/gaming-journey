@@ -3611,20 +3611,6 @@
   box-shadow: none;
 }
 
-/* Style the local PC monitor icon without the broken white image box. */
-.platform-pc-icon {
-  /* Use ultramarine for the PC monitor outline. */
-  color: #4166f5;
-  /* Remove the white image-tile background used by external platform logos. */
-  background-color: transparent;
-  /* Remove the image-tile border around the local PC icon. */
-  border: 0;
-  /* Remove extra image padding from the local SVG. */
-  padding: 0;
-  /* Add a restrained ultramarine glow around the monitor outline. */
-  filter: drop-shadow(0 0 4px rgba(65, 102, 245, 0.46));
-}
-
 /* Add real vertical workspace so tall upper platform groups stay inside the canvas. */
 .timeline-canvas {
   /* Increase the canvas height by four hundred pixels. */

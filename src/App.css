@@ -3520,3 +3520,64 @@
   /* Display the cover as a normal block. */
   display: block;
 }
+
+
+/* Make the compact controller proportions consistent everywhere. */
+.brand-logo {
+  /* Reduce the controller footprint so it does not look stretched in the header. */
+  width: 34px;
+  /* Keep the controller proportionally compact. */
+  height: 28px;
+}
+
+/* Keep the Timeline heading controller compact too. */
+.timeline-heading-icon {
+  /* Match the shorter controller width used in the header. */
+  width: 34px;
+  /* Keep the controller proportionally compact. */
+  height: 28px;
+  /* Prevent the heading icon from reserving extra horizontal space. */
+  flex: 0 0 34px;
+}
+
+/* Make favorite Timeline cards much easier to see when zoomed out. */
+.game-card-favorite {
+  /* Use a thicker purple border around the complete favorite card. */
+  border: 2px solid #b14cff;
+  /* Add a larger layered purple aura around the complete favorite card. */
+  box-shadow: 0 0 0 2px rgba(177, 76, 255, 0.34), 0 0 18px rgba(177, 76, 255, 0.88), 0 0 38px rgba(145, 56, 255, 0.62), 0 0 58px rgba(112, 37, 220, 0.34);
+}
+
+/* Make the favorite cover border itself bolder. */
+.game-card-favorite .game-cover {
+  /* Use a thicker bright-purple border directly around the cover. */
+  border: 4px solid #c25cff;
+  /* Add a stronger inner and outer glow around favorite cover art. */
+  box-shadow: 0 0 12px rgba(194, 92, 255, 1), 0 0 28px rgba(177, 76, 255, 0.82), 0 0 46px rgba(145, 56, 255, 0.50);
+}
+
+/* Keep the larger favorite aura obvious during hover. */
+.game-card-favorite:hover {
+  /* Strengthen the complete-card purple aura during hover. */
+  box-shadow: 0 0 0 2px rgba(194, 92, 255, 0.42), 0 0 22px rgba(194, 92, 255, 0.96), 0 0 44px rgba(160, 70, 255, 0.72), 0 0 66px rgba(112, 37, 220, 0.40);
+}
+
+/* Keep the favorite cover glow stronger during hover too. */
+.game-card-favorite:hover .game-cover {
+  /* Increase the cover glow without changing its size. */
+  box-shadow: 0 0 16px rgba(210, 118, 255, 1), 0 0 34px rgba(194, 92, 255, 0.92), 0 0 54px rgba(160, 70, 255, 0.58);
+}
+
+/* Give favorite cards on library pages the same stronger purple visibility. */
+.library-game-card-favorite {
+  /* Add a larger purple aura around the complete favorite library card. */
+  box-shadow: 0 0 0 2px rgba(177, 76, 255, 0.30), 0 0 20px rgba(177, 76, 255, 0.74), 0 0 40px rgba(145, 56, 255, 0.44);
+}
+
+/* Strengthen the purple border around favorite library covers. */
+.library-game-card-favorite .library-game-cover {
+  /* Use a thicker bright-purple border around favorite library cover art. */
+  border: 4px solid #c25cff;
+  /* Add a larger purple glow around favorite library covers. */
+  box-shadow: 0 0 12px rgba(194, 92, 255, 1), 0 0 28px rgba(177, 76, 255, 0.78), 0 0 44px rgba(145, 56, 255, 0.46);
+}

@@ -3282,3 +3282,93 @@
   /* Use a slightly brighter ultramarine top divider. */
   border-top-color: rgba(65, 102, 245, 0.34);
 }
+
+
+/* Correct the Timeline balance so ultramarine is more noticeable without overpowering the other pages. */
+.timeline-hero {
+  /* Strengthen the ultramarine ambient glow behind the Timeline hero. */
+  background-image: radial-gradient(circle at 68% 20%, rgba(65, 102, 245, 0.18), transparent 36%), radial-gradient(circle at 24% 10%, rgba(48, 63, 170, 0.10), transparent 28%);
+}
+
+/* Give the main Timeline application shell a clearer ultramarine identity. */
+.timeline-section {
+  /* Increase the ultramarine edge strength around the complete timeline. */
+  border-color: rgba(65, 102, 245, 0.62);
+  /* Add a stronger ultramarine glow while keeping the dark navy base dominant. */
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38), 0 0 56px rgba(65, 102, 245, 0.18);
+}
+
+/* Increase ultramarine presence in the Timeline toolbar. */
+.timeline-toolbar {
+  /* Use a more visible ultramarine wash across the toolbar surface. */
+  background: linear-gradient(90deg, rgba(43, 59, 158, 0.30), rgba(6, 14, 34, 0.80) 42%, rgba(43, 59, 158, 0.22));
+  /* Brighten the ultramarine divider below the toolbar. */
+  border-bottom-color: rgba(65, 102, 245, 0.46);
+}
+
+/* Give interaction hints a clearer ultramarine treatment. */
+.interaction-guide-item {
+  /* Increase the ultramarine tint behind each hint chip. */
+  background-color: rgba(65, 102, 245, 0.14);
+  /* Use a more visible ultramarine border around each hint chip. */
+  border-color: rgba(65, 102, 245, 0.30);
+  /* Brighten the hint text slightly. */
+  color: #c1cbef;
+}
+
+/* Strengthen ultramarine across Timeline controls. */
+.zoom-button,
+.recenter-button {
+  /* Add a stronger ultramarine tint to the control backgrounds. */
+  background-color: rgba(28, 42, 116, 0.54);
+  /* Use a brighter ultramarine control outline. */
+  border-color: rgba(86, 113, 255, 0.68);
+}
+
+/* Increase ultramarine depth inside the draggable Timeline canvas. */
+.timeline-viewport {
+  /* Use a stronger ultramarine ambient glow inside the canvas while preserving the dark background. */
+  background-image: radial-gradient(circle at 50% 48%, rgba(65, 102, 245, 0.15), transparent 44%), radial-gradient(circle at 16% 20%, rgba(47, 62, 172, 0.10), transparent 22%);
+}
+
+/* Give platform groups a more noticeable ultramarine glass treatment. */
+.platform-group {
+  /* Add a subtle ultramarine tint into platform group backgrounds. */
+  background: linear-gradient(180deg, rgba(30, 43, 120, 0.34), rgba(4, 11, 29, 0.96) 58%);
+  /* Strengthen the ultramarine outline around platform groups. */
+  border-color: rgba(65, 102, 245, 0.58);
+  /* Add a small ultramarine glow behind platform groups. */
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.30), 0 0 24px rgba(65, 102, 245, 0.10);
+}
+
+/* Give Timeline game cards slightly more ultramarine framing. */
+.game-card {
+  /* Add a restrained ultramarine tint to normal game cards. */
+  background-color: rgba(18, 29, 83, 0.34);
+  /* Use a more visible ultramarine edge on normal cards. */
+  border-color: rgba(65, 102, 245, 0.28);
+}
+
+/* Brighten Timeline year markers with ultramarine. */
+.platform-connector-year {
+  /* Use a slightly more ultramarine-tinted year background. */
+  background-color: rgba(20, 30, 88, 0.92);
+  /* Use a brighter ultramarine outline around each year marker. */
+  border-color: rgba(96, 122, 255, 0.94);
+  /* Add a stronger ultramarine glow to the year marker. */
+  box-shadow: 0 0 16px rgba(65, 102, 245, 0.34);
+}
+
+/* Increase ultramarine presence in the Timeline summary bar. */
+.timeline-stats-bar {
+  /* Use a stronger ultramarine wash across the complete summary bar. */
+  background: linear-gradient(90deg, rgba(42, 57, 153, 0.34), rgba(5, 13, 31, 0.90) 48%, rgba(42, 57, 153, 0.30));
+  /* Brighten the ultramarine divider above the statistics. */
+  border-top-color: rgba(65, 102, 245, 0.46);
+}
+
+/* Give each Timeline statistic a subtle ultramarine separation. */
+.timeline-stat-item + .timeline-stat-item {
+  /* Use ultramarine instead of the older muted divider color. */
+  border-left-color: rgba(65, 102, 245, 0.30);
+}

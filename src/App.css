@@ -1465,6 +1465,78 @@
   padding: 52px 5% 70px;
 }
 
+/* Center the administrator login panel on the Add Game page. */
+.add-game-login-panel {
+  /* Limit the login panel width for readability. */
+  max-width: 520px;
+  /* Center the login panel below the page introduction. */
+  margin: 0 auto;
+  /* Add room inside the login panel. */
+  padding: 22px;
+  /* Use the shared dark navy panel background. */
+  background-color: #06152f;
+  /* Add the shared royal-blue outline. */
+  border: 1px solid #244f94;
+  /* Round the login panel corners. */
+  border-radius: 16px;
+}
+
+/* Style the administrator login heading. */
+.add-game-login-panel h3 {
+  /* Remove extra top heading space. */
+  margin: 0 0 8px;
+  /* Keep the login heading white. */
+  color: #ffffff;
+}
+
+/* Style the administrator login explanation. */
+.add-game-login-panel p {
+  /* Use softer blue text for login guidance. */
+  color: #9fb1d2;
+  /* Keep login guidance readable. */
+  line-height: 1.5;
+}
+
+/* Arrange the administrator login controls. */
+.add-game-login-form {
+  /* Stack the password field and button vertically. */
+  display: flex;
+  /* Place login controls in one column. */
+  flex-direction: column;
+  /* Add space between login controls. */
+  gap: 14px;
+  /* Add space above the login controls. */
+  margin-top: 18px;
+}
+
+/* Keep the active administrator session label above the protected form. */
+.add-game-admin-bar {
+  /* Span both Add Game form columns. */
+  grid-column: 1 / -1;
+  /* Keep the session text and logout button on one row. */
+  display: flex;
+  /* Align the session controls vertically. */
+  align-items: center;
+  /* Separate the session label and logout button. */
+  justify-content: space-between;
+  /* Add space between wrapped session controls. */
+  gap: 12px;
+  /* Add room inside the administrator session bar. */
+  padding: 12px;
+  /* Use a darker blue session background. */
+  background-color: #071a38;
+  /* Add a subtle blue session outline. */
+  border: 1px solid #315c9c;
+  /* Round the session bar corners. */
+  border-radius: 10px;
+  /* Use light blue session text. */
+  color: #b9c9e8;
+  /* Keep the session text compact. */
+  font-size: 13px;
+  /* Make the active-session text easy to notice. */
+  font-weight: 700;
+}
+
 /* Place the Add Game form and preview inside one admin panel. */
 .add-game-panel {
   /* Use a responsive two-column layout for the form and preview. */

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"; // Import NavLink so the current page can be highlighted.
+import GamepadIcon from "./GamepadIcon.jsx"; // Import the reusable modern gamepad logo.
 
 // Keep the main navigation links together in one reusable list.
 const navigationLinks = [ // Start the navigation link list.
@@ -28,8 +29,11 @@ function Navbar() { // Create the shared navigation component.
     <header className="site-header"> {/* Create the shared website banner and navigation area. */}
       <h1> {/* Display the website brand heading. */}
         <NavLink to="/" className="brand-link"> {/* Link the complete logo area back to the Gaming Timeline. */}
-          <span className="brand-logo" aria-hidden="true">🎮</span> {/* Display a consistent controller logo beside the site name. */}
-          <span>My Gaming Journey</span> {/* Display the website name beside the shared controller logo. */}
+          <span className="brand-logo" aria-hidden="true"><GamepadIcon className="brand-gamepad-icon" /></span> {/* Display the modern outlined gamepad inspired by the provided reference. */}
+          <span className="brand-name"> {/* Group the two-part modern website wordmark. */}
+            <span className="brand-name-main">My Gaming</span> {/* Keep the first part of the website name bright and understated. */}
+            <span className="brand-name-accent">Journey</span> {/* Emphasize Journey with the ultramarine treatment from the provided reference. */}
+          </span> {/* Finish the modern website wordmark. */}
         </NavLink> {/* Finish the shared website logo link. */}
       </h1> {/* Finish the website brand heading. */}
       <nav className="site-nav" aria-label="Main navigation"> {/* Create the main navigation area. */}

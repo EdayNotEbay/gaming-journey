@@ -12,6 +12,7 @@ function mapDatabaseGame(row) { // Receive one game row from D1.
     timelineDate: row.timeline_date, // Return the optional timeline date.
     isFavorite: row.is_favorite === 1, // Convert the stored favorite number into a boolean.
     cover: row.cover, // Return the stored cover image URL.
+    isAdded: true, // Mark this game as a D1-added title for unranked display and admin behavior.
   }; // Finish returning the mapped game.
 } // Finish the D1 game mapper.
 

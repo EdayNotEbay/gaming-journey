@@ -36,12 +36,50 @@
   font-size: 24px;
 }
 
-/* Style the website title link. */
+/* Style the website title and shared logo link. */
 .brand-link {
+  /* Keep the controller logo and website name on one row. */
+  display: inline-flex;
+  /* Align the controller logo with the website name. */
+  align-items: center;
+  /* Add space between the controller logo and website name. */
+  gap: 10px;
   /* Keep the title bright. */
   color: #ffffff;
   /* Remove the default link underline. */
   text-decoration: none;
+}
+
+/* Style the shared controller logo inside the banner area. */
+.brand-logo {
+  /* Center the controller icon inside its badge. */
+  display: inline-flex;
+  /* Center the controller vertically inside the badge. */
+  align-items: center;
+  /* Center the controller horizontally inside the badge. */
+  justify-content: center;
+  /* Give the shared logo badge a consistent width. */
+  width: 38px;
+  /* Give the shared logo badge a consistent height. */
+  height: 38px;
+  /* Use a dark blue badge background. */
+  background-color: #0b234d;
+  /* Add a bright blue outline around the shared logo. */
+  border: 1px solid #2e8cff;
+  /* Round the shared logo badge corners. */
+  border-radius: 10px;
+  /* Keep the controller icon easy to see. */
+  font-size: 20px;
+  /* Animate the logo when the brand link is hovered. */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Add a visible CSS transition effect to the shared logo. */
+.brand-link:hover .brand-logo {
+  /* Lift the logo slightly when visitors hover over the banner brand. */
+  transform: translateY(-2px);
+  /* Add a brighter blue glow during the transition. */
+  box-shadow: 0 0 12px rgba(46, 140, 255, 0.45);
 }
 
 /* Arrange navigation links in one flexible row. */
@@ -64,6 +102,8 @@
   color: #cbd8f5;
   /* Remove the default link underline. */
   text-decoration: none;
+  /* Animate the required CSS transition bonus feature. */
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 /* Highlight hovered and selected navigation links. */
@@ -73,6 +113,12 @@
   background-color: #1f6fff;
   /* Use white text for contrast. */
   color: #ffffff;
+}
+
+/* Move hovered navigation links slightly to make the CSS transition visible. */
+.nav-link:hover {
+  /* Lift the hovered navigation link without changing page layout. */
+  transform: translateY(-2px);
 }
 
 /* Style the main content area shared by pages. */
@@ -1966,6 +2012,36 @@
   color: #bfc9df;
   /* Center the footer text. */
   text-align: center;
+}
+
+/* Arrange the required email and external footer links. */
+.site-footer-links {
+  /* Keep the footer links centered on one flexible row. */
+  display: flex;
+  /* Allow footer links to wrap on smaller screens. */
+  flex-wrap: wrap;
+  /* Center the footer links horizontally. */
+  justify-content: center;
+  /* Add space between the required links. */
+  gap: 16px;
+  /* Add a small gap above the footer links. */
+  margin-top: 8px;
+}
+
+/* Style the required footer hyperlinks. */
+.site-footer-links a {
+  /* Use the brighter blue accent for footer links. */
+  color: #6ea7ff;
+  /* Keep the links visibly recognizable. */
+  text-decoration: underline;
+  /* Animate footer link color changes smoothly. */
+  transition: color 0.2s ease;
+}
+
+/* Brighten footer hyperlinks when visitors hover over them. */
+.site-footer-links a:hover {
+  /* Use white text to make the hover transition obvious. */
+  color: #ffffff;
 }
 
 /* Adjust the site for smaller screens. */

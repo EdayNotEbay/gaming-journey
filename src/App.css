@@ -3372,3 +3372,151 @@
   /* Use ultramarine instead of the older muted divider color. */
   border-left-color: rgba(65, 102, 245, 0.30);
 }
+
+
+/* Correct the modern UI issues introduced by the previous styling pass. */
+.collection-hero {
+  /* Remove the oversized flat ultramarine block behind page introductions. */
+  background: linear-gradient(90deg, rgba(65, 102, 245, 0.10), rgba(65, 102, 245, 0.03) 36%, transparent 72%);
+  /* Remove the full-width bottom box border. */
+  border-bottom: 0;
+  /* Add one clean ultramarine accent line beside the page introduction. */
+  border-left: 3px solid #4166f5;
+  /* Remove the oversized rounded panel shape. */
+  border-radius: 0;
+  /* Keep the hero compact instead of filling a large rectangular area. */
+  padding: 18px 0 18px 24px;
+}
+
+/* Keep collection page headings compact inside the cleaner hero treatment. */
+.collection-hero h2 {
+  /* Reduce unnecessary vertical space inside the page introduction. */
+  margin-top: 6px;
+  /* Keep comfortable space below the page title. */
+  margin-bottom: 8px;
+}
+
+/* Use one consistent dark-ultramarine controller style in the header. */
+.brand-logo {
+  /* Remove any leftover badge background. */
+  background: transparent;
+  /* Remove any leftover badge border. */
+  border: 0;
+  /* Remove any leftover badge shadow. */
+  box-shadow: none;
+  /* Use a darker ultramarine controller outline. */
+  color: #2f43b8;
+  /* Keep only a restrained dark-blue outline glow. */
+  filter: drop-shadow(0 0 4px rgba(47, 67, 184, 0.46));
+}
+
+/* Keep the header controller clean when hovered. */
+.brand-link:hover .brand-logo {
+  /* Avoid recreating the glowing square seen in the previous version. */
+  box-shadow: none;
+  /* Slightly brighten only the controller outline. */
+  filter: drop-shadow(0 0 6px rgba(65, 82, 203, 0.56));
+}
+
+/* Use the exact same clean controller treatment beside Gaming Timeline. */
+.timeline-heading-icon {
+  /* Keep the icon footprint consistent with the header controller. */
+  width: 42px;
+  /* Keep the controller short and wide like the reference. */
+  height: 30px;
+  /* Prevent the older square badge sizing from returning. */
+  flex: 0 0 42px;
+  /* Remove the old badge background. */
+  background: transparent;
+  /* Remove the old badge border. */
+  border: 0;
+  /* Remove the old badge shadow. */
+  box-shadow: none;
+  /* Use the same dark ultramarine as the header controller. */
+  color: #2f43b8;
+  /* Keep only a small outline glow. */
+  filter: drop-shadow(0 0 4px rgba(47, 67, 184, 0.46));
+}
+
+/* Match small controller icons in the Timeline statistics to the same design. */
+.timeline-stat-gamepad-icon {
+  /* Use the same dark ultramarine controller color. */
+  color: #2f43b8;
+  /* Use only a restrained outline glow. */
+  filter: drop-shadow(0 0 3px rgba(47, 67, 184, 0.40));
+}
+
+/* Give redesigned Timeline cards enough room for their cover plus padding and border. */
+.game-card {
+  /* Include a 150px cover plus the card's padding and border without overflow. */
+  width: 168px;
+  /* Prevent the redesigned card from shrinking below its intended size. */
+  min-width: 168px;
+  /* Keep covers and content clipped safely inside rounded card corners. */
+  overflow: hidden;
+}
+
+/* Keep every Timeline cover completely inside its redesigned card. */
+.game-cover {
+  /* Match the card's 150px inner content width exactly. */
+  width: 150px;
+  /* Prevent a cover from exceeding the card's available inner width. */
+  max-width: 100%;
+  /* Preserve the standard cover height. */
+  height: 210px;
+  /* Keep the image as a normal block so no inline-image gap affects sizing. */
+  display: block;
+  /* Crop different source artwork consistently. */
+  object-fit: cover;
+}
+
+/* Update normal Timeline grid columns to match the redesigned 168px card width. */
+.game-grid {
+  /* Give each grid column enough room for one complete redesigned card. */
+  grid-template-columns: repeat(4, 168px);
+}
+
+/* Keep smaller platform groups aligned with the corrected card width. */
+.platform-ps3 .game-grid,
+.platform-wii .game-grid,
+.platform-wii-u .game-grid,
+.platform-quest-2 .game-grid {
+  /* Use two corrected-width columns for smaller groups. */
+  grid-template-columns: repeat(2, 168px);
+}
+
+/* Keep the single PS2 card compact and fully contained. */
+.platform-ps2 .game-grid {
+  /* Use one corrected-width column. */
+  grid-template-columns: 168px;
+}
+
+/* Keep the larger Xbox 360 library at five corrected-width columns. */
+.platform-xbox-360 .game-grid {
+  /* Use five columns without allowing cards to overlap or overflow. */
+  grid-template-columns: repeat(5, 168px);
+}
+
+/* Keep the larger PC library at five corrected-width columns. */
+.platform-pc .game-grid {
+  /* Use five columns without allowing cards to overlap or overflow. */
+  grid-template-columns: repeat(5, 168px);
+}
+
+/* Keep non-timeline library covers inside their cards too. */
+.library-game-card {
+  /* Let the card match its fixed cover width exactly. */
+  width: 150px;
+  /* Prevent content from painting outside the rounded card. */
+  overflow: hidden;
+  /* Make the ultramarine card edge actually visible instead of only setting its color. */
+  border: 1px solid rgba(65, 102, 245, 0.38);
+}
+
+/* Keep non-timeline covers bounded by their library cards. */
+.library-game-cover {
+  /* Never let a cover exceed its parent card width. */
+  max-width: 100%;
+  /* Display the cover as a normal block. */
+  display: block;
+}

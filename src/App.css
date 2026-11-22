@@ -1459,14 +1459,6 @@
   box-shadow: 0 0 8px rgba(168, 85, 247, 0.35);
 }
 
-/* Distinguish newly added games that do not yet have a numbered personal rank. */
-.rank-cell-unranked {
-  /* Use softer purple text for the unranked state. */
-  color: #d8b4fe;
-  /* Keep the unranked label readable. */
-  font-size: 12px;
-}
-
 /* Keep the Delete Game admin page centered with comfortable spacing. */
 .delete-game-page {
   /* Add space around the complete delete page. */

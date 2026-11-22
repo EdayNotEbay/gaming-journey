@@ -1,9 +1,9 @@
-import games from "../data/games.js"; // Import the shared game data.
+import useGames from "../hooks/useGames.js"; // Import the reusable Cloudflare game-data loader.
 import rankedGameNames from "../data/gameRankings.js"; // Import the personal ranking order.
 
 // Return every game entry that matches one ranked title.
-function getGamesByName(gameName) { // Receive one ranked game title.
-  return games.filter(function (game) { // Search the complete game data.
+function getGamesByName(gameList, gameName) { // Receive the complete game list and one ranked title.
+  return gameList.filter(function (game) { // Search the complete game data.
     return game.name === gameName; // Keep entries that share the ranked title.
   }); // Finish finding matching game entries.
 } // Finish the game-name helper.
@@ -50,11 +50,11 @@ function getFavoriteState(matchingGames) { // Receive every platform entry for o
 } // Finish the favorite-state helper.
 
 // Build one unique ranking row for every title in the personal ranking order.
-function getRankingRows() { // Build the complete ranking table data.
+function getRankingRows(gameList) { // Receive the current complete game list and build the ranking table data.
   const rankingRows = []; // Start an empty ranking row list.
 
   rankedGameNames.forEach(function (gameName, index) { // Inspect every title from best rank to lowest.
-    const matchingGames = getGamesByName(gameName); // Find every platform entry for the ranked title.
+    const matchingGames = getGamesByName(gameList, gameName); // Find every platform entry for the ranked title.
 
     if (matchingGames.length > 0) { // Check whether the ranked title exists in the shared game data.
       const primaryGame = matchingGames[0]; // Use the first matching entry for shared cover and rating data.
@@ -97,7 +97,9 @@ function getFavoriteText(game) { // Receive one ranking row.
 
 // Display the complete personal game ranking table.
 function GameRankingsPage() { // Create the Game Rankings page component.
-  const rankingRows = getRankingRows(); // Build the unique ranked game rows.
+  const gameData = useGames(); // Load the built-in games plus any games saved in D1.
+  const games = gameData.games; // Read the current complete game list.
+  const rankingRows = getRankingRows(games); // Build the unique ranked game rows from Cloudflare data.
 
   return ( // Return the complete Game Rankings page.
     <main className="page-content rankings-page"> {/* Create the main rankings content area. */}

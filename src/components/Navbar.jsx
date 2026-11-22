@@ -8,7 +8,7 @@ const navigationLinks = [ // Start the navigation link list.
   { path: "/favorite-games", label: "Favorite Games" }, // Link to the Favorite Games page.
   { path: "/add-game", label: "Add Game" }, // Link to the protected Add Game admin page.
   { path: "/game-rankings", label: "Game Rankings" }, // Link to the Game Rankings page.
-  { path: "/recommend-me-a-game", label: "Recommend a Game" }, // Link to the recommendation page.
+  { path: "/delete-game", label: "Delete Game" }, // Link to the protected Delete Game admin page.
 ]; // Finish the navigation link list.
 
 // Return the correct navigation class without using a ternary operator.

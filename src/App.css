@@ -1459,6 +1459,168 @@
   box-shadow: 0 0 8px rgba(168, 85, 247, 0.35);
 }
 
+/* Distinguish newly added games that do not yet have a numbered personal rank. */
+.rank-cell-unranked {
+  /* Use softer purple text for the unranked state. */
+  color: #d8b4fe;
+  /* Keep the unranked label readable. */
+  font-size: 12px;
+}
+
+/* Keep the Delete Game admin page centered with comfortable spacing. */
+.delete-game-page {
+  /* Add space around the complete delete page. */
+  padding: 52px 5% 70px;
+}
+
+/* Hold the protected D1-added game list. */
+.delete-game-panel {
+  /* Limit the delete panel to the main content width. */
+  max-width: 1200px;
+  /* Center the delete panel. */
+  margin: 0 auto;
+  /* Add room inside the delete panel. */
+  padding: 22px;
+  /* Use the shared dark navy panel background. */
+  background-color: #06152f;
+  /* Add the shared royal-blue outline. */
+  border: 1px solid #244f94;
+  /* Round the delete panel corners. */
+  border-radius: 16px;
+}
+
+/* Arrange the Delete Game session heading and logout button. */
+.delete-game-admin-bar {
+  /* Keep the heading and logout action on one flexible row. */
+  display: flex;
+  /* Align the admin-bar content vertically. */
+  align-items: center;
+  /* Separate the heading from the logout action. */
+  justify-content: space-between;
+  /* Add space when the admin bar wraps. */
+  gap: 16px;
+  /* Add space below the admin bar. */
+  margin-bottom: 10px;
+}
+
+/* Style the Delete Game panel heading. */
+.delete-game-admin-bar h3 {
+  /* Remove default heading spacing. */
+  margin: 0 0 4px;
+  /* Keep the protected heading white. */
+  color: #ffffff;
+}
+
+/* Style the Delete Game panel explanation. */
+.delete-game-admin-bar p {
+  /* Remove default paragraph spacing. */
+  margin: 0;
+  /* Use softer blue explanation text. */
+  color: #9fb1d2;
+  /* Keep the explanation compact. */
+  font-size: 13px;
+}
+
+/* Style Delete Game feedback. */
+.delete-game-status {
+  /* Add space below the protected status message. */
+  margin: 0 0 18px;
+  /* Use softer blue feedback text. */
+  color: #9fb1d2;
+  /* Keep feedback compact. */
+  font-size: 12px;
+}
+
+/* Display deletable D1 games in a responsive grid. */
+.delete-game-grid {
+  /* Use CSS Grid for administrator-added game cards. */
+  display: grid;
+  /* Add as many cards as fit while keeping them readable. */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  /* Add even space between delete cards. */
+  gap: 18px;
+}
+
+/* Style one protected Delete Game card. */
+.delete-game-card {
+  /* Stack the game information vertically. */
+  display: flex;
+  /* Place card content in one column. */
+  flex-direction: column;
+  /* Align card content to the left. */
+  align-items: flex-start;
+  /* Add room inside the delete card. */
+  padding: 14px;
+  /* Use a darker blue card background. */
+  background-color: #071a38;
+  /* Add a subtle blue card outline. */
+  border: 1px solid #315c9c;
+  /* Round the delete card corners. */
+  border-radius: 12px;
+}
+
+/* Style covers on the Delete Game page. */
+.delete-game-card img {
+  /* Match the standard game cover width. */
+  width: 150px;
+  /* Match the standard game cover height. */
+  height: 210px;
+  /* Crop artwork without stretching it. */
+  object-fit: cover;
+  /* Round the cover corners. */
+  border-radius: 9px;
+  /* Add the standard blue cover outline. */
+  border: 1px solid #3768aa;
+}
+
+/* Style Delete Game titles. */
+.delete-game-card h4 {
+  /* Add space above the title. */
+  margin: 10px 0 4px;
+  /* Keep the game title white. */
+  color: #ffffff;
+  /* Make the title easy to scan. */
+  font-size: 15px;
+}
+
+/* Style saved game details on delete cards. */
+.delete-game-card p {
+  /* Add compact spacing between details. */
+  margin: 3px 0;
+  /* Use light blue detail text. */
+  color: #b9c9e8;
+  /* Keep details compact. */
+  font-size: 12px;
+}
+
+/* Style the destructive Delete Game action. */
+.delete-game-button {
+  /* Add comfortable button spacing. */
+  padding: 9px 12px;
+  /* Add space above the delete action. */
+  margin-top: 12px;
+  /* Use a dark red destructive background. */
+  background-color: #3a0b16;
+  /* Add a clear red destructive outline. */
+  border: 1px solid #ef4444;
+  /* Round the delete button corners. */
+  border-radius: 8px;
+  /* Keep destructive button text light. */
+  color: #fecaca;
+  /* Make the destructive action easy to identify. */
+  font-weight: 700;
+  /* Show that the button is clickable. */
+  cursor: pointer;
+}
+
+/* Dim the delete button while one request is running. */
+.delete-game-button:disabled {
+  /* Reduce emphasis while the action is disabled. */
+  opacity: 0.6;
+  /* Prevent a misleading pointer cursor while disabled. */
+  cursor: default;
+}
+
 /* Keep the Add Game admin page centered with comfortable spacing. */
 .add-game-page {
   /* Add space around the complete admin page. */
@@ -1866,6 +2028,14 @@
   .favorite-genre-grid {
     /* Allow one full-width genre card when needed. */
     grid-template-columns: 1fr;
+  }
+
+  /* Stack the Delete Game admin bar on smaller screens. */
+  .delete-game-admin-bar {
+    /* Align protected controls to the left when space is limited. */
+    align-items: flex-start;
+    /* Place the heading and logout action in one column. */
+    flex-direction: column;
   }
 
   /* Stack the Add Game form and preview on smaller screens. */

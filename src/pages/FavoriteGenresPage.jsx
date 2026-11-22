@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"; // Import navigation so favorite genres can open the Genres page.
-import games from "../data/games.js"; // Import the shared game data.
+import useGames from "../hooks/useGames.js"; // Import the reusable Cloudflare game-data loader.
 
 // Return every game currently marked as a favorite.
 function getFavoriteGames(gameList) { // Receive the complete game list.
@@ -42,7 +42,9 @@ function getFavoriteGamesForGenre(favoriteGames, genreName) { // Receive favorit
 // Display genres represented by the user's favorite games.
 function FavoriteGenresPage() { // Create the Favorite Genres page component.
   const navigate = useNavigate(); // Create navigation for opening a selected genre.
-  const favoriteGames = getFavoriteGames(games); // Build the current favorite-game list.
+  const gameData = useGames(); // Load the built-in games plus any games saved in D1.
+  const games = gameData.games; // Read the current complete game list.
+  const favoriteGames = getFavoriteGames(games); // Build the current favorite-game list from Cloudflare data.
   const favoriteGenreNames = getFavoriteGenreNames(favoriteGames); // Build favorite genres from every favorite game's genre array.
 
   // Open the full Genres page for the selected favorite genre.

@@ -2262,3 +2262,729 @@
   /* Match the viewport dragging cursor. */
   cursor: grabbing;
 }
+
+
+/* Apply the modern ultramarine visual system across the complete website. */
+.website {
+  /* Keep the whole website above the fixed ambient page background. */
+  position: relative;
+  /* Add a subtle vertical dark gradient across the site surface. */
+  background: linear-gradient(180deg, rgba(3, 7, 18, 0.22), rgba(5, 10, 26, 0.72));
+}
+
+/* Turn the shared header into a modern translucent navigation bar. */
+.site-header {
+  /* Keep navigation visible while visitors move through long pages. */
+  position: sticky;
+  /* Anchor the navigation to the top of the browser. */
+  top: 0;
+  /* Keep the navigation above timeline and card content. */
+  z-index: 50;
+  /* Use slightly tighter modern spacing. */
+  padding: 14px 4%;
+  /* Use a translucent near-black surface instead of a flat navy block. */
+  background-color: rgba(3, 7, 18, 0.82);
+  /* Blur content behind the translucent navigation surface. */
+  backdrop-filter: blur(18px);
+  /* Use a subtle ultramarine divider instead of a heavy solid line. */
+  border-bottom: 1px solid rgba(65, 102, 245, 0.34);
+  /* Add a restrained shadow so the navigation floats above the page. */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+}
+
+/* Keep the modern brand compact inside the sticky navigation. */
+.site-header h1 {
+  /* Use a slightly smaller heading because the wordmark carries more visual weight now. */
+  font-size: 20px;
+}
+
+/* Refine the complete modern brand link. */
+.brand-link {
+  /* Increase spacing between the gamepad and wordmark. */
+  gap: 12px;
+}
+
+/* Remove the old boxed emoji treatment from the shared logo. */
+.brand-logo {
+  /* Let the provided gamepad-inspired icon define its own shape. */
+  width: 42px;
+  /* Give the gamepad enough height to remain readable. */
+  height: 32px;
+  /* Remove the old filled badge background. */
+  background-color: transparent;
+  /* Remove the old boxed logo border. */
+  border: 0;
+  /* Remove the old badge corner treatment. */
+  border-radius: 0;
+  /* Use the cyan edge-light color from the provided controller reference. */
+  color: #32d7ff;
+  /* Add a subtle neon glow around the outlined gamepad. */
+  filter: drop-shadow(0 0 8px rgba(50, 215, 255, 0.38));
+}
+
+/* Size the reusable gamepad inside the website brand. */
+.brand-gamepad-icon {
+  /* Fill the available logo width. */
+  width: 100%;
+  /* Fill the available logo height. */
+  height: 100%;
+}
+
+/* Keep the two-part brand wordmark on one clean row. */
+.brand-name {
+  /* Align both wordmark pieces vertically. */
+  display: inline-flex;
+  /* Center the wordmark pieces on the text baseline area. */
+  align-items: baseline;
+  /* Add a small gap before the emphasized Journey word. */
+  gap: 7px;
+  /* Prevent the brand from wrapping awkwardly. */
+  white-space: nowrap;
+}
+
+/* Keep the first brand phrase quiet and readable. */
+.brand-name-main {
+  /* Use bright soft-white text. */
+  color: #f7f9ff;
+  /* Keep the first phrase moderately bold. */
+  font-weight: 700;
+  /* Tighten modern wordmark spacing slightly. */
+  letter-spacing: -0.3px;
+}
+
+/* Give Journey the bold ultramarine treatment from the provided reference. */
+.brand-name-accent {
+  /* Use vivid ultramarine as the key brand accent. */
+  color: #4166f5;
+  /* Make Journey visually dominant within the compact wordmark. */
+  font-weight: 900;
+  /* Use uppercase text to match the provided Journey reference. */
+  text-transform: uppercase;
+  /* Tighten the bold display lettering. */
+  letter-spacing: -0.7px;
+  /* Add a restrained ultramarine glow behind the brand word. */
+  text-shadow: 0 0 18px rgba(65, 102, 245, 0.34);
+}
+
+/* Give the main navigation a cleaner pill-based rhythm. */
+.site-nav {
+  /* Slightly tighten spacing between modern navigation pills. */
+  gap: 5px;
+}
+
+/* Restyle normal navigation links as subtle glass pills. */
+.nav-link {
+  /* Give each pill slightly more horizontal room. */
+  padding: 9px 13px;
+  /* Use fully rounded modern navigation pills. */
+  border-radius: 999px;
+  /* Use muted cool-gray text until a link becomes active. */
+  color: #aebbd4;
+  /* Keep navigation text compact. */
+  font-size: 13px;
+  /* Make navigation labels easy to scan. */
+  font-weight: 650;
+  /* Add a transparent outline so hover changes do not shift layout. */
+  border: 1px solid transparent;
+}
+
+/* Modernize hovered navigation links without overpowering the active state. */
+.nav-link:hover {
+  /* Use a subtle ultramarine-tinted glass background. */
+  background-color: rgba(65, 102, 245, 0.11);
+  /* Add a soft ultramarine outline on hover. */
+  border-color: rgba(65, 102, 245, 0.24);
+  /* Brighten hovered navigation text. */
+  color: #ffffff;
+  /* Keep the hover motion restrained and modern. */
+  transform: translateY(-1px);
+}
+
+/* Make the current page clearly visible with ultramarine. */
+.nav-link.active {
+  /* Use a vivid ultramarine gradient for the selected page. */
+  background: linear-gradient(135deg, #4166f5, #2946d8);
+  /* Add a brighter outline around the selected page. */
+  border-color: rgba(130, 155, 255, 0.52);
+  /* Keep active navigation text white. */
+  color: #ffffff;
+  /* Add depth around the active navigation pill. */
+  box-shadow: 0 8px 24px rgba(65, 102, 245, 0.28);
+}
+
+/* Give the home hero more space and stronger modern hierarchy. */
+.timeline-hero {
+  /* Allow the redesigned hero to breathe on larger screens. */
+  max-width: 1280px;
+  /* Increase top spacing beneath the sticky navigation. */
+  padding: 82px 5% 42px;
+}
+
+/* Refine the small hero eyebrow label. */
+.eyebrow {
+  /* Use a brighter cyan-ultramarine blend for the small label. */
+  color: #6f8cff;
+  /* Reduce extreme letter spacing for a more polished look. */
+  letter-spacing: 4px;
+  /* Keep the eyebrow compact. */
+  font-size: 12px;
+}
+
+/* Arrange the redesigned hero title into a responsive two-part wordmark. */
+.hero-title {
+  /* Keep both title pieces on the same flexible line when space allows. */
+  display: flex;
+  /* Allow the title to wrap naturally on smaller screens. */
+  flex-wrap: wrap;
+  /* Align both title pieces on the same baseline. */
+  align-items: baseline;
+  /* Add comfortable space between the title parts. */
+  gap: 14px;
+}
+
+/* Keep My Gaming bright and understated beside the main Journey word. */
+.hero-title-main {
+  /* Use soft white for the supporting title phrase. */
+  color: #f8fbff;
+  /* Keep the supporting phrase strongly weighted. */
+  font-weight: 750;
+  /* Tighten large display lettering slightly. */
+  letter-spacing: -2px;
+}
+
+/* Give Journey the oversized ultramarine identity from the provided reference. */
+.hero-title-accent {
+  /* Use an ultramarine-to-electric-blue gradient inside the text. */
+  background: linear-gradient(90deg, #4166f5 0%, #2548ff 48%, #5895ff 100%);
+  /* Clip the gradient to the letters. */
+  background-clip: text;
+  /* Support gradient text clipping in WebKit browsers. */
+  -webkit-background-clip: text;
+  /* Make the actual text fill transparent so the gradient shows. */
+  color: transparent;
+  /* Use a heavier display weight like the provided Journey reference. */
+  font-weight: 950;
+  /* Use uppercase text for the strong wordmark treatment. */
+  text-transform: uppercase;
+  /* Tighten the large Journey lettering. */
+  letter-spacing: -3px;
+  /* Add a soft ultramarine glow behind the word. */
+  filter: drop-shadow(0 0 18px rgba(65, 102, 245, 0.28));
+}
+
+/* Refine the hero description under the redesigned title. */
+.timeline-hero > p:last-child {
+  /* Limit the line length for easier reading. */
+  max-width: 680px;
+  /* Use softer cool-gray supporting text. */
+  color: #9fb0cc;
+  /* Increase body line height for a more premium feel. */
+  line-height: 1.7;
+  /* Keep the supporting copy comfortably readable. */
+  font-size: 16px;
+}
+
+/* Make the main timeline container feel like a modern application surface. */
+.timeline-section {
+  /* Add a subtle translucent dark surface around the timeline interface. */
+  background: linear-gradient(180deg, rgba(8, 16, 40, 0.86), rgba(4, 10, 26, 0.92));
+  /* Replace hard blue borders with restrained ultramarine glass edges. */
+  border: 1px solid rgba(65, 102, 245, 0.35);
+  /* Use larger modern corner rounding. */
+  border-radius: 24px;
+  /* Add layered depth around the complete timeline application. */
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38), 0 0 40px rgba(65, 102, 245, 0.08);
+  /* Hide child corners cleanly inside the rounded application surface. */
+  overflow: hidden;
+}
+
+/* Modernize the timeline toolbar surface. */
+.timeline-toolbar {
+  /* Add slightly more balanced toolbar spacing. */
+  padding: 18px 20px;
+  /* Use a translucent toolbar instead of an opaque blue block. */
+  background-color: rgba(6, 14, 34, 0.72);
+  /* Add a subtle divider below the toolbar. */
+  border-bottom: 1px solid rgba(65, 102, 245, 0.22);
+  /* Blur the timeline beneath the toolbar glass. */
+  backdrop-filter: blur(14px);
+}
+
+/* Replace the old boxed timeline icon with the provided neon-gamepad direction. */
+.timeline-heading-icon {
+  /* Give the outlined icon a compact modern footprint. */
+  width: 42px;
+  /* Keep the gamepad proportionally short. */
+  height: 30px;
+  /* Remove the old filled icon badge. */
+  background-color: transparent;
+  /* Remove the old heavy icon border. */
+  border: 0;
+  /* Use bright cyan like the provided gamepad reference. */
+  color: #32d7ff;
+  /* Add the small neon edge glow from the provided reference. */
+  filter: drop-shadow(0 0 8px rgba(50, 215, 255, 0.42));
+}
+
+/* Size the outlined gamepad inside the timeline heading. */
+.timeline-gamepad-icon {
+  /* Fill the heading icon width. */
+  width: 100%;
+  /* Fill the heading icon height. */
+  height: 100%;
+}
+
+/* Refine the timeline title. */
+.timeline-heading h2 {
+  /* Keep the heading bright. */
+  color: #ffffff;
+  /* Tighten the heading for a modern application style. */
+  letter-spacing: -0.5px;
+}
+
+/* Soften the timeline supporting description. */
+.timeline-heading p {
+  /* Use muted cool-gray text beneath the timeline title. */
+  color: #91a3c2;
+}
+
+/* Turn interaction hints into understated glass chips. */
+.interaction-guide-item {
+  /* Use a translucent ultramarine-tinted background. */
+  background-color: rgba(65, 102, 245, 0.08);
+  /* Use a subtle ultramarine outline. */
+  border: 1px solid rgba(65, 102, 245, 0.18);
+  /* Use slightly rounder modern chips. */
+  border-radius: 999px;
+  /* Keep hint text muted until needed. */
+  color: #aebbd4;
+}
+
+/* Modernize timeline zoom and recenter buttons. */
+.zoom-button,
+.recenter-button {
+  /* Use a translucent dark button surface. */
+  background-color: rgba(8, 19, 48, 0.78);
+  /* Use a restrained ultramarine outline. */
+  border-color: rgba(65, 102, 245, 0.45);
+  /* Keep button text bright and cool. */
+  color: #dfe7ff;
+  /* Use rounder control corners. */
+  border-radius: 10px;
+  /* Smoothly animate control feedback. */
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Add modern hover feedback to timeline controls. */
+.zoom-button:hover,
+.recenter-button:hover {
+  /* Use a stronger ultramarine-tinted surface on hover. */
+  background-color: rgba(65, 102, 245, 0.18);
+  /* Brighten the ultramarine outline. */
+  border-color: rgba(97, 125, 255, 0.8);
+  /* Lift hovered controls slightly. */
+  transform: translateY(-1px);
+  /* Add a subtle ultramarine control glow. */
+  box-shadow: 0 8px 22px rgba(65, 102, 245, 0.18);
+}
+
+/* Give the timeline viewport a deeper modern canvas frame. */
+.timeline-viewport {
+  /* Use a near-black blue canvas instead of a flatter navy. */
+  background-color: #020916;
+  /* Add a layered radial grid-like glow inside the timeline canvas. */
+  background-image: radial-gradient(circle at 50% 48%, rgba(65, 102, 245, 0.08), transparent 42%), radial-gradient(circle at 15% 20%, rgba(0, 200, 255, 0.045), transparent 18%);
+  /* Remove any heavy inner border left from the older style. */
+  border: 0;
+}
+
+/* Turn the main horizontal timeline into the glowing reference line. */
+.timeline-main-line {
+  /* Make the central timeline line slightly thicker and brighter. */
+  height: 3px;
+  /* Use an ultramarine glow that fades gently at the far ends. */
+  background: linear-gradient(90deg, rgba(65, 102, 245, 0.18), #4166f5 4%, #4166f5 96%, rgba(65, 102, 245, 0.2));
+  /* Round the glowing line edges. */
+  border-radius: 999px;
+  /* Add the bright neon line glow from the provided arrow reference. */
+  box-shadow: 0 0 8px rgba(65, 102, 245, 0.92), 0 0 20px rgba(65, 102, 245, 0.48);
+}
+
+/* Add the directional chevron from the provided glowing-arrow reference. */
+.timeline-main-line::after {
+  /* Create the arrow-end shape without adding another image asset. */
+  content: "";
+  /* Position the chevron at the far right end of the timeline. */
+  position: absolute;
+  /* Extend the chevron just beyond the main line. */
+  right: -14px;
+  /* Center the chevron vertically on the line. */
+  top: 50%;
+  /* Give the chevron a visible modern size. */
+  width: 16px;
+  /* Match the chevron height to its width. */
+  height: 16px;
+  /* Draw the upper diagonal edge of the chevron. */
+  border-top: 3px solid #8ea4ff;
+  /* Draw the right diagonal edge of the chevron. */
+  border-right: 3px solid #8ea4ff;
+  /* Rotate and center the two borders into a right-facing chevron. */
+  transform: translateY(-50%) rotate(45deg);
+  /* Add the same neon glow used by the provided arrow reference. */
+  filter: drop-shadow(0 0 5px rgba(95, 121, 255, 0.95));
+}
+
+/* Modernize each platform grouping surface. */
+.platform-group {
+  /* Use a translucent near-black platform card. */
+  background: linear-gradient(180deg, rgba(8, 18, 43, 0.92), rgba(4, 11, 29, 0.96));
+  /* Use a restrained ultramarine border. */
+  border: 1px solid rgba(65, 102, 245, 0.38);
+  /* Increase platform-card corner rounding. */
+  border-radius: 18px;
+  /* Add depth without the old heavy blue-box appearance. */
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+/* Brighten platform names while keeping the visual system clean. */
+.platform-title {
+  /* Use crisp white for platform headings. */
+  color: #f8fbff;
+  /* Tighten platform heading lettering. */
+  letter-spacing: -0.3px;
+}
+
+/* Refine each game card into a cleaner modern cover tile. */
+.game-card {
+  /* Use a nearly transparent card surface so cover art becomes the focus. */
+  background-color: rgba(4, 11, 28, 0.46);
+  /* Use a subtle cool outline. */
+  border: 1px solid rgba(98, 120, 176, 0.18);
+  /* Increase game-card rounding. */
+  border-radius: 13px;
+  /* Add room around each game without making cards bulky. */
+  padding: 8px;
+  /* Smoothly animate modern card interaction feedback. */
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+/* Give timeline game cards polished hover feedback. */
+.game-card:hover {
+  /* Lift the current game slightly above the group surface. */
+  transform: translateY(-4px);
+  /* Brighten the ultramarine card outline. */
+  border-color: rgba(80, 112, 255, 0.62);
+  /* Use a subtle ultramarine-tinted surface. */
+  background-color: rgba(21, 35, 82, 0.48);
+  /* Add modern depth and a restrained ultramarine glow. */
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.30), 0 0 20px rgba(65, 102, 245, 0.12);
+}
+
+/* Refine game cover framing. */
+.game-cover {
+  /* Use softer modern cover corners. */
+  border-radius: 10px;
+  /* Replace the old bright border with a subtle glass outline. */
+  border-color: rgba(133, 152, 205, 0.30);
+  /* Add gentle depth under cover artwork. */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+/* Make timeline game titles slightly cleaner. */
+.game-card-name {
+  /* Keep game titles bright and readable. */
+  color: #f3f6ff;
+  /* Use a slightly stronger title weight. */
+  font-weight: 700;
+}
+
+/* Soften genre text beneath covers. */
+.game-card-genre {
+  /* Use muted blue-gray for secondary metadata. */
+  color: #8293b5;
+}
+
+/* Preserve favorites while making the purple glow more refined. */
+.game-card-favorite {
+  /* Use a softer purple outline around favorite cards. */
+  border-color: rgba(168, 85, 247, 0.74);
+  /* Use layered purple depth instead of an oversized aura. */
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.18), 0 0 24px rgba(145, 70, 255, 0.30);
+}
+
+/* Modernize platform connector lines with an ultramarine neon glow. */
+.platform-group .platform-connector {
+  /* Use vivid ultramarine for every vertical connector. */
+  background-color: #4166f5;
+  /* Add a restrained glow around connector lines. */
+  box-shadow: 0 0 10px rgba(65, 102, 245, 0.58);
+}
+
+/* Restyle years on connector lines as compact modern markers. */
+.platform-connector-year {
+  /* Use the deep canvas background behind the year. */
+  background-color: #030a18;
+  /* Use vivid ultramarine for the marker outline. */
+  border-color: rgba(86, 116, 255, 0.82);
+  /* Keep the year bright. */
+  color: #f8fbff;
+  /* Add subtle ultramarine depth around the year marker. */
+  box-shadow: 0 0 14px rgba(65, 102, 245, 0.24);
+}
+
+/* Modernize connector nodes where platforms meet the main timeline. */
+.platform-connector-node {
+  /* Use the deep canvas background inside each node. */
+  background-color: #030a18;
+  /* Use vivid ultramarine around each node. */
+  border-color: #4166f5;
+  /* Add a soft node glow. */
+  box-shadow: 0 0 12px rgba(65, 102, 245, 0.60);
+}
+
+/* Modernize the favorite legend into a compact floating glass chip. */
+.favorite-legend {
+  /* Use a translucent glass surface. */
+  background-color: rgba(8, 13, 29, 0.84);
+  /* Use a soft purple outline to preserve favorite meaning. */
+  border-color: rgba(168, 85, 247, 0.42);
+  /* Increase legend rounding. */
+  border-radius: 999px;
+  /* Add subtle depth beneath the floating legend. */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
+  /* Blur canvas content behind the floating legend. */
+  backdrop-filter: blur(12px);
+}
+
+/* Modernize the summary bar beneath the timeline. */
+.timeline-stats-bar {
+  /* Use a translucent application-footer surface. */
+  background-color: rgba(5, 13, 31, 0.86);
+  /* Use a subtle ultramarine top divider. */
+  border-top-color: rgba(65, 102, 245, 0.25);
+}
+
+/* Size modern gamepad icons inside timeline statistics. */
+.timeline-stat-gamepad-icon {
+  /* Give the small stat gamepad a compact width. */
+  width: 18px;
+  /* Keep the gamepad proportionally short. */
+  height: 13px;
+  /* Use cyan as the secondary neon accent. */
+  color: #32d7ff;
+}
+
+/* Apply the same modern glass panel treatment to collection and admin pages. */
+.collection-panel,
+.rankings-panel,
+.add-game-panel,
+.add-game-login-panel,
+.delete-game-panel {
+  /* Use a translucent deep-navy surface across major panels. */
+  background: linear-gradient(180deg, rgba(8, 17, 41, 0.90), rgba(4, 10, 26, 0.94));
+  /* Use a restrained ultramarine glass outline. */
+  border-color: rgba(65, 102, 245, 0.32);
+  /* Increase major panel corner rounding. */
+  border-radius: 20px;
+  /* Add modern application depth. */
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.30);
+}
+
+/* Give collection-page hero areas stronger hierarchy. */
+.collection-hero {
+  /* Add more room above page headings. */
+  padding-top: 62px;
+  /* Add more room beneath page headings. */
+  padding-bottom: 28px;
+}
+
+/* Modernize collection-page headings. */
+.collection-hero h2 {
+  /* Use crisp white for page titles. */
+  color: #f8fbff;
+  /* Tighten large title lettering. */
+  letter-spacing: -1.4px;
+}
+
+/* Soften collection-page supporting copy. */
+.collection-hero p {
+  /* Use muted blue-gray body copy. */
+  color: #96a7c6;
+}
+
+/* Modernize reusable library game cards. */
+.library-game-card {
+  /* Use a translucent dark card surface. */
+  background-color: rgba(6, 14, 33, 0.76);
+  /* Use a subtle cool border. */
+  border-color: rgba(84, 108, 171, 0.22);
+  /* Increase card corner rounding. */
+  border-radius: 15px;
+  /* Animate modern card interaction feedback. */
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Add modern hover feedback to library cards. */
+.library-game-card:hover {
+  /* Lift the card slightly. */
+  transform: translateY(-4px);
+  /* Brighten the ultramarine edge. */
+  border-color: rgba(77, 109, 255, 0.60);
+  /* Add depth and subtle ultramarine glow. */
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.30), 0 0 18px rgba(65, 102, 245, 0.10);
+}
+
+/* Modernize favorite genre cards. */
+.favorite-genre-card {
+  /* Use a translucent glass surface. */
+  background: linear-gradient(180deg, rgba(9, 19, 45, 0.82), rgba(5, 12, 30, 0.92));
+  /* Use an understated ultramarine outline. */
+  border-color: rgba(65, 102, 245, 0.30);
+  /* Increase modern card rounding. */
+  border-radius: 18px;
+  /* Smoothly animate favorite genre cards. */
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Add modern interaction feedback to favorite genre cards. */
+.favorite-genre-card:hover {
+  /* Lift the genre card slightly. */
+  transform: translateY(-3px);
+  /* Brighten the ultramarine outline. */
+  border-color: rgba(92, 121, 255, 0.72);
+  /* Add depth beneath the hovered card. */
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.30);
+}
+
+/* Modernize ranking table framing. */
+.rankings-table-wrapper {
+  /* Use larger rounded corners around the table viewport. */
+  border-radius: 16px;
+  /* Keep the rounded table corners clean. */
+  overflow: hidden;
+  /* Add a restrained ultramarine outline. */
+  border: 1px solid rgba(65, 102, 245, 0.20);
+}
+
+/* Give ranking table headers a stronger ultramarine application style. */
+.rankings-table thead {
+  /* Use a deep ultramarine-tinted header surface. */
+  background-color: rgba(38, 58, 145, 0.32);
+}
+
+/* Add subtle hover focus to ranking rows. */
+.rankings-table tbody tr {
+  /* Animate row background changes smoothly. */
+  transition: background-color 0.16s ease;
+}
+
+/* Highlight the ranking row under the pointer. */
+.rankings-table tbody tr:hover {
+  /* Use a subtle ultramarine wash for the hovered row. */
+  background-color: rgba(65, 102, 245, 0.07);
+}
+
+/* Modernize Add Game and Delete Game form controls. */
+.add-game-field input,
+.add-game-field select {
+  /* Use a deeper translucent form surface. */
+  background-color: rgba(6, 16, 39, 0.92);
+  /* Use a subtle ultramarine outline around fields. */
+  border-color: rgba(65, 102, 245, 0.34);
+  /* Increase field corner rounding. */
+  border-radius: 12px;
+}
+
+/* Refine focused admin form controls. */
+.add-game-field input:focus,
+.add-game-field select:focus {
+  /* Use vivid ultramarine for focused field borders. */
+  border-color: #5f7cff;
+  /* Add a clean ultramarine focus ring. */
+  box-shadow: 0 0 0 3px rgba(65, 102, 245, 0.14);
+}
+
+/* Modernize primary administrator actions. */
+.add-game-primary-button {
+  /* Use an ultramarine gradient for primary actions. */
+  background: linear-gradient(135deg, #4166f5, #2947db);
+  /* Use a lighter ultramarine outline. */
+  border-color: rgba(131, 155, 255, 0.58);
+  /* Increase modern button rounding. */
+  border-radius: 11px;
+  /* Add depth beneath primary actions. */
+  box-shadow: 0 10px 24px rgba(65, 102, 245, 0.22);
+  /* Smoothly animate primary button feedback. */
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Add interaction feedback to primary actions. */
+.add-game-primary-button:hover {
+  /* Lift the primary action slightly. */
+  transform: translateY(-1px);
+  /* Strengthen the ultramarine action glow. */
+  box-shadow: 0 14px 30px rgba(65, 102, 245, 0.32);
+}
+
+/* Modernize secondary administrator actions. */
+.add-game-secondary-button {
+  /* Use a translucent dark secondary surface. */
+  background-color: rgba(9, 19, 45, 0.82);
+  /* Use a subtle ultramarine outline. */
+  border-color: rgba(65, 102, 245, 0.34);
+  /* Increase modern button rounding. */
+  border-radius: 11px;
+}
+
+/* Refine the shared website footer. */
+.site-footer {
+  /* Increase breathing room around the modern footer. */
+  padding: 28px 5%;
+  /* Use a subtle ultramarine divider. */
+  border-top-color: rgba(65, 102, 245, 0.18);
+  /* Use muted footer text. */
+  color: #7f90af;
+  /* Use a translucent dark footer surface. */
+  background-color: rgba(2, 6, 15, 0.58);
+}
+
+/* Modernize required footer links. */
+.site-footer-links a {
+  /* Use the lighter ultramarine accent for links. */
+  color: #7892ff;
+  /* Remove the older always-visible underline. */
+  text-decoration: none;
+}
+
+/* Add a clean footer-link hover state. */
+.site-footer-links a:hover {
+  /* Brighten hovered footer links. */
+  color: #b9c7ff;
+}
+
+/* Refine the layout on smaller screens after the visual overhaul. */
+@media (max-width: 800px) {
+  /* Give the sticky navigation more compact spacing on narrow screens. */
+  .site-header {
+    /* Reduce horizontal spacing on smaller screens. */
+    padding: 12px 18px;
+  }
+
+  /* Let the modern wordmark wrap gracefully when necessary. */
+  .brand-name {
+    /* Allow compact brand wrapping on very narrow screens. */
+    white-space: normal;
+  }
+
+  /* Reduce hero top spacing on smaller screens. */
+  .timeline-hero {
+    /* Use more compact hero spacing on mobile. */
+    padding: 58px 22px 30px;
+  }
+
+  /* Keep the large Journey word from becoming too wide on mobile. */
+  .hero-title-accent {
+    /* Reduce aggressive negative letter spacing on smaller screens. */
+    letter-spacing: -2px;
+  }
+}

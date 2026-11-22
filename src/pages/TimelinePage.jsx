@@ -10,7 +10,10 @@ function TimelinePage() { // Create the Gaming Timeline page component.
     <main className="page-content"> {/* Create the main page content area. */}
       <section className="timeline-hero"> {/* Introduce the gaming timeline. */}
         <p className="eyebrow">Welcome to</p> {/* Add a small heading above the main title. */}
-        <h2>My Gaming Journey</h2> {/* Display the website's main heading. */}
+        <h2 className="hero-title"> {/* Display the redesigned website hero heading. */}
+          <span className="hero-title-main">My Gaming</span> {/* Keep the first part of the hero title bright and clean. */}
+          <span className="hero-title-accent">Journey</span> {/* Emphasize Journey with the ultramarine reference treatment. */}
+        </h2> {/* Finish the redesigned hero heading. */}
         <p>Explore the games and platforms that shaped my gaming journey over the years.</p> {/* Explain the purpose of the timeline. */}
       </section> {/* Finish the timeline introduction. */}
       <TimelineCanvas games={games} /> {/* Display the draggable two-dimensional timeline with Cloudflare game data. */}

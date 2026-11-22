@@ -47,7 +47,6 @@ function GameCard({ game }) { // Receive one game object from a platform group.
     <button className={cardClassName} type="button" onClick={handleClick} onDoubleClick={handleDoubleClick}> {/* Keep the card clickable while allowing pointer events to bubble to the draggable canvas. */}
       {coverContent} {/* Display the vertical game cover or placeholder. */}
       <span className="game-card-name">{game.name}</span> {/* Display the game title below the cover. */}
-      {game.timelineDate !== "" && <span className="game-card-date">{game.timelineDate}</span>} {/* Display the saved timeline date whenever one has been entered. */}
       <span className="game-card-genre">{genreText}</span> {/* Display every assigned genre below the title. */}
     </button> /* Finish the game card button. */
   ); // Finish returning the game card.

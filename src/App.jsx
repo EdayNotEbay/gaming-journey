@@ -14,7 +14,7 @@ function App() { // Create the main application component.
   return ( // Return the router and shared website layout.
     <BrowserRouter> {/* Enable browser-based page routing. */}
       <div className="website"> {/* Wrap the complete website. */}
-        <Navbar /> {/* Display the same navigation on every page. */}
+        <Navbar /> {/* Display the same navigation and banner area on every page. */}
         <Routes> {/* Match the browser address to the correct page. */}
           <Route path="/" element={<TimelinePage />} /> {/* Display the Gaming Timeline as the home page. */}
           <Route path="/genres" element={<GenresPage />} /> {/* Display the Genres page. */}
@@ -27,6 +27,10 @@ function App() { // Create the main application component.
         </Routes> {/* Finish the route list. */}
         <footer className="site-footer"> {/* Display the shared footer on every page. */}
           <p>My Gaming Journey</p> {/* Show the website name in the footer. */}
+          <div className="site-footer-links"> {/* Group the required email and external hyperlinks together. */}
+            <a href="mailto:egriffin3639@gmail.com">Email Me</a> {/* Provide the required e-mail hyperlink using the approved address. */}
+            <a href="https://www.esrb.org/" target="_blank" rel="noreferrer">ESRB Game Ratings</a> {/* Provide a useful external gaming hyperlink that opens safely in a new tab. */}
+          </div> {/* Finish the required footer hyperlink group. */}
         </footer> {/* Finish the shared footer. */}
       </div> {/* Finish the complete website wrapper. */}
     </BrowserRouter> /* Finish the browser router. */

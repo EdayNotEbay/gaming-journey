@@ -22,13 +22,16 @@ function getNavigationClass({ isActive }) { // Receive the active state from Rea
   return className; // Return the complete navigation class name.
 } // Finish the navigation class helper.
 
-// Display the same site navigation on every page.
+// Display the same site navigation and logo area on every page.
 function Navbar() { // Create the shared navigation component.
   return ( // Return the navigation header.
-    <header className="site-header"> {/* Create the shared website header. */}
-      <h1> {/* Display the website title. */}
-        <NavLink to="/" className="brand-link">My Gaming Journey</NavLink> {/* Link the title back to the timeline. */}
-      </h1> {/* Finish the website title. */}
+    <header className="site-header"> {/* Create the shared website banner and navigation area. */}
+      <h1> {/* Display the website brand heading. */}
+        <NavLink to="/" className="brand-link"> {/* Link the complete logo area back to the Gaming Timeline. */}
+          <span className="brand-logo" aria-hidden="true">🎮</span> {/* Display a consistent controller logo beside the site name. */}
+          <span>My Gaming Journey</span> {/* Display the website name beside the shared controller logo. */}
+        </NavLink> {/* Finish the shared website logo link. */}
+      </h1> {/* Finish the website brand heading. */}
       <nav className="site-nav" aria-label="Main navigation"> {/* Create the main navigation area. */}
         {navigationLinks.map(function (link) { /* Build one navigation link for each page. */
           return ( /* Return the current navigation link. */
@@ -38,7 +41,7 @@ function Navbar() { // Create the shared navigation component.
           ); // Finish returning the route link.
         })} {/* Finish building the navigation links. */}
       </nav> {/* Finish the navigation area. */}
-    </header> /* Finish the shared header. */
+    </header> /* Finish the shared banner and navigation header. */
   ); // Finish returning the navigation header.
 } // Finish the Navbar component.
 

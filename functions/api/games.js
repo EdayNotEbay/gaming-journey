@@ -1,4 +1,5 @@
 import baseGames from "../../src/data/games.js"; // Import the built-in game library that ships with the website.
+import { getPlatformTimelineYear } from "../../src/data/platformTimelineYears.js"; // Import the shared temporary platform-year rule.
 import { isAdminAuthenticated } from "../../src/server/auth.js"; // Import the reusable administrator-session checker.
 
 // Convert one D1 row into the same shape used by the React website.
@@ -9,7 +10,7 @@ function mapDatabaseGame(row) { // Receive one game row from D1.
     platform: row.platform, // Return the stored platform.
     genres: JSON.parse(row.genres), // Convert the stored JSON genre text back into an array.
     rating: row.rating, // Return the personal rating.
-    timelineDate: row.timeline_date, // Return the optional timeline date.
+    timelineDate: getPlatformTimelineYear(row.platform), // Use the temporary platform year for every D1-added game.
     isFavorite: row.is_favorite === 1, // Convert the stored favorite number into a boolean.
     cover: row.cover, // Return the stored cover image URL.
     isAdded: true, // Mark this game as a D1-added title for unranked display and admin behavior.
@@ -67,11 +68,7 @@ export async function onRequestPost(context) { // Handle administrator game-crea
   if (body.isFavorite === true) { // Check whether the submitted game is a favorite.
     storedFavoriteValue = 1; // Store favorites as one in SQLite.
   } // Finish checking the favorite state.
-  const timelineDate = ""; // Start the optional timeline date as empty text.
-  let storedTimelineDate = timelineDate; // Create the mutable timeline date used by D1.
-  if (typeof body.timelineDate === "string") { // Check whether the request included timeline text.
-    storedTimelineDate = body.timelineDate.trim(); // Store the cleaned timeline text.
-  } // Finish checking the timeline date.
+  const storedTimelineDate = getPlatformTimelineYear(body.platform.trim()); // Store the temporary platform year instead of a manually entered date.
   const genresText = JSON.stringify(body.genres); // Convert the genre array into JSON text for SQLite storage.
   const result = await context.env.DB.prepare("INSERT INTO added_games (name, platform, genres, rating, timeline_date, is_favorite, cover) VALUES (?, ?, ?, ?, ?, ?, ?)").bind(body.name.trim(), body.platform.trim(), genresText, rating, storedTimelineDate, storedFavoriteValue, body.cover.trim()).run(); // Insert the validated game into D1.
   return Response.json({ saved: true, id: result.meta.last_row_id }, { status: 201 }); // Confirm that the new game was permanently saved.

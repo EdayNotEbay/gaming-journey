@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"; // Import React tools for the selected genre filter.
 import { useLocation } from "react-router-dom"; // Import location so timeline clicks can choose a genre automatically.
 import LibraryGameCard from "../components/LibraryGameCard.jsx"; // Import the reusable game gallery card.
-import games from "../data/games.js"; // Import the shared game data.
+import useGames from "../hooks/useGames.js"; // Import the reusable Cloudflare game-data loader.
 
 // Return every unique genre assigned to any game.
 function getGenreNames(gameList) { // Receive the complete game list.
@@ -58,6 +58,8 @@ function getGenreButtonClass(genreName, selectedGenre) { // Receive the button g
 // Display all games with interactive multi-genre filtering.
 function GenresPage() { // Create the Genres page component.
   const location = useLocation(); // Read route state passed from timeline or gallery cards.
+  const gameData = useGames(); // Load the built-in games plus any games saved in D1.
+  const games = gameData.games; // Read the current complete game list.
   const [selectedGenre, setSelectedGenre] = useState(getRequestedGenre(location)); // Store the currently displayed genre.
   const genreNames = getGenreNames(games); // Build the available genre filter list from every genre array.
   const displayedGames = getDisplayedGames(games, selectedGenre); // Build the game list for the active genre.

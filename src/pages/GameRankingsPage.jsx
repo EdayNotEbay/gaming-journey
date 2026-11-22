@@ -1,30 +1,27 @@
 import useGames from "../hooks/useGames.js"; // Import the reusable Cloudflare game-data loader.
 import rankedGameNames from "../data/gameRankings.js"; // Import the personal ranking order.
 
-// Return every game entry that matches one ranked title.
-function getGamesByName(gameList, gameName) { // Receive the complete game list and one ranked title.
+// Return every game entry that matches one title.
+function getGamesByName(gameList, gameName) { // Receive the complete game list and one game title.
   return gameList.filter(function (game) { // Search the complete game data.
-    return game.name === gameName; // Keep entries that share the ranked title.
+    return game.name === gameName; // Keep entries that share the requested title.
   }); // Finish finding matching game entries.
 } // Finish the game-name helper.
 
-// Return a comma-separated list of unique platforms for one ranked title.
+// Return a comma-separated list of unique platforms for one title.
 function getPlatformText(matchingGames) { // Receive every platform entry for one title.
   const platformNames = []; // Start an empty unique platform list.
-
   matchingGames.forEach(function (game) { // Inspect every matching game entry.
     if (platformNames.includes(game.platform) === false) { // Check whether this platform is already listed.
       platformNames.push(game.platform); // Add the platform once.
     } // Finish checking the platform.
   }); // Finish inspecting matching game entries.
-
   return platformNames.join(", "); // Return the combined platform text.
 } // Finish the platform-text helper.
 
-// Return every unique genre assigned to one ranked title.
+// Return every unique genre assigned to one title.
 function getGenreText(matchingGames) { // Receive every platform entry for one title.
   const genreNames = []; // Start an empty unique genre list.
-
   matchingGames.forEach(function (game) { // Inspect every matching game entry.
     game.genres.forEach(function (genreName) { // Inspect every genre assigned to the current entry.
       if (genreNames.includes(genreName) === false) { // Check whether this genre is already listed.
@@ -32,86 +29,110 @@ function getGenreText(matchingGames) { // Receive every platform entry for one t
       } // Finish checking the genre.
     }); // Finish inspecting the current entry's genres.
   }); // Finish inspecting matching game entries.
-
   return genreNames.join(" • "); // Return the combined genre text.
 } // Finish the genre-text helper.
 
-// Return whether any version of one ranked title is marked as a favorite.
+// Return whether any version of one title is marked as a favorite.
 function getFavoriteState(matchingGames) { // Receive every platform entry for one title.
-  let isFavorite = false; // Start by treating the ranked title as a normal game.
-
+  let isFavorite = false; // Start by treating the title as a normal game.
   matchingGames.forEach(function (game) { // Inspect every matching game entry.
     if (game.isFavorite === true) { // Check whether this version is marked as a favorite.
-      isFavorite = true; // Mark the ranked title as a favorite.
+      isFavorite = true; // Mark the title as a favorite.
     } // Finish checking the favorite state.
   }); // Finish inspecting matching game entries.
-
   return isFavorite; // Return the combined favorite state.
 } // Finish the favorite-state helper.
 
-// Build one unique ranking row for every title in the personal ranking order.
-function getRankingRows(gameList) { // Receive the current complete game list and build the ranking table data.
-  const rankingRows = []; // Start an empty ranking row list.
+// Build one reusable ranking row from matching game entries.
+function createRankingRow(gameName, matchingGames, rankText) { // Receive one title, its matching entries, and the displayed rank.
+  const primaryGame = matchingGames[0]; // Use the first matching entry for shared cover and rating data.
+  return { // Return the complete ranking row.
+    rank: rankText, // Store the numbered rank or Unranked label.
+    name: gameName, // Store the game title.
+    cover: primaryGame.cover, // Store the shared cover artwork.
+    platforms: getPlatformText(matchingGames), // Combine every platform for duplicate titles.
+    genres: getGenreText(matchingGames), // Combine every genre assigned to the title.
+    rating: primaryGame.rating, // Store the personal star rating out of five.
+    isFavorite: getFavoriteState(matchingGames), // Store whether any version of the title is a favorite.
+  }; // Finish returning the ranking row.
+} // Finish the ranking-row creator.
 
-  rankedGameNames.forEach(function (gameName, index) { // Inspect every title from best rank to lowest.
+// Build the original numbered personal ranking rows.
+function getRankedRows(gameList) { // Receive the current complete game list.
+  const rankingRows = []; // Start an empty numbered ranking row list.
+  rankedGameNames.forEach(function (gameName, index) { // Inspect every original ranked title from best to lowest.
     const matchingGames = getGamesByName(gameList, gameName); // Find every platform entry for the ranked title.
-
-    if (matchingGames.length > 0) { // Check whether the ranked title exists in the shared game data.
-      const primaryGame = matchingGames[0]; // Use the first matching entry for shared cover and rating data.
-      rankingRows.push({ // Add one unique row for the ranked title.
-        rank: index + 1, // Store the one-based personal ranking position.
-        name: gameName, // Store the ranked game title.
-        cover: primaryGame.cover, // Store the shared cover artwork.
-        platforms: getPlatformText(matchingGames), // Combine every platform for duplicate titles such as Phasmophobia.
-        genres: getGenreText(matchingGames), // Combine every genre assigned to the ranked title.
-        rating: primaryGame.rating, // Store the personal star rating out of five.
-        isFavorite: getFavoriteState(matchingGames), // Store whether any version of the title is a favorite.
-      }); // Finish adding the ranking row.
+    if (matchingGames.length > 0) { // Check whether the ranked title exists in the current game data.
+      rankingRows.push(createRankingRow(gameName, matchingGames, "#" + String(index + 1))); // Add the numbered ranking row.
     } // Finish checking whether the ranked title exists.
-  }); // Finish building ranking rows.
+  }); // Finish building numbered ranking rows.
+  return rankingRows; // Return the complete numbered ranking list.
+} // Finish the numbered ranking helper.
 
-  return rankingRows; // Return the complete unique ranking table data.
-} // Finish the ranking-row helper.
+// Return unique D1-added titles that do not yet have a personal rank.
+function getUnrankedRows(gameList) { // Receive the current complete game list.
+  const unrankedNames = []; // Start an empty unique unranked title list.
+  gameList.forEach(function (game) { // Inspect every game currently available on the website.
+    if (game.isAdded === true) { // Check whether this game came from the D1 Add Game page.
+      if (rankedGameNames.includes(game.name) === false) { // Check whether the title is absent from the original personal ranking list.
+        if (unrankedNames.includes(game.name) === false) { // Check whether this added title has already been collected.
+          unrankedNames.push(game.name); // Add the new D1 title once.
+        } // Finish checking whether the added title is unique.
+      } // Finish checking whether the title is already ranked.
+    } // Finish checking whether the game was added through D1.
+  }); // Finish inspecting the complete game list.
+  return unrankedNames.map(function (gameName) { // Build one unranked row for every unique D1-added title.
+    const matchingGames = getGamesByName(gameList, gameName); // Find every platform entry for the added title.
+    return createRankingRow(gameName, matchingGames, "Unranked"); // Return the added title with no invented numbered position.
+  }); // Finish building unranked rows.
+} // Finish the unranked-row helper.
 
 // Return the correct favorite badge class for one ranking row.
 function getFavoriteClass(game) { // Receive one ranking row.
   let className = "ranking-favorite"; // Start with the normal favorite badge class.
-
   if (game.isFavorite === true) { // Check whether the ranked title is a favorite.
     className = className + " ranking-favorite-active"; // Add the purple favorite styling.
   } // Finish checking the favorite state.
-
   return className; // Return the complete favorite badge class name.
 } // Finish the favorite-class helper.
 
 // Return readable favorite text for one ranking row.
 function getFavoriteText(game) { // Receive one ranking row.
   let favoriteText = "No"; // Start with the normal non-favorite label.
-
   if (game.isFavorite === true) { // Check whether the ranked title is a favorite.
     favoriteText = "Yes"; // Display the favorite label.
   } // Finish checking the favorite state.
-
   return favoriteText; // Return the favorite status text.
 } // Finish the favorite-text helper.
+
+// Return the correct rank-cell class for numbered and unranked games.
+function getRankClass(game) { // Receive one ranking row.
+  let className = "rank-cell"; // Start with the normal rank-cell class.
+  if (game.rank === "Unranked") { // Check whether this D1-added title still needs a personal position.
+    className = className + " rank-cell-unranked"; // Add the unranked visual style.
+  } // Finish checking the rank state.
+  return className; // Return the complete rank-cell class name.
+} // Finish the rank-class helper.
 
 // Display the complete personal game ranking table.
 function GameRankingsPage() { // Create the Game Rankings page component.
   const gameData = useGames(); // Load the built-in games plus any games saved in D1.
   const games = gameData.games; // Read the current complete game list.
-  const rankingRows = getRankingRows(games); // Build the unique ranked game rows from Cloudflare data.
+  const rankedRows = getRankedRows(games); // Build the original numbered ranking rows.
+  const unrankedRows = getUnrankedRows(games); // Build D1-added rows that still need a personal rank.
+  const rankingRows = rankedRows.concat(unrankedRows); // Display ranked titles first and unranked added titles afterward.
 
   return ( // Return the complete Game Rankings page.
     <main className="page-content rankings-page"> {/* Create the main rankings content area. */}
       <section className="collection-hero"> {/* Introduce the rankings page. */}
         <p className="eyebrow">Personal Rankings</p> {/* Add a small label above the page title. */}
         <h2>Game Rankings</h2> {/* Display the page title. */}
-        <p>My personal ranking from top to bottom. The numbered rank compares games against each other, while the star rating shows how highly I rate each game on its own.</p> {/* Explain the difference between rank and rating. */}
+        <p>My numbered rankings stay in the order I chose. Games added later appear as Unranked until I decide where they belong.</p> {/* Explain how new D1 games are handled without inventing a rank. */}
       </section> {/* Finish the rankings introduction. */}
       <section className="rankings-panel"> {/* Hold the complete ranking table. */}
         <div className="rankings-summary"> {/* Display a short summary above the table. */}
-          <h3>My Top {rankingRows.length}</h3> {/* Display the total number of unique ranked titles. */}
-          <span>Number 1 is my highest-ranked game.</span> {/* Explain the ranking direction. */}
+          <h3>My Top {rankedRows.length}</h3> {/* Display the total number of numbered ranked titles. */}
+          <span>{unrankedRows.length} added games currently unranked</span> {/* Display how many D1-added titles still need a personal position. */}
         </div> {/* Finish the rankings summary. */}
         <div className="rankings-table-wrapper"> {/* Allow the table to scroll horizontally on smaller screens. */}
           <table className="rankings-table"> {/* Create the required game rankings table. */}
@@ -126,18 +147,18 @@ function GameRankingsPage() { // Create the Game Rankings page component.
               </tr> {/* Finish the column heading row. */}
             </thead> {/* Finish the table header. */}
             <tbody> {/* Start the table body. */}
-              {rankingRows.map(function (game) { /* Build one row for every unique ranked title. */
+              {rankingRows.map(function (game) { /* Build one row for every numbered or unranked title. */
                 return ( // Return the current ranking row.
-                  <tr key={game.name}> {/* Keep each unique ranked title on its own table row. */}
-                    <td className="rank-cell">#{game.rank}</td> {/* Display the personal rank number. */}
+                  <tr key={game.rank + "-" + game.name}> {/* Keep each displayed ranking row uniquely identified. */}
+                    <td className={getRankClass(game)}>{game.rank}</td> {/* Display the numbered rank or Unranked label. */}
                     <td> {/* Start the game information cell. */}
                       <div className="rank-game-cell"> {/* Keep the cover beside the game title. */}
                         <img src={game.cover} alt={game.name + " cover"} draggable="false" /> {/* Display the game cover artwork. */}
-                        <span>{game.name}</span> {/* Display the ranked game title. */}
+                        <span>{game.name}</span> {/* Display the game title. */}
                       </div> {/* Finish the game information layout. */}
                     </td> {/* Finish the game information cell. */}
-                    <td>{game.platforms}</td> {/* Display every platform for the ranked title. */}
-                    <td className="rank-genres-cell">{game.genres}</td> {/* Display every genre assigned to the ranked title. */}
+                    <td>{game.platforms}</td> {/* Display every platform for the title. */}
+                    <td className="rank-genres-cell">{game.genres}</td> {/* Display every genre assigned to the title. */}
                     <td><span className="ranking-rating">★ {game.rating.toFixed(1)} / 5</span></td> {/* Display the personal star rating out of five. */}
                     <td><span className={getFavoriteClass(game)}>{getFavoriteText(game)}</span></td> {/* Display the favorite status badge. */}
                   </tr> /* Finish the current ranking row. */

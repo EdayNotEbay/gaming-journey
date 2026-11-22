@@ -14,7 +14,7 @@ const zoomLevels = [ // Start the complete zoom configuration.
 const defaultZoomIndex = 4; // Start the timeline at one hundred percent zoom.
 const dragThreshold = 6; // Require a small amount of movement before treating a press as a drag.
 const recenterCanvasX = 980; // Keep the same logical horizontal canvas point centered at every zoom level.
-const recenterCanvasY = 960; // Keep the same logical vertical canvas point centered at every zoom level.
+const recenterCanvasY = 1440; // Center the viewport around the shifted main timeline after adding more top workspace.
 
 // Keep one numeric value inside a minimum and maximum range.
 function clamp(value, minimum, maximum) { // Receive the value and its legal range.

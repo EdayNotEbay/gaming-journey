@@ -24,7 +24,7 @@ export async function onRequestGet(context) { // Handle public game-library requ
       const result = await context.env.DB.prepare("SELECT id, name, platform, genres, rating, timeline_date, is_favorite, cover FROM added_games ORDER BY id ASC").all(); // Load every administrator-added game.
       addedGames = result.results.map(mapDatabaseGame); // Convert every D1 row into website game data.
       databaseReady = true; // Confirm that the database binding and table are working.
-    } catch (error) { // Handle a missing table during initial Cloudflare setup.
+    } catch { // Handle a missing table during initial Cloudflare setup.
       addedGames = []; // Keep the public site using only the built-in games.
     } // Finish protected D1 loading.
   } // Finish checking the D1 binding.

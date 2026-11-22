@@ -317,72 +317,6 @@
   color: #a9badb;
 }
 
-/* Display the chronological years represented by saved timeline dates. */
-.timeline-year-guide {
-  /* Keep the year label and markers on one flexible row. */
-  display: flex;
-  /* Allow year markers to wrap when many years are represented. */
-  flex-wrap: wrap;
-  /* Align year markers vertically. */
-  align-items: center;
-  /* Add even space between the year label and markers. */
-  gap: 8px;
-  /* Add compact padding around the chronological guide. */
-  padding: 9px 12px;
-  /* Use a darker blue background so the year row stands apart from controls. */
-  background-color: #071a38;
-  /* Add a subtle blue outline around the year guide. */
-  border: 1px solid #315c9c;
-  /* Round the year guide corners. */
-  border-radius: 10px;
-}
-
-/* Style the chronological year-guide label. */
-.timeline-year-guide-label {
-  /* Use brighter blue text for the guide label. */
-  color: #6ea7ff;
-  /* Make the guide label easy to scan. */
-  font-weight: 700;
-  /* Keep the guide label compact. */
-  font-size: 12px;
-  /* Use uppercase text for the timeline label. */
-  text-transform: uppercase;
-  /* Add slight letter spacing to the guide label. */
-  letter-spacing: 1px;
-}
-
-/* Style one visible timeline year marker. */
-.timeline-year-marker {
-  /* Add compact room around the year text. */
-  padding: 5px 9px;
-  /* Use the timeline control background. */
-  background-color: #0b234d;
-  /* Add a bright blue border around each year. */
-  border: 1px solid #2e8cff;
-  /* Round the year marker into a compact badge. */
-  border-radius: 999px;
-  /* Keep the year text bright. */
-  color: #ffffff;
-  /* Make year markers easy to read. */
-  font-size: 12px;
-  /* Emphasize the year number. */
-  font-weight: 700;
-}
-
-/* Highlight saved timeline dates directly on game cards. */
-.game-card-date {
-  /* Keep the date on its own compact line. */
-  display: block;
-  /* Use bright cyan-blue text so dates stand apart from genres. */
-  color: #6ecbff;
-  /* Keep dates readable without overpowering the game title. */
-  font-size: 11px;
-  /* Make saved dates easy to notice. */
-  font-weight: 700;
-  /* Add a small amount of space around the date. */
-  margin: 4px 0 2px;
-}
-
 /* Arrange the timeline zoom and recenter controls. */
 .timeline-controls {
   /* Place the controls beside one another. */
@@ -2241,6 +2175,36 @@
   bottom: 100%;
   /* Reach upward through the gap to the timeline line. */
   height: 100px;
+}
+
+/* Display each platform year directly on its vertical timeline connector. */
+.platform-connector-year {
+  /* Position the year halfway between the platform group and the main timeline. */
+  position: absolute;
+  /* Center the year horizontally over the connector line. */
+  left: 50%;
+  /* Place the year at the middle of the connector. */
+  top: 50%;
+  /* Center the year badge precisely over that connector point. */
+  transform: translate(-50%, -50%);
+  /* Keep the year above the connector line. */
+  z-index: 2;
+  /* Add compact room around the year text. */
+  padding: 4px 7px;
+  /* Use the canvas background so the line does not run through the year text. */
+  background-color: #041027;
+  /* Add a bright blue outline matching the timeline. */
+  border: 1px solid #2e8cff;
+  /* Round the year label into a small badge. */
+  border-radius: 999px;
+  /* Keep the year bright and readable. */
+  color: #ffffff;
+  /* Make the year easy to see at normal zoom. */
+  font-size: 12px;
+  /* Emphasize the year value. */
+  font-weight: 700;
+  /* Prevent the year label from wrapping. */
+  white-space: nowrap;
 }
 
 /* Mark where each connector meets the main timeline. */

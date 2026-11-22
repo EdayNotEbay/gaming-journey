@@ -1,7 +1,7 @@
 import GameCard from "./GameCard.jsx"; // Import the reusable vertical game card.
 
 // Display every game that belongs to one platform.
-function PlatformGroup({ platform, brandIcon, games, className }) { // Receive the platform name, brand icon, games, and canvas position class.
+function PlatformGroup({ platform, brandIcon, games, className, timelineYear }) { // Receive the platform name, brand icon, games, canvas position class, and connector year.
   return ( // Return the platform collection.
     <section className={"platform-group " + className}> {/* Position and style the platform group on the canvas. */}
       <div className="platform-heading"> {/* Keep the platform brand icon beside the platform name. */}
@@ -14,6 +14,7 @@ function PlatformGroup({ platform, brandIcon, games, className }) { // Receive t
         })} {/* Finish building the game cards. */}
       </div> {/* Finish the game grid. */}
       <div className="platform-connector" aria-hidden="true"> {/* Connect this platform group to the main timeline. */}
+        <span className="platform-connector-year">{timelineYear}</span> {/* Display the platform year directly on the connector line. */}
         <span className="platform-connector-node"></span> {/* Mark the point where the connector meets the timeline. */}
       </div> {/* Finish the platform connector. */}
     </section> /* Finish the platform group. */

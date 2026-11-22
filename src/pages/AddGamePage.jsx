@@ -57,7 +57,7 @@ function AddGamePage() { // Create the Add Game page component.
             setIsAuthenticated(true); // Reveal the protected Add Game controls.
           } // Finish checking the authentication state.
         } // Finish checking the session response.
-      } catch (error) { // Handle local development before Pages Functions are available.
+      } catch { // Handle local development before Pages Functions are available.
         setStatusMessage("Admin login becomes available after the Cloudflare backend is configured."); // Explain why local login may not work yet.
       } // Finish protected session loading.
       setIsCheckingSession(false); // Mark the initial session check as complete.
@@ -112,7 +112,7 @@ function AddGamePage() { // Create the Add Game page component.
       setPassword(""); // Clear the password field after successful login.
       setIsAuthenticated(true); // Reveal the protected Add Game controls.
       setStatusMessage("Admin login successful."); // Confirm that the secure session is active.
-    } catch (error) { // Handle a missing or unreachable Cloudflare backend.
+    } catch { // Handle a missing or unreachable Cloudflare backend.
       setStatusMessage("Unable to reach the admin login endpoint."); // Explain the connection problem.
     } // Finish protected login handling.
   } // Finish the administrator login handler.
@@ -121,7 +121,7 @@ function AddGamePage() { // Create the Add Game page component.
   async function handleLogout() { // Handle the admin logout button.
     try { // Start protected logout handling.
       await fetch("/api/logout", { method: "POST", credentials: "same-origin" }); // Ask Cloudflare to clear the secure session cookie.
-    } catch (error) { // Handle a network problem during logout.
+    } catch { // Handle a network problem during logout.
       setStatusMessage("The local session was cleared, but the logout endpoint could not be reached."); // Explain the partial logout result.
     } // Finish protected logout handling.
     setIsAuthenticated(false); // Hide the protected Add Game controls.
@@ -174,7 +174,7 @@ function AddGamePage() { // Create the Add Game page component.
       setFormData(emptyGameForm); // Clear the form after a successful permanent save.
       setPreviewGame(null); // Remove the saved game preview.
       setStatusMessage("Game saved. It will now appear across the website."); // Confirm that D1 now contains the new game.
-    } catch (error) { // Handle a missing or unreachable game API.
+    } catch { // Handle a missing or unreachable game API.
       setStatusMessage("Unable to reach the Cloudflare game API."); // Explain the connection problem.
     } // Finish protected D1 saving.
     setIsSaving(false); // Re-enable the save button after the request finishes.

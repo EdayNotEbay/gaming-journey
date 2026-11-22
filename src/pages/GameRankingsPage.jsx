@@ -47,7 +47,7 @@ function getFavoriteState(matchingGames) { // Receive every platform entry for o
 function createRankingRow(gameName, matchingGames, rankText) { // Receive one title, its matching entries, and the displayed rank.
   const primaryGame = matchingGames[0]; // Use the first matching entry for shared cover and rating data.
   return { // Return the complete ranking row.
-    rank: rankText, // Store the numbered rank or Unranked label.
+    rank: rankText, // Store the numbered personal ranking position.
     name: gameName, // Store the game title.
     cover: primaryGame.cover, // Store the shared cover artwork.
     platforms: getPlatformText(matchingGames), // Combine every platform for duplicate titles.

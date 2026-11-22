@@ -1,5 +1,5 @@
 import LibraryGameCard from "../components/LibraryGameCard.jsx"; // Import the reusable game gallery card.
-import games from "../data/games.js"; // Import the shared game data.
+import useGames from "../hooks/useGames.js"; // Import the reusable Cloudflare game-data loader.
 
 // Return every game currently marked as a favorite.
 function getFavoriteGames(gameList) { // Receive the complete game list.
@@ -10,7 +10,9 @@ function getFavoriteGames(gameList) { // Receive the complete game list.
 
 // Display every game currently marked as a favorite.
 function FavoriteGamesPage() { // Create the Favorite Games page component.
-  const favoriteGames = getFavoriteGames(games); // Build the favorite-game list from shared data.
+  const gameData = useGames(); // Load the built-in games plus any games saved in D1.
+  const games = gameData.games; // Read the current complete game list.
+  const favoriteGames = getFavoriteGames(games); // Build the favorite-game list from Cloudflare game data.
 
   return ( // Return the complete Favorite Games page.
     <main className="page-content collection-page"> {/* Create the main Favorite Games content area. */}

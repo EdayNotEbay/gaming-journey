@@ -1,4 +1,5 @@
 import PlatformGroup from "./PlatformGroup.jsx"; // Import the reusable platform group component.
+import GamepadIcon from "./GamepadIcon.jsx"; // Import the reusable modern gamepad icon.
 import useTimelineControls from "../hooks/useTimelineControls.js"; // Import the reusable timeline drag and zoom behavior.
 import { getPlatformTimelineYear } from "../data/platformTimelineYears.js"; // Import the shared platform-year rule for connector labels.
 
@@ -55,7 +56,7 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
       <div className="timeline-toolbar"> {/* Display the richer timeline heading and interaction controls. */}
         <div className="timeline-toolbar-main"> {/* Keep the timeline identity and interaction guide together. */}
           <div className="timeline-heading"> {/* Group the timeline icon, title, and description. */}
-            <span className="timeline-heading-icon" aria-hidden="true">🎮</span> {/* Show a temporary gaming icon beside the timeline title. */}
+            <span className="timeline-heading-icon" aria-hidden="true"><GamepadIcon className="timeline-gamepad-icon" /></span> {/* Show the modern outlined gamepad beside the timeline title. */}
             <div> {/* Group the timeline title and supporting description. */}
               <h2>Gaming Timeline</h2> {/* Name the interactive timeline. */}
               <p>Explore all the games I have played, organized by platform and time. Drag to move around freely in 2D.</p> {/* Explain the purpose and movement of the timeline. */}
@@ -90,9 +91,9 @@ function TimelineCanvas({ games }) { // Receive all timeline games from the page
         </div> {/* Finish the visible timeline viewport. */}
       </div> {/* Finish the viewport wrapper. */}
       <div className="timeline-stats-bar"> {/* Summarize the current timeline data below the canvas. */}
-        <div className="timeline-stat-item timeline-stat-title"><span aria-hidden="true">🎮</span><span>My Gaming Journey - At a Glance</span></div> {/* Label the timeline summary bar. */}
+        <div className="timeline-stat-item timeline-stat-title"><GamepadIcon className="timeline-stat-gamepad-icon" /><span>My Gaming Journey - At a Glance</span></div> {/* Label the timeline summary bar with the modern gamepad icon. */}
         <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">▱</span><span>{stats.platformCount} Platforms</span></div> {/* Display the number of unique platforms. */}
-        <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">🎮</span><span>{stats.gameCount} Games</span></div> {/* Display the total number of games. */}
+        <div className="timeline-stat-item"><GamepadIcon className="timeline-stat-gamepad-icon" /><span>{stats.gameCount} Games</span></div> {/* Display the total number of games with the modern gamepad icon. */}
         <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">★</span><span>{stats.favoriteCount} Favorite Games</span></div> {/* Display the number of confirmed favorites. */}
         <div className="timeline-stat-item"><span className="timeline-stat-icon" aria-hidden="true">▱</span><span>{stats.genreCount} Genres Explored</span></div> {/* Display the number of unique genres. */}
       </div> {/* Finish the timeline statistics bar. */}

@@ -1,3 +1,5 @@
+import { getPlatformTimelineYear } from "./platformTimelineYears.js"; // Import the shared platform-year rule used by the temporary timeline.
+
 // Keep all game information in one place so the timeline can later use Cloudflare D1 instead.
 const games = [ // Start the complete game list.
   { id: 1, name: "Lego Batman", platform: "PS2", genres: ["Action Adventure", "Puzzle", "Platformer"], rating: 4, timelineDate: "", isFavorite: false, cover: "https://cdn.awsli.com.br/2500x2500/138/138431/produto/15766172/c18a8d4b81.jpg" }, // Store Lego Batman.
@@ -41,4 +43,12 @@ const games = [ // Start the complete game list.
   { id: 39, name: "Monster Hunter Wilds", platform: "PC", genres: ["Action RPG", "Action Adventure"], rating: 3.5, timelineDate: "", isFavorite: false, cover: "https://cdn.cloudflare.steamstatic.com/steam/apps/2246340/library_600x900_2x.jpg?t=1702447778" }, // Store Monster Hunter Wilds.
 ]; // Finish the complete game list.
 
-export default games; // Allow pages and components to use the game data.
+// Apply the temporary platform year to every built-in game before the data leaves this file.
+const timelineGames = games.map(function (game) { // Inspect every built-in game.
+  return { // Return the complete game object with its temporary timeline year.
+    ...game, // Keep every existing game property.
+    timelineDate: getPlatformTimelineYear(game.platform), // Use the platform's first-release year or the user's PC start year.
+  }; // Finish returning the updated game object.
+}); // Finish applying timeline years to built-in games.
+
+export default timelineGames; // Allow pages and components to use the dated game data.

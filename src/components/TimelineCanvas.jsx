@@ -12,7 +12,7 @@ const platformLayouts = [ // Start the platform layout list.
   { name: "Wii U", className: "platform-wii-u", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/WiiU.svg/3840px-WiiU.svg.png" }, // Position Wii U and use the Wii U brand logo.
   { name: "Xbox One", className: "platform-xbox-one", brandIcon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/xbox_logo_icon_169692.png" }, // Position Xbox One and use the Xbox brand icon.
   { name: "Oculus Quest 2", className: "platform-quest-2", brandIcon: "https://images.rawpixel.com/image_png_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwOTEtMDUucG5n.png" }, // Position Quest 2 and use the Meta brand icon.
-  { name: "PC", className: "platform-pc", brandIcon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/2048px-Windows_logo_-_2012.svg.png" }, // Position PC and use the Windows brand icon.
+  { name: "PC", className: "platform-pc", brandIcon: "https://i.redd.it/5be3ypqjts171.jpg" }, // Position PC and use the Windows brand icon.
 ]; // Finish the platform layout list.
 
 // Return every game that belongs to one platform.

@@ -19,7 +19,7 @@ function useGames() { // Create the reusable game-data hook.
       if (Array.isArray(data.games) === true) { // Check whether the API returned a valid game array.
         setGames(data.games); // Replace the local list with the combined Cloudflare game list.
       } // Finish checking the returned game data.
-    } catch (error) { // Handle local development or network failure.
+    } catch { // Handle local development or network failure.
       setGames(fallbackGames); // Keep the built-in games when Cloudflare Functions are unavailable.
     } // Finish protected API loading.
     setIsLoading(false); // Mark loading as finished.
